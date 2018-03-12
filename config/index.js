@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/muck':{
+        target: 'http://api.test2.logibeat.com/muck',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/muck' : ''
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
