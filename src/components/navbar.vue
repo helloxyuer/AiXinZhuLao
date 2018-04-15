@@ -3,12 +3,43 @@
 */
 
 <template>
-    <div class="navBarBox">
-      <router-link :to="{ path: 'register' }" tag="div">志愿者管理</router-link>
-      <router-link :to="{ path: 'register' }" tag="div">招募管理</router-link>
-      <router-link :to="{ path: 'register' }" tag="div">签到管理</router-link>
-      <router-link :to="{ path: 'register' }" tag="div">数据统计</router-link>
-      <router-link :to="{ path: 'register' }" tag="div">系统管理</router-link>
+    <div class="navBarBox">'
+      <div>
+        <div>志愿者管理</div>
+        <div>
+          <router-link :to="{name:'volManage'}" tag="div">志愿者管理</router-link>
+          <router-link :to="{name:'volCheck'}" tag="div">志愿者审核</router-link>
+          <router-link :to="{name:'volHonorManage'}" tag="div">荣耀时数管理</router-link>
+        </div>
+      </div>
+      <div>
+        <div>招募管理</div>
+        <div>
+          <router-link :to="{ path: 'register' }" tag="div">活动招募管理</router-link>
+        </div>
+      </div>
+      <div>
+        <div>签到管理</div>
+        <div>
+          <router-link :to="{ path: 'register' }" tag="div">活动签到管理</router-link>
+        </div>
+      </div>
+      <div>
+        <div>数据统计</div>
+        <div>
+          <router-link :to="{ path: 'register' }" tag="div">组织数据统计</router-link>
+          <router-link :to="{ path: 'register' }" tag="div">活动数据统计</router-link>
+          <router-link :to="{ path: 'register' }" tag="div">异常数据统计</router-link>
+        </div>
+      </div>
+      <div>
+        <div>系统管理</div>
+        <div>
+          <router-link :to="{ path: 'register' }" tag="div">组织管理</router-link>
+          <router-link :to="{ path: 'register' }" tag="div">组织审核</router-link>
+          <router-link :to="{ path: 'register' }" tag="div">管理员管理</router-link>
+        </div>
+      </div>
     </div>
 </template>
 

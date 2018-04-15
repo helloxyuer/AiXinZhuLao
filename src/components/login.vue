@@ -10,10 +10,14 @@
     <router-link :to="{ path: 'register' }">注册</router-link>
     <router-link :to="{ path: 'index' }">主页</router-link>
     <router-link :to="{ path: 'forgetpw' }">忘记密码</router-link>
+    <cityPicker></cityPicker>
   </div>
 </template>
 
 <script>
+  import untils from '../assets/js/untils'
+  import cityPicker from '@/components/cityPicker'
+
   export default {
     name: 'login',
     data () {
@@ -21,6 +25,12 @@
         userName: 'msg',
         passWord: 'msg'
       }
+    },
+    components:{
+      cityPicker
+    },
+    created(){
+      //untils.dialogs.load('load','nihaoa',1000);
     }
   }
 </script>

@@ -61,6 +61,13 @@ export default new Router({
           component: (resolve)=> {
             require(['@/components/volCheck'], resolve)
           },
+        },
+        {
+          path: 'volHonorManage',
+          name: 'volHonorManage',
+          component: (resolve)=> {
+            require(['@/components/volHonorManage'], resolve)
+          },
         }
       ]
     },

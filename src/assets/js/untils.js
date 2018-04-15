@@ -71,49 +71,54 @@ let JsonAxios = function (noRequestInterceptors, noResonseInterceptors) {
   return myAxios;
 }
 
-
-let load = function (str, time, type) {
-  var iconClass = '_layerload';
-  switch (type) {
-    case 'load':
-      iconClass = '_layerload'
-      break;
-    case 'tips':
-      iconClass = '_layerTips'
-      break;
-    case 'suc':
-      iconClass = '_layerSuc'
-      break;
-    case 'err':
-      iconClass = '_layerErr'
-      break;
-    case 'warn':
-      iconClass = '_layerWarn'
-      break;
-    default:
-      iconClass = '_layerload'
-      break;
+let dialogs = {
+  load(type,str,time){
+    let iconClass = '_layerload';
+    switch (type) {
+      case 'load':
+        iconClass = '_layerload'
+        break;
+      case 'tips':
+        iconClass = '_layerTips'
+        break;
+      case 'suc':
+        iconClass = '_layerSuc'
+        break;
+      case 'err':
+        iconClass = '_layerErr'
+        break;
+      case 'warn':
+        iconClass = '_layerWarn'
+        break;
+      default:
+        iconClass = '_layerload'
+        break;
+    }
+    let DomStr = '<div class="centerBox"><div class="' + iconClass + '"></div><span class="centerBoxStr">' + (str || '加载中...') + '</span></div>';
+    var div = document.createElement("div");
+    div.innerHTML = DomStr;
+    if (document.querySelectorAll('.centerBox').length == 0) {
+      document.querySelector('body').appendChild(div.childNodes[0]);
+    } else {
+      document.querySelector('.centerBoxStr').innerText(str);
+    }
+    if (time) {
+      setTimeout(function () {
+        let el = document.querySelector('.centerBox');
+        el.parentNode.removeChild(el)
+      }, time)
+    }
+  },
+  closeAll(){
+    let el = document.querySelector('.centerBox');
+    el.parentNode.removeChild(el)
   }
-  var alertBox = '<div class="centerBox"><div class="' + iconClass + '"></div><span class="centerBoxStr">' + (str || '加载中...') + '</span></div>';
-  if ($('.centerBox').length == 0) {
-    $('body').append($(alertBox));
-  } else {
-    $('.centerBoxStr').text(str);
-  }
-  if (time) {
-    setTimeout(function () {
-      $('.centerBox').remove();
-    }, time)
-  }
-
-};
-let closeAll = function () {
-  $('.centerBox').remove();
 }
 
 const common = {
   normalAxios,
-  JsonAxios
+  JsonAxios,
+  dialogs
 };
 export default common;
 
