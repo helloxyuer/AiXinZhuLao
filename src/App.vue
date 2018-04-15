@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import untils from './assets/js/untils';
 
   export default {
     name: 'App'
