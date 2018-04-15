@@ -3,7 +3,7 @@
 */
 
 <template>
-  <div class="redWord">{{msg}}</div>
+  <div>{{msg}}</div>
 </template>
 
 <script>

@@ -4,8 +4,8 @@
 
 <template>
   <div>
-    <div>用户名: <input type="text" v-model="userName"></div>
-    <div>密码: <input type="text" v-model="passWord"></div>
+    <div>用户名: <input type="text" v-model.trim="userName"></div>
+    <div>密码: <input type="text" v-model.trim="passWord"></div>
     <button>提交</button>
     <router-link :to="{ path: 'register' }">注册</router-link>
     <router-link :to="{ path: 'index' }">主页</router-link>
