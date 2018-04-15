@@ -10,7 +10,7 @@ export default new Router({
       path: '/',
       name: 'pagedefault',
       component: (resolve) => {
-        require(['@/components/Login'], resolve)
+        require(['@/components/login'], resolve)
       }
     },
     {

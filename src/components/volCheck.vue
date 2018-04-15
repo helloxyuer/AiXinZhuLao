@@ -3,7 +3,7 @@
 */
 
 <template>
-    <div>{{msg}}</div>
+    <div class="mainBox">{{msg}}</div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@
     name: 'name',
     data () {
       return {
-        msg: '志愿者审核'
+        msg: '志愿者审核--主体页面'
       }
     }
   }

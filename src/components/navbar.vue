@@ -3,12 +3,12 @@
 */
 
 <template>
-    <div>
-      <router-link :to="{ path: 'register' }">志愿者管理</router-link>
-      <router-link :to="{ path: 'register' }">招募管理</router-link>
-      <router-link :to="{ path: 'register' }">签到管理</router-link>
-      <router-link :to="{ path: 'register' }">数据统计</router-link>
-      <router-link :to="{ path: 'register' }">系统管理</router-link>
+    <div class="navBarBox">
+      <router-link :to="{ path: 'register' }" tag="div">志愿者管理</router-link>
+      <router-link :to="{ path: 'register' }" tag="div">招募管理</router-link>
+      <router-link :to="{ path: 'register' }" tag="div">签到管理</router-link>
+      <router-link :to="{ path: 'register' }" tag="div">数据统计</router-link>
+      <router-link :to="{ path: 'register' }" tag="div">系统管理</router-link>
     </div>
 </template>
 
@@ -25,5 +25,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .navBarBox{
+    width: 100px;
+    height: calc(100vh - 80px);
+    float: left;
+    background: yellow;
+  }
 </style>
