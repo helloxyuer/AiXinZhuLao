@@ -20,7 +20,7 @@
       </div>
       <div>
         <span>地区:</span>
-        <cityPicker></cityPicker>
+        <cityPicker @citypicked="getcity"></cityPicker>
       </div>
       <div>
         <span>密码:</span>
@@ -59,7 +59,9 @@
         userIdCard: '',
         userPhoneNum: '',
         msg: '',
-        userPwd: ''
+        userPwd: '',
+        cardtype: '',
+        userAddress: '',
       }
     },
     methods:{
@@ -85,6 +87,9 @@
           .catch(function (error) {
             console.log(error);
           })
+      },
+      getcity:function (val) {
+        console.log(val)
       }
     },
     components:{

@@ -118,27 +118,24 @@
         _self.choicedArea = area;
         _self.showText =_self.choicedProvince.name+'-'+_self.choicedCity.name+'-'+_self.choicedArea.name;
         _self.showAreaBox = false;
-        if(!!_self.callbackfun){
-          var result ={
-            province:{
-              name:_self.choicedProvince.name,
-              adcode:_self.choicedProvince.adcode,
-              center:_self.choicedProvince.center
-            },
-            city:{
-              name:_self.choicedCity.name,
-              adcode:_self.choicedCity.adcode,
-              center:_self.choicedCity.center
-            },
-            area:{
-              name:_self.choicedArea.name,
-              adcode:_self.choicedArea.adcode,
-              center:_self.choicedArea.center
-            }
+        var result ={
+          province:{
+            name:_self.choicedProvince.name,
+            adcode:_self.choicedProvince.adcode,
+            center:_self.choicedProvince.center
+          },
+          city:{
+            name:_self.choicedCity.name,
+            adcode:_self.choicedCity.adcode,
+            center:_self.choicedCity.center
+          },
+          area:{
+            name:_self.choicedArea.name,
+            adcode:_self.choicedArea.adcode,
+            center:_self.choicedArea.center
           }
-          _self.showAreaBox = false;
-          _self.$emit('cityPicked',result)
         }
+        _self.$emit('citypicked',result)
       },
       _clearx(){
         let _self = this;
