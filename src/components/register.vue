@@ -27,6 +27,19 @@
         <input type="text" v-model="userPwd">
       </div>
       <div>
+        <span>是否党员:</span>
+        <input name="isparty" id="isparty" type="radio" value="0"><label for="isparty">是</label>
+        <input name="isparty" id="noparty" type="radio" value="0"><label for="noparty">否</label>
+      </div>
+      <div>
+        <span>地址:</span>
+        <input type="text" v-model="userAddress">
+      </div>
+      <div>
+        <span>证件类型:</span>
+        <input type="text" v-model="cardtype">
+      </div>
+      <div>
         <input type="button" v-on:click="register()" value="提交">
       </div>
     </div>
