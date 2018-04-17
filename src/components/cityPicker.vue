@@ -10,7 +10,7 @@
       v-model="showText"
       readonly="readonly"
       v-on:click="showPancel()">
-    <a class="_draddrclearX" v-if="showclearBtn" v-on:click="_clearx()"></a>
+    <a class="_draddrclearX" v-if="!!showText" v-on:click="_clearx()"></a>
     <div class="_areaBox" v-if="showAreaBox">
       <ul class="_citypicker_ul">
         <li v-for="x in proobj" v-on:click="choiceProvince(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
@@ -30,13 +30,18 @@
 
   export default {
     name: 'name',
+    props:{
+      level:{
+        type:String,
+        default:'county'
+      },
+      adcode:[Number]
+    },
     data () {
       return {
         showText: '',
-        showclearBtn:false,//城市清空按钮
         showAreaBox:false,//是否展示城市选择框
         drplaceholder:'请选择地址',
-        level:'county',
         proobj:[],
         choicedProvince:{},
         choicedCity:{},
@@ -77,7 +82,6 @@
         _self.choicedArea.checked = false;
         province.checked = true;
         _self.choicedProvince = province;
-        _self.showclearBtn = true;
         _self.choicedCity = [];
         _self.choicedArea = [];
         _self.showText =_self.choicedProvince.name;
@@ -91,7 +95,7 @@
         _self.choicedArea = [];
         _self.showText =_self.choicedProvince.name+'-'+_self.choicedCity.name;
         if(_self.level=='city'){
-          _self._showAreaBox = false;
+          _self.showAreaBox = false;
           let result ={
             province:{
               name:_self.choicedProvince.name,
@@ -104,6 +108,7 @@
               center:_self.choicedCity.center
             }
           }
+          _self.$emit('cityPicked',result)
         }
       },
       choiceArea(area){
@@ -112,7 +117,7 @@
         area.checked = true;
         _self.choicedArea = area;
         _self.showText =_self.choicedProvince.name+'-'+_self.choicedCity.name+'-'+_self.choicedArea.name;
-        _self._showAreaBox = false;
+        _self.showAreaBox = false;
         if(!!_self.callbackfun){
           var result ={
             province:{
@@ -131,7 +136,8 @@
               center:_self.choicedArea.center
             }
           }
-          _self.callbackfun(result)
+          _self.showAreaBox = false;
+          _self.$emit('cityPicked',result)
         }
       },
       _clearx(){
@@ -144,7 +150,6 @@
         _self.choicedArea = {};
         _self.showText = '';
         _self.showAreaBox = false;
-        _self.showclearBtn = false;
       }
     },
     created(){
@@ -245,10 +250,11 @@
   }
 
   ._drAddrinput {
+    box-sizing: border-box;
     width: 100%;
     height: 34px;
     line-height: 34px;
-    padding: 5px 40px 5px 5px;
+    padding: 5px 20px 5px 5px;
     margin: 0;
     border: 1px solid #beceeb;
     background: url(/src/assets/images/select.png) no-repeat;
@@ -270,7 +276,7 @@
     height: 16px;
     background: url(../assets/images/del1.png) no-repeat;
     outline: none;
-    right: 24px;
+    right: 5px;
     top: 9px;
   }
 </style>

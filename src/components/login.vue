@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import untils from '../assets/js/untils'
+  import untils from '@/assets/js/untils'
   import cityPicker from '@/components/cityPicker'
 
   export default {

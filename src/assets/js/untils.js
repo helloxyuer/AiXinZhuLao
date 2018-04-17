@@ -31,6 +31,19 @@ let axiosBack = {
   },
 }
 
+//获取地区码
+let getCityJson = function () {
+  if(window.cityData){
+    return
+  }
+  axios.get('/static/CityData/districtDist.json')
+    .then(function (res) {
+      if(res.status==200 && res.data){
+        window.cityData = res.data;
+      }
+    })
+}
+
 //普通的请求
 let normalAxios = function (noRequestInterceptors, noResonseInterceptors) {
   let myAxios = axios.create({
@@ -71,6 +84,27 @@ let JsonAxios = function (noRequestInterceptors, noResonseInterceptors) {
   return myAxios;
 }
 
+//校验
+let  validate = {
+  name:function (params) {
+
+  },
+  idCard:function ({data='',reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/}) {
+    if(reg.test(data) === false) {
+
+      alert("身份证输入不合法");
+      return false;
+    }else {
+
+    }
+  },
+  tel:function (params) {
+
+  },
+  pwd:function (params) {
+
+  }
+}
 let dialogs = {
   load(type,str,time){
     let iconClass = '_layerload';
