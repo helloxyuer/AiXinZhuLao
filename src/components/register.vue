@@ -5,46 +5,48 @@
 <template>
   <div>
     <div>注册</div>
-    <div class="registerBox">
-      <div>
-        <span>姓名:</span>
-        <input type="text" v-model="username">
-      </div>
-      <div>
-        <span>证件号:</span>
-        <input type="text" v-model="userIdCard">
-      </div>
-      <div>
-        <span>手机号:</span>
-        <input type="text" v-model="userPhoneNum">
-      </div>
-      <div>
-        <span>地区:</span>
-        <cityPicker @citypicked="getcity"></cityPicker>
-      </div>
-      <div>
-        <span>密码:</span>
-        <input type="text" v-model="userPwd">
-      </div>
-      <div>
-        <span>是否党员:</span>
-        <input name="isparty" id="isparty" type="radio" value="0"><label for="isparty">是</label>
-        <input name="isparty" id="noparty" type="radio" value="0"><label for="noparty">否</label>
-      </div>
-      <div>
-        <span>地址:</span>
-        <input type="text" v-model="userAddress">
-      </div>
-      <div>
-        <span>证件类型:</span>
-        <input type="text" v-model="cardtype">
-      </div>
-      <div>
-        <input type="button" v-on:click="register()" value="提交">
-      </div>
+    <div>
+      <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="证件号" prop="idcard">
+          <el-input v-model="form.idcard"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号" prop="phone">
+          <el-input v-model="form.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="地区">
+          <cityPicker @citypicked="getcity"></cityPicker>
+        </el-form-item>
+        <el-form-item label="地址" prop="address">
+          <el-input v-model="form.address"></el-input>
+        </el-form-item>
+        <el-form-item label="证件类型" prop="cardtype">
+          <el-select v-model="form.cardtype" placeholder="请选择证件类型">
+            <el-option label="身份证" value="card1"></el-option>
+            <el-option label="党员证" value="card2"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="是否党员"  prop="isparty">
+          <el-radio-group v-model="form.isparty">
+            <el-radio label="是"></el-radio>
+            <el-radio label="否"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="密码" prop="pwd">
+          <el-input v-model="form.pwd"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="pwd2">
+          <el-input v-model="form.pwd2"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button>取消</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -55,17 +57,47 @@
     name: 'register',
     data () {
       return {
-        username: '',
-        userIdCard: '',
-        userPhoneNum: '',
-        msg: '',
-        userPwd: '',
-        cardtype: '',
-        userAddress: '',
+        form: {
+          name: '',
+          idcard: '',
+          phone: '',
+          cardtype: '',
+          address:'',
+          isparty:'',
+          pwd:'',
+          pwd2:'',
+        },
+        rules: {
+          name: [
+            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          ],
+          idcard: [
+            { required: true, message: '请选择活动区域', trigger: 'change' }
+          ],
+          phone: [
+            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          ],
+          cardtype: [
+            { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+          ],
+          address: [
+            { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+          ],
+          isparty: [
+            { required: true, message: '请选择活动资源', trigger: 'change' }
+          ],
+          pwd: [
+            { required: true, message: '请填写活动形式', trigger: 'blur' }
+          ],
+          pwd2: [
+            { required: true, message: '请填写活动形式', trigger: 'blur' }
+          ]
+        }
       }
     },
     methods:{
-      register(){
+      onSubmit(){
         let _self = this;
         var params = {
           username:_self.userIdCard,

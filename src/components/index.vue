@@ -3,11 +3,19 @@
 */
 
 <template>
-  <div>
-    <titlebar></titlebar>
-    <navbar></navbar>
-    <router-view/>
-  </div>
+  <el-container>
+    <el-header>
+      <titlebar></titlebar>
+    </el-header>
+    <el-container>
+      <el-aside width="200px">
+        <navbar></navbar>
+      </el-aside>
+      <el-main>
+        <router-view/>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
@@ -24,6 +32,10 @@
     components:{
       titlebar,
       navbar,
+    },
+    created () {
+      console.log(this.$route);
+      console.log(this.$router);
     }
   }
 </script>

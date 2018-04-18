@@ -16,7 +16,6 @@ input{
 }
 
 .mainBox{
-  margin-left: 100px;
   height: calc(100vh - 80px);
   min-height: 300px;
   background-color: aquamarine;
