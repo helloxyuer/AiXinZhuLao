@@ -8,12 +8,14 @@
     <el-table
       :data="tableData"
       class="volTable"
+      :border="true"
+      :resizable="true"
       :default-sort = "{prop: 'date', order: 'descending'}"
     >
       <el-table-column
         prop="name"
         label="姓名"
-        width="180">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="idcard"
@@ -40,6 +42,7 @@
       <el-table-column
         prop="name"
         label="操作"
+        fixed="right"
         width="180">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">

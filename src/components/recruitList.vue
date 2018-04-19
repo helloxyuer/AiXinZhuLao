@@ -5,42 +5,93 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">招募列表</div>
+    <div class="searchBar">
+      <el-input
+        placeholder="活动名称"
+        class="actName"
+        v-model="actName"
+        clearable>
+      </el-input>
+      <el-select v-model="actNameStatus" clearable placeholder="请选择">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <el-date-picker
+        v-model="actNameTime"
+        type="datetimerange"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期">
+      </el-date-picker>
+      <el-button type="primary" icon="el-icon-search">搜索</el-button>
+    </div>
     <el-table
       :data="tableData"
+      :border="true"
+      :resizable="true"
       class="volTable"
       :default-sort = "{prop: 'date', order: 'descending'}"
     >
       <el-table-column
         prop="name"
-        label="姓名"
-        width="180">
+        label="活动名称"
+        min-width="180">
       </el-table-column>
       <el-table-column
         prop="idcard"
-        label="证件号"
+        label="活动开始时间"
         sortable
-        width="180">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="address"
-        label="志愿者编号"
+        sortable
+        label="活动结束时间"
+        width="140"
         :formatter="formatter">
       </el-table-column>
       <el-table-column
         prop="phone"
-        label="手机号"
+        label="招募情况"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="status"
+        label="发布人"
+        min-width="100">
+      </el-table-column>
+      <el-table-column
+        prop="status"
+        label="联系电话"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="status"
+        label="发布时间"
+        sortable
         width="180">
       </el-table-column>
       <el-table-column
         prop="status"
         label="状态"
         sortable
-        width="180">
+        min-width="80">
       </el-table-column>
       <el-table-column
         prop="name"
-        label="操作"
-        width="180">
+        label="操作">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
+            <el-button><i class="el-icon-view"></i></el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
+            <el-button><i class="el-icon-delete"></i></el-button>
+          </el-tooltip>
+        </template>
       </el-table-column>
     </el-table>
     <el-pagination
@@ -64,10 +115,26 @@
     name: 'recruitLis',
     data() {
       return {
+        options: [{
+          value: '1',
+          label: '草稿'
+        }, {
+          value: '2',
+          label: '待审核'
+        }, {
+          value: '3',
+          label: '审核通过'
+        }, {
+          value: '4',
+          label: '审核不通过'
+        }],
         tableData: [],
         pageIndex:1,
         pageSize:10,
         pageTotal:0,
+        actName:'',
+        actNameStatus:'',
+        actNameTime:'',
       }
     },
     methods: {
@@ -112,5 +179,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .actName{
+    width: 200px;
+  }
 </style>

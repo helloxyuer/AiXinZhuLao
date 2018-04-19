@@ -47,7 +47,7 @@ input{
 
 .mainBox{
   position: relative;
-  min-height: calc(100vh - 181px);
+  min-height: calc(100vh - 161px);
 }
 .mypagination{
   position: absolute;
@@ -59,6 +59,11 @@ input{
 .volTable{
   width: 100%;
   text-align: left;
+}
+.searchBar{
+  background-color: #FAFAFA;
+  text-align: left;
+  padding: 10px;
 }
 /*路由激活样式*/
 .router-link-active{
