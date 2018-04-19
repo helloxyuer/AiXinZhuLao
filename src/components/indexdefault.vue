@@ -6,7 +6,7 @@
   import untils from '@/assets/js/untils'
 
   export default {
-    name: 'my',
+    name: 'indexDefault',
     data () {
       return {}
     },

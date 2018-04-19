@@ -29,7 +29,7 @@
   import axios from 'axios'
 
   export default {
-    name: 'name',
+    name: 'cityPicker',
     props:{
       level:{
         type:String,

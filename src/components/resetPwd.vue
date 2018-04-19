@@ -1,18 +1,19 @@
-/**
-* Created by 伯禹 on 2018/4/15.
-*/
-
 <template>
-    <div class="mainBox">{{msg}}</div>
+    <div></div>
 </template>
 
 <script>
+  import untils from '@/assets/js/untils'
+
   export default {
-    name: 'volCheck',
+    name: 'resetPwd',
     data () {
-      return {
-        msg: '志愿者审核--主体页面'
-      }
+      return {}
+    },
+    components: {},
+    methods: {},
+    created () {
+
     }
   }
 </script>

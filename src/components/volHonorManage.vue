@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    name: 'name',
+    name: 'volHonorManage',
     data () {
       return {
         msg: '荣誉实数管理--主体页面'

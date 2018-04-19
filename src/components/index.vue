@@ -23,7 +23,7 @@
   import navbar from '@/components/navbar'
 
   export default {
-    name: 'name',
+    name: 'index',
     data () {
       return {
         msg: 'msg'

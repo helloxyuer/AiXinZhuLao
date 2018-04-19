@@ -37,9 +37,8 @@ input{
 
 
 .mainBox{
-  height: calc(100vh - 80px);
+  height: calc(100vh - 100px);
   min-height: 300px;
-  background-color: aquamarine;
 }
 /*路由激活样式*/
 .router-link-active{

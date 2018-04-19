@@ -6,7 +6,7 @@
   import untils from '@/assets/js/untils'
 
   export default {
-    name: 'name',
+    name: 'systemAdmin',
     data () {
       return {}
     },
