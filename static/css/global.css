@@ -41,17 +41,18 @@ input{
   font-size: 16px;
   color: #333;
   text-transform: uppercase;
-  border-bottom: 1px solid #eee;
+  border: 1px solid #ebeef5;
   background-color: #FAFAFA;
 }
 
 .mainBox{
   position: relative;
   min-height: calc(100vh - 161px);
+  background: #fff;
 }
 .mypagination{
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   left: 0;
   width: 100%;
 }
@@ -62,6 +63,8 @@ input{
 }
 .searchBar{
   background-color: #FAFAFA;
+  border-left: 1px solid #ebeef5;
+  border-right: 1px solid #ebeef5;
   text-align: left;
   padding: 10px;
 }

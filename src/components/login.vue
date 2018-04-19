@@ -4,14 +4,18 @@
 
 <template>
   <div class="loginBox">
-    <el-form  ref="form" :rules="rules" :model="form" label-width="80px">
+    <el-form  ref="loginformRef" :rules="rules" :model="form" label-width="80px">
       <el-form-item label="账号" prop="username">
-        <el-input v-model.trim="form.username"></el-input>
+        <el-input
+          v-model.trim="form.username"
+          clearable></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model.trim="form.password"></el-input>
+        <el-input
+          v-model.trim="form.password"
+          clearable></el-input>
       </el-form-item>
-      <el-button type="primary" @click="login">登录</el-button>
+      <el-button type="primary" @click="login('loginformRef')">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -25,8 +29,8 @@
     data () {
       return {
         form:{
-          username:'',
-          password:''
+          username:'342225198807221053',
+          password:'123456'
         },
         rules:{
           username: [
@@ -42,7 +46,7 @@
       cityPicker
     },
     methods:{
-      login:function () {
+      login:function (ref) {
         let _self=this;
         let params ={
           username:_self.form.username,
