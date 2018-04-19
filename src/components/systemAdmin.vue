@@ -1,5 +1,7 @@
 <template>
-    <div></div>
+  <div class="mainBox">
+    <div class="volTableTitleBox">管理员详情</div>
+  </div>
 </template>
 
 <script>

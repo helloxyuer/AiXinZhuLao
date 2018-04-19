@@ -11,7 +11,7 @@
     @open="handleOpen"
     @close="handleClose">
     <el-menu-item index="1" :route="{name:'indexdefault'}">
-      <i class="el-icon-document"></i>
+      <i class="chen-chenhome"></i>
       <span slot="title">首页</span>
     </el-menu-item>
     <el-submenu index="2">
@@ -28,7 +28,7 @@
     </el-submenu>
     <el-submenu index="3">
       <template slot="title">
-        <i class="chen-chenshizhong"></i>
+        <i class="el-icon-location"></i>
         <span>签到管理</span>
       </template>
       <el-menu-item-group>
@@ -56,7 +56,7 @@
     </el-submenu>
     <el-submenu index="5">
       <template slot="title">
-        <i class="el-icon-bell"></i>
+        <i class="el-icon-setting"></i>
         <span>系统管理</span>
       </template>
       <el-menu-item-group>

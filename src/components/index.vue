@@ -12,7 +12,7 @@
         <navbar></navbar>
       </el-aside>
       <el-main>
-        <div class="orgName">你好啊</div>
+        <div class="orgName">组织名称</div>
         <router-view/>
       </el-main>
     </el-container>

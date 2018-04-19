@@ -6,7 +6,7 @@
   <div class="titleBar">
     <div class="logoBox">
       <div class="entLog"></div>
-      <div class="entName">试试水啦</div>
+      <div class="entName">后台管理系统</div>
     </div>
     <el-menu
       class="el-menu-my"
@@ -16,7 +16,7 @@
       :router="true"
       mode="horizontal">
       <el-menu-item index="6" :route="{name:'my'}">
-        <i class="el-icon-setting titleIconColor"></i>
+        <i class="chen-wode titleIconColor"></i>
         <span slot="title">我的</span>
       </el-menu-item>
       <el-menu-item index="7" :route="{name:'resetPwd'}">
@@ -24,7 +24,7 @@
         <span slot="title">修改密码</span>
       </el-menu-item>
       <el-menu-item index="" @click="loginOut()">
-        <i class="el-icon-setting titleIconColor"></i>
+        <i class="chen-dengchu titleIconColor"></i>
         <span slot="title">退出登录</span>
       </el-menu-item>
     </el-menu>
@@ -41,8 +41,9 @@
     },
     methods:{
       loginOut(){
+        sessionStorage.clear();
+        this.$router.replace({ name: 'login'})
         console.log('登出')
-
       }
     }
   }

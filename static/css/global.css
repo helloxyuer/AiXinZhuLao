@@ -68,12 +68,33 @@ input{
   text-align: left;
   padding: 10px;
 }
+[class*=" chen-"], [class^=chen-] {
+  font-family: iconfont!important;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: baseline;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .el-submenu [class^=chen-] {
   vertical-align: middle;
   margin-right: 5px;
   width: 24px;
   text-align: center;
   font-size: 18px;
+}
+.el-menu-item [class^=chen-] {
+  margin-right: 5px;
+  width: 24px;
+  text-align: center;
+  font-size: 18px;
+  vertical-align: middle;
 }
 /*路由激活样式*/
 .router-link-active{

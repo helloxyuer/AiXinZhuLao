@@ -1,27 +1,51 @@
 <template>
   <div>
-    <el-row :gutter="20">
+    <el-row :gutter="30">
       <el-col :span="6">
-        <i class="chen-chenzhaomu"></i>
-        <div class="grid-content bg-purple">组织人数</div>
+        <div class="grid-content">
+          <i class="chen-chenrenshu st-red"></i>
+          <div class="index_cot">
+            <div class="index_cot_1">1</div>
+            <div class="index_cot_2">组织人数</div>
+          </div>
+        </div>
       </el-col>
       <el-col :span="6">
-        <i class="chen-chenshizhong"></i>
-        <div class="grid-content bg-purple">公益时数</div>
+        <div class="grid-content">
+          <i class="chen-chenshizhong st-violet"></i>
+          <div class="index_cot">
+            <div class="index_cot_1">2</div>
+            <div class="index_cot_2">公益时数</div>
+          </div>
+        </div>
       </el-col>
       <el-col :span="6">
-        <i class="chen-chenqizi"></i>
-        <div class="grid-content bg-purple">招募活动</div>
+        <div class="grid-content">
+          <i class="chen-chenqizi st-blue"></i>
+          <div class="index_cot">
+            <div class="index_cot_1">3</div>
+            <div class="index_cot_2">招募活动</div>
+          </div>
+        </div>
       </el-col>
       <el-col :span="6">
-        <i class="chen-chenrenshu"></i>
-        <div class="grid-content bg-purple">签到活动</div>
+        <div class="grid-content">
+          <i class="el-icon-location st-green"></i>
+          <div class="index_cot">
+            <div class="index_cot_1">4</div>
+            <div class="index_cot_2">签到活动</div>
+          </div>
+        </div>
       </el-col>
     </el-row>
-    <div >
+    <div class="todoList">
       <div class="volTableTitleBox">待办事项</div>
-      <div>待审核招募活动人员</div>
-      <div>待审核加入组织人员</div>
+      <div class="task-content">
+        <ul class="task-list">
+          <li>待审核招募活动人员</li>
+          <li>待审核加入组织人员</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -45,7 +69,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .el-row {
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
   .el-col {
     border-radius: 4px;
@@ -53,15 +77,67 @@
   .el-col:last-child {
     margin-bottom: 0;
   }
-  .bg-purple {
-    background: #d3dce6;
-  }
   .grid-content {
     border-radius: 4px;
-    min-height: 36px;
+    background: #ffffff;
+    padding: 10px;
+  }
+  .grid-content i{
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    line-height: 60px;
+    text-align: center;
+    font-size: 30px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    float: left;
+    margin-right: 10px;
+    color: #fff;
+  }
+  .grid-content:after{
+    display: block;
+    content: '';
+    clear: both;
+  }
+  .st-red {
+    background-color: #F05050;
+  }
+  .st-violet {
+    background-color: #7266ba;
+  }
+  .st-blue {
+    background-color: #23b7e5;
+  }
+  .st-green {
+    background-color: #27C24C;
   }
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
+  }
+  .index_cot{
+    float: left;
+    height:60px;
+  }
+  .index_cot_1{
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .index_cot_2{
+    font-size: 14px;
+    padding-top: 2px;
+  }
+  .todoList{
+    background: #ffffff;
+    padding-bottom: 10px;
+  }
+  .task-content .task-list > li {
+    position: relative;
+    padding: 10px 5px;
+    border-bottom: 1px dashed #eaeaea;
+    text-align: left;
+    margin: 0 10px;
   }
 </style>

@@ -36,19 +36,19 @@
         prop="idcard"
         label="活动开始时间"
         sortable
-        width="140">
+        min-width="140">
       </el-table-column>
       <el-table-column
         prop="address"
         sortable
         label="活动结束时间"
-        width="140"
+        min-width="140"
         :formatter="formatter">
       </el-table-column>
       <el-table-column
         prop="phone"
         label="招募情况"
-        width="80">
+        min-width="80">
       </el-table-column>
       <el-table-column
         prop="status"
@@ -58,13 +58,13 @@
       <el-table-column
         prop="status"
         label="联系电话"
-        width="100">
+        min-width="100">
       </el-table-column>
       <el-table-column
         prop="status"
         label="发布时间"
         sortable
-        width="180">
+        min-width="180">
       </el-table-column>
       <el-table-column
         prop="status"
@@ -74,7 +74,8 @@
       </el-table-column>
       <el-table-column
         prop="name"
-        label="操作">
+        label="操作"
+        width="80">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
             <el-button><i class="el-icon-view"></i></el-button>

@@ -15,29 +15,30 @@
       <el-table-column
         prop="name"
         label="姓名"
-        width="120">
+        min-width="120">
       </el-table-column>
       <el-table-column
         prop="idcard"
         label="证件号"
         sortable
-        width="180">
+        min-width="180">
       </el-table-column>
       <el-table-column
         prop="address"
         label="志愿者编号"
+        min-width="180"
         :formatter="formatter">
       </el-table-column>
       <el-table-column
         prop="phone"
         label="手机号"
-        width="180">
+        min-width="180">
       </el-table-column>
       <el-table-column
         prop="status"
         label="状态"
         sortable
-        width="180">
+        min-width="180">
       </el-table-column>
       <el-table-column
         prop="name"
