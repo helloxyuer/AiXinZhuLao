@@ -22,6 +22,7 @@
           <el-input
             v-model.trim="form.newpwd2"
             clearable></el-input>
+            <p>密码必须至少包含8个字符，而且同时包含字母和数字。</p>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('resetPwdformRef')">提交</el-button>

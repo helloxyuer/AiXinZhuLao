@@ -46,12 +46,15 @@ let getCityJson = function () {
 
 //普通的请求
 let normalAxios = function (noRequestInterceptors, noResonseInterceptors) {
+  let header = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }
+  if(storageS.get('token')){
+    header.token = storageS.get('token')
+  }
   let myAxios = axios.create({
     baseURL: config.baseUrl + config.baseName,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'token':storageS.get('token')
-    },
+    headers: header,
     transformRequest: [
       function (data) {
         data = Qs.stringify(data);
@@ -70,12 +73,15 @@ let normalAxios = function (noRequestInterceptors, noResonseInterceptors) {
 
 //json格式的请求
 let JsonAxios = function (noRequestInterceptors, noResonseInterceptors) {
+  let header = {
+    'Content-Type': 'application/json;charset=UTF-8',
+  }
+  if(storageS.get('token')){
+    header.token = storageS.get('token')
+  }
   let myAxios = axios.create({
     baseURL: config.baseUrl + config.baseName,
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-      'token':storageS.get('token')
-    }
+    headers: header
   });
   if (!noRequestInterceptors) {
     myAxios.interceptors.request.use(axiosBack.sucSend, axiosBack.errSend);

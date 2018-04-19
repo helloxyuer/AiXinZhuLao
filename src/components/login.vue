@@ -56,7 +56,7 @@
         untils.JsonAxios().post('manage/orguser/login',params).then(function (res) {
           if(res.code==0){
             untils.storageS.set('token',res.data.token);
-            _self.$router.replace({ name: 'index'})
+            _self.$router.replace({ name: 'indexdefault'})
           }
         },function (err) {
 
