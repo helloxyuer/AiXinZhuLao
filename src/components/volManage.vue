@@ -29,6 +29,8 @@
 </template>
 
 <script>
+  import untils from '@/assets/js/untils'
+
   export default {
     data() {
       return {
@@ -54,7 +56,22 @@
     methods: {
       formatter(row, column) {
         return row.address;
+      },
+
+      getVolList (status) {
+        let _self=this;
+        let params ={
+          status:status||'1'
+        }
+        untils.JsonAxios().post('manage/org/list',params).then(function (res) {
+          if(res.code==0){
+            console.log(res);
+          }
+        })
       }
+    },
+    created(){
+      this.getVolList();
     }
   }
 </script>

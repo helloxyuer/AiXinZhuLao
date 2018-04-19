@@ -44,7 +44,7 @@ export default new Router({
           path: '',
           name: 'indexdefault',
           component: (resolve)=> {
-            require(['@/components/volManage'], resolve)
+            require(['@/components/indexdefault'], resolve)
           },
         },
         {
@@ -66,6 +66,48 @@ export default new Router({
           name: 'volHonorManage',
           component: (resolve)=> {
             require(['@/components/volHonorManage'], resolve)
+          },
+        },
+        {
+          path: 'sginList',
+          name: 'sginList',
+          component: (resolve)=> {
+            require(['@/components/sginList'], resolve)
+          },
+        },
+        {
+          path: 'sginListManage',
+          name: 'sginListManage',
+          component: (resolve)=> {
+            require(['@/components/sginListManage'], resolve)
+          },
+        },
+        {
+          path: 'recruitList',
+          name: 'recruitList',
+          component: (resolve)=> {
+            require(['@/components/recruitList'], resolve)
+          },
+        },
+        {
+          path: 'recruitListManage',
+          name: 'recruitListManage',
+          component: (resolve)=> {
+            require(['@/components/recruitListManage'], resolve)
+          },
+        },
+        {
+          path: 'systemOrg',
+          name: 'systemOrg',
+          component: (resolve)=> {
+            require(['@/components/systemOrg'], resolve)
+          },
+        },
+        {
+          path: 'systemAdmin',
+          name: 'systemAdmin',
+          component: (resolve)=> {
+            require(['@/components/systemAdmin'], resolve)
           },
         }
       ]

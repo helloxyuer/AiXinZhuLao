@@ -16,22 +16,21 @@ input{
 }
 
 .el-header, .el-footer {
-  background-color: #B3C0D1;
+  background-color: #06c1ad;
   color: #333;
   text-align: center;
   line-height: 60px;
 }
 
 .el-aside {
-  background-color: #D3DCE6;
+  background-color: #ffffff;
   color: #333;
-  text-align: center;
   line-height: 200px;
   height: calc(100vh - 60px);
 }
 
 .el-main {
-  background-color: #E9EEF3;
+  background-color: #f1f2f7;
   color: #333;
   text-align: center;
 }

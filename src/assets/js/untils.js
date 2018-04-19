@@ -49,7 +49,8 @@ let normalAxios = function (noRequestInterceptors, noResonseInterceptors) {
   let myAxios = axios.create({
     baseURL: config.baseUrl + config.baseName,
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'token':storageS.get('token')
     },
     transformRequest: [
       function (data) {
@@ -72,7 +73,8 @@ let JsonAxios = function (noRequestInterceptors, noResonseInterceptors) {
   let myAxios = axios.create({
     baseURL: config.baseUrl + config.baseName,
     headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
+      'Content-Type': 'application/json;charset=UTF-8',
+      'token':storageS.get('token')
     }
   });
   if (!noRequestInterceptors) {
@@ -149,10 +151,38 @@ let dialogs = {
   }
 }
 
+let storageS ={
+  set(key,val){
+    if(!key || !val){
+      console.log('缺少key或val')
+      return
+    }
+    sessionStorage.setItem(key,JSON.stringify(val));
+  },
+  get(key){
+    return JSON.parse(sessionStorage.getItem(key))
+  }
+}
+
+let storageL ={
+  set(key,val){
+    if(!key || !val){
+      console.log('缺少key或val')
+      return
+    }
+    localStorage.setItem(key,JSON.stringify(val));
+  },
+  get(key){
+    return JSON.parse(localStorage.getItem(key))
+  }
+}
+
 const common = {
   normalAxios,
   JsonAxios,
-  dialogs
+  dialogs,
+  storageS,
+  storageL,
 };
 export default common;
 
