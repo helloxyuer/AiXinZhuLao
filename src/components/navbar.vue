@@ -74,13 +74,10 @@
         <span>系统管理</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="5-1">组织管理</el-menu-item>
+        <el-menu-item index="5-1" :route="{name:'systemOrg'}">组织详情</el-menu-item>
       </el-menu-item-group>
       <el-menu-item-group>
-        <el-menu-item index="5-2">组织审核</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group>
-        <el-menu-item index="5-3">管理员管理</el-menu-item>
+        <el-menu-item index="5-2" :route="{name:'systemAdmin'}">管理员详情</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
   </el-menu>
