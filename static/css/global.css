@@ -35,10 +35,30 @@ input{
   text-align: center;
 }
 
+.volTableTitleBox{
+  text-align: left;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #333;
+  text-transform: uppercase;
+  border-bottom: 1px solid #eee;
+  background-color: #FAFAFA;
+}
 
 .mainBox{
-  height: calc(100vh - 100px);
-  min-height: 300px;
+  position: relative;
+  min-height: calc(100vh - 181px);
+}
+.mypagination{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.volTable{
+  width: 100%;
+  text-align: left;
 }
 /*路由激活样式*/
 .router-link-active{

@@ -12,6 +12,7 @@
         <navbar></navbar>
       </el-aside>
       <el-main>
+        <div class="orgName">你好啊</div>
         <router-view/>
       </el-main>
     </el-container>
@@ -40,5 +41,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .orgName{
+    font-size: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
 </style>

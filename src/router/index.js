@@ -109,6 +109,20 @@ export default new Router({
           component: (resolve)=> {
             require(['@/components/systemAdmin'], resolve)
           },
+        },
+        {
+          path: 'resetPwd',
+          name: 'resetPwd',
+          component: (resolve)=> {
+            require(['@/components/resetPwd'], resolve)
+          },
+        },
+        {
+          path: 'my',
+          name: 'my',
+          component: (resolve)=> {
+            require(['@/components/my'], resolve)
+          },
         }
       ]
     },

@@ -3,29 +3,66 @@
 */
 
 <template>
-  <el-table
-    :data="tableData"
-    style="width: 100%"
-    :default-sort = "{prop: 'date', order: 'descending'}"
-  >
-    <el-table-column
-      prop="date"
-      label="日期"
-      sortable
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      sortable
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址"
-      :formatter="formatter">
-    </el-table-column>
-  </el-table>
+  <div class="mainBox">
+    <div class="volTableTitleBox">志愿者列表</div>
+    <el-table
+      :data="tableData"
+      class="volTable"
+      :default-sort = "{prop: 'date', order: 'descending'}"
+    >
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="idcard"
+        label="证件号"
+        sortable
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="志愿者编号"
+        :formatter="formatter">
+      </el-table-column>
+      <el-table-column
+        prop="phone"
+        label="手机号"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="status"
+        label="状态"
+        sortable
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="操作"
+        width="180">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
+            <el-button><i class="el-icon-view"></i></el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
+            <el-button><i class="el-icon-delete"></i></el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      class="mypagination"
+      :background="true"
+      :current-page="pageIndex"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="pageTotal">
+    </el-pagination>
+  </div>
 </template>
 
 <script>
@@ -35,23 +72,10 @@
     name: 'volManage',
     data() {
       return {
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
+        tableData: [],
+        pageIndex:1,
+        pageSize:10,
+        pageTotal:0,
       }
     },
     methods: {
@@ -62,13 +86,29 @@
       getVolList (status) {
         let _self=this;
         let params ={
-          status:status||'1'
+          status:status||'1',
+          page:_self.pageIndex,
+          limit:_self.pageSize,
         }
         untils.JsonAxios().post('manage/org/list',params).then(function (res) {
           if(res.code==0){
+            _self.tableData = res.data.list;
+            _self.pageTotal = res.data.totalCount;
             console.log(res);
           }
         })
+      },
+      handleSizeChange(val) {
+        this.pageSize = val;
+        this.getVolList();
+        console.log(`每页 ${val} 条`);
+        console.log(this.pageSize);
+      },
+      handleCurrentChange(val) {
+        this.pageIndex = val;
+        this.getVolList();
+        console.log(`当前页: ${val}`);
+        console.log(this.pageIndex);
       }
     },
     created(){

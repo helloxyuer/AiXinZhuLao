@@ -13,16 +13,17 @@
       background-color="#06c1ad"
       text-color="#ffffff"
       active-text-color="#ffffff"
+      :router="true"
       mode="horizontal">
-      <el-menu-item index="1">
+      <el-menu-item index="6" :route="{name:'my'}">
         <i class="el-icon-setting titleIconColor"></i>
         <span slot="title">我的</span>
       </el-menu-item>
-      <el-menu-item index="2">
+      <el-menu-item index="7" :route="{name:'resetPwd'}">
         <i class="el-icon-setting titleIconColor"></i>
         <span slot="title">修改密码</span>
       </el-menu-item>
-      <el-menu-item index="3">
+      <el-menu-item index="" @click="loginOut()">
         <i class="el-icon-setting titleIconColor"></i>
         <span slot="title">退出登录</span>
       </el-menu-item>
@@ -36,6 +37,12 @@
     data () {
       return {
         msg: 'titlebar'
+      }
+    },
+    methods:{
+      loginOut(){
+        console.log('登出')
+
       }
     }
   }
