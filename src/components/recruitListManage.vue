@@ -4,7 +4,7 @@
 
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">招募列表</div>
+    <div class="volTableTitleBox">招募报名人员列表</div>
     <div class="searchBar">
       <el-input
         placeholder="姓名"

@@ -16,7 +16,7 @@
     </el-menu-item>
     <el-submenu index="2">
       <template slot="title">
-        <i class="el-icon-view"></i>
+        <i class="chen-chenqizi"></i>
         <span>招募管理</span>
       </template>
       <el-menu-item-group>
@@ -28,7 +28,7 @@
     </el-submenu>
     <el-submenu index="3">
       <template slot="title">
-        <i class="el-icon-star-on"></i>
+        <i class="chen-chenshizhong"></i>
         <span>签到管理</span>
       </template>
       <el-menu-item-group>
@@ -41,7 +41,7 @@
 
     <el-submenu index="4">
       <template slot="title">
-        <i class="el-icon-location"></i>
+        <i class="chen-chenrenshu"></i>
         <span>志愿者管理</span>
       </template>
       <el-menu-item-group>

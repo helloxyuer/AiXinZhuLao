@@ -25,9 +25,9 @@
             v-model.trim="form.checkPass"
             maxlength="20"
             clearable></el-input>
-            <p>密码必须是8-10个字符，而且同时包含字母和数字。</p>
         </el-form-item>
         <el-form-item>
+          <p>密码必须是8-10个字符，而且同时包含字母和数字。</p>
           <el-button type="primary" @click="submitForm('resetPwdformRef')">提交</el-button>
           <el-button @click="resetForm('resetPwdformRef')">重置</el-button>
         </el-form-item>

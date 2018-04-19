@@ -1,10 +1,22 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :span="6"><div class="grid-content bg-purple">组织人数</div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple">公益时数</div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple">招募活动</div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple">签到活动</div></el-col>
+      <el-col :span="6">
+        <i class="chen-chenzhaomu"></i>
+        <div class="grid-content bg-purple">组织人数</div>
+      </el-col>
+      <el-col :span="6">
+        <i class="chen-chenshizhong"></i>
+        <div class="grid-content bg-purple">公益时数</div>
+      </el-col>
+      <el-col :span="6">
+        <i class="chen-chenqizi"></i>
+        <div class="grid-content bg-purple">招募活动</div>
+      </el-col>
+      <el-col :span="6">
+        <i class="chen-chenrenshu"></i>
+        <div class="grid-content bg-purple">签到活动</div>
+      </el-col>
     </el-row>
     <div >
       <div class="volTableTitleBox">待办事项</div>

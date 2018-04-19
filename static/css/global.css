@@ -68,6 +68,13 @@ input{
   text-align: left;
   padding: 10px;
 }
+.el-submenu [class^=chen-] {
+  vertical-align: middle;
+  margin-right: 5px;
+  width: 24px;
+  text-align: center;
+  font-size: 18px;
+}
 /*路由激活样式*/
 .router-link-active{
 
