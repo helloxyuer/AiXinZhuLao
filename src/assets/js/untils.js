@@ -183,12 +183,17 @@ let storageL ={
   }
 }
 
+let regExp = {
+  password:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,10}$/,
+}
+
 const common = {
   normalAxios,
   JsonAxios,
   dialogs,
   storageS,
   storageL,
+  regExp
 };
 export default common;
 

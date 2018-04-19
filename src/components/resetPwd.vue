@@ -11,18 +11,21 @@
         <el-form-item label="旧密码" prop="oldpwd">
           <el-input
             v-model.trim="form.oldpwd"
+            maxlength="20"
             clearable></el-input>
         </el-form-item>
-        <el-form-item label="新密码" prop="newpwd">
+        <el-form-item label="新密码" prop="pass">
           <el-input
-            v-model.trim="form.newpwd"
+            v-model.trim="form.pass"
+            maxlength="20"
             clearable></el-input>
         </el-form-item>
-        <el-form-item label="确认新密码" prop="newpwd2">
+        <el-form-item label="确认新密码" prop="checkPass">
           <el-input
-            v-model.trim="form.newpwd2"
+            v-model.trim="form.checkPass"
+            maxlength="20"
             clearable></el-input>
-            <p>密码必须至少包含8个字符，而且同时包含字母和数字。</p>
+            <p>密码必须是8-10个字符，而且同时包含字母和数字。</p>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('resetPwdformRef')">提交</el-button>
@@ -39,25 +42,90 @@
   export default {
     name: 'resetPwd',
     data() {
+      let checkAge = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('原密码不能为空'));
+        };
+      };
+      let validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+          return
+        }
+        if (!untils.regExp.password.test(value)) {
+          callback(new Error('密码不符合要求'));
+          return
+        }
+        if(this.form.checkPass !== ''){
+          this.$refs.resetPwdformRef.validateField('checkPass');
+          callback();
+        }
+      };
+      let validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+          return
+        }
+        if (!untils.regExp.password.test(value)) {
+          callback(new Error('密码不符合要求'));
+          return
+        }
+        if (value !== this.form.pass) {
+          callback(new Error('两次输入密码不一致!'));
+          return
+        }
+        callback();
+      };
       return {
         form:{
           oldpwd:'',
-          newpwd:'',
-          newpwd2:'',
+          pass:'',
+          checkPass:'',
         },
         rules:{
-          username: [
-            { required: true, message: '请输入账号', trigger: 'blur' },
+          oldpwd: [
+            { required: true, message: '请输入旧密码', trigger: 'blur' },
           ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'change' }
+          pass: [
+            { validator: validatePass, trigger: 'blur' }
+          ],
+          checkPass: [
+            { validator: validatePass2, trigger: 'blur' }
           ],
         }
       }
     },
     methods: {
-      submitForm(ref){},
-      resetForm(ref){},
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            this.$notify.error({
+              title: '错误',
+              message: '请输入正确的信息'
+            });
+            return false;
+          }
+        });
+      },
+      submitData() {
+        let _self=this;
+        let params ={
+          pw:_self.form.oldpwd,
+          newpw:_self.form.pass,
+        }
+        untils.JsonAxios().post('manage/orguser/uppw',params).then(function (res) {
+          if(res.code==0){
+            _self.$router.replace({ name: 'indexdefault'})
+          }
+        },function (err) {
+
+        })
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
     },
     created(){
 
