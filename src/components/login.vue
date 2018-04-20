@@ -58,7 +58,7 @@
     },
     methods:{
       loginClick(ref){
-        this.$refs[formName].validate((valid) => {
+        this.$refs[ref].validate((valid) => {
           if (valid) {
             this.login();
           } else {

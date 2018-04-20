@@ -167,13 +167,19 @@ let regExp = {
   idcard:/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
 }
 
+let sort = {
+  byDate(){
+
+  },
+}
 const common = {
   normalAxios,
   JsonAxios,
   dialogs,
   storageS,
   storageL,
-  regExp
+  regExp,
+  sort
 };
 export default common;
 
