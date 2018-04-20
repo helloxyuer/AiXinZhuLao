@@ -15,7 +15,7 @@
           v-model.trim="form.password"
           clearable></el-input>
       </el-form-item>
-      <el-button type="primary" @click="login('loginformRef')">登录</el-button>
+      <el-button type="primary" @click="loginClick('loginformRef')">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -27,6 +27,17 @@
   export default {
     name: 'login',
     data () {
+      let validateIdcard = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入身份证号'));
+          return
+        }
+        if (!untils.regExp.idcard.test(value)) {
+          callback(new Error('身份证号不符合要求'));
+          return
+        }
+        callback();
+      };
       return {
         form:{
           username:'342225198807221053',
@@ -34,7 +45,7 @@
         },
         rules:{
           username: [
-            { required: true, message: '请输入账号', trigger: 'blur' },
+            { required: true, message: '请输入身份证号', trigger: 'blur' },
           ],
           password: [
             { required: true, message: '请输入密码', trigger: 'change' }
@@ -46,7 +57,17 @@
       cityPicker
     },
     methods:{
-      login:function (ref) {
+      loginClick(ref){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.login();
+          } else {
+            this.$message('请输入正确的信息');
+            return false;
+          }
+        });
+      },
+      login () {
         let _self=this;
         let params ={
           username:_self.form.username,
