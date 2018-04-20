@@ -71,12 +71,6 @@
       </el-table-column>
       <el-table-column
         prop="status"
-        label="发布时间"
-        sortable
-        min-width="180">
-      </el-table-column>
-      <el-table-column
-        prop="status"
         label="状态"
         sortable
         min-width="80">
