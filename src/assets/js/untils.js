@@ -26,7 +26,7 @@ let axiosBack = {
     }
   },
   errBack(err){
-    showToast('网络不稳定,请检查网络');
+    dialogs.load('err','网络不稳定,请检查网络');
     return Promise.reject(err);
   },
 }
@@ -94,6 +94,7 @@ let JsonAxios = function (noRequestInterceptors, noResonseInterceptors) {
 
 let dialogs = {
   load(type,str,time){
+    time = time||'1000'
     let iconClass = '_layerload';
     switch (type) {
       case 'load':
@@ -123,12 +124,10 @@ let dialogs = {
     } else {
       document.querySelector('.centerBoxStr').innerText(str);
     }
-    if (time) {
-      setTimeout(function () {
-        let el = document.querySelector('.centerBox');
-        el.parentNode.removeChild(el)
-      }, time)
-    }
+    setTimeout(function () {
+      let el = document.querySelector('.centerBox');
+      el.parentNode.removeChild(el)
+    }, time)
   },
   closeAll(){
     let el = document.querySelector('.centerBox');

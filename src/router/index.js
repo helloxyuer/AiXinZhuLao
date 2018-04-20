@@ -41,7 +41,7 @@ const router = new Router({
       },
       children:[
         {
-          path: '',
+          path: '/',
           name: 'indexdefault',
           component: (resolve)=> {
             require(['@/components/indexdefault'], resolve)
@@ -122,6 +122,13 @@ const router = new Router({
           name: 'my',
           component: (resolve)=> {
             require(['@/components/my'], resolve)
+          },
+        },
+        {
+          path: 'volDetails',
+          name: 'volDetails',
+          component: (resolve)=> {
+            require(['@/components/volDetails'], resolve)
           },
         }
       ]

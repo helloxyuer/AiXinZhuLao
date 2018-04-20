@@ -1,21 +1,21 @@
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">管理员详情</div>
+    <div class="volTableTitleBox">志愿者详情</div>
     <el-form class="adminTable" label-width="100px">
       <el-form-item label="头像">
-        <img class="headImg" :src="adminData.hdportrait||headImg" alt="">
+        <img class="headImg" :src="userData.hdportrait||headImg" alt="">
       </el-form-item>
       <el-form-item label="姓名">
-        <span>{{adminData.name}}</span>
+        <span>{{userData.name}}</span>
       </el-form-item>
       <el-form-item label="证件类型">
-        <span>{{adminData.cardtype==1?'身份证':'护照'}}</span>
+        <span>{{userData.cardtype==1?'身份证':'护照'}}</span>
       </el-form-item>
       <el-form-item label="证件号码">
-        <span>{{adminData.idcard}}</span>
+        <span>{{userData.idcard}}</span>
       </el-form-item>
       <el-form-item label="手机号">
-        <span>{{adminData.phone}}</span>
+        <span>{{userData.phone}}</span>
       </el-form-item>
     </el-form>
   </div>
@@ -26,10 +26,10 @@
   import headImg from './../assets/images/MRman.png'
 
   export default {
-    name: 'systemAdmin',
+    name: 'volDetails',
     data () {
       return {
-        adminData:{
+        userData:{
         },
         headImg:headImg
       }
@@ -38,9 +38,12 @@
     methods: {},
     created () {
       let _self = this;
-      untils.JsonAxios().post('manage/orguser/volInfo',{}).then(function (res) {
+      let params = {
+        userId:this.$route.query.volId
+      }
+      untils.JsonAxios().post('manage/orguser/voluserinfo',params).then(function (res) {
         if(res.code==0){
-          _self.adminData = res.data;
+          _self.userData = res.data;
           console.log(res);
         }
       })
