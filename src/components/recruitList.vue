@@ -84,6 +84,7 @@
       <el-table-column
         prop="name"
         label="操作"
+        fixed="right"
         width="180">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">

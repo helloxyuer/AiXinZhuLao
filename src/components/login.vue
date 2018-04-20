@@ -64,7 +64,6 @@
       }
     },
     created(){
-      //untils.dialogs.load('load','nihaoa',1000);
     }
   }
 </script>

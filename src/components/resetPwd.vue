@@ -101,10 +101,7 @@
           if (valid) {
             alert('submit!');
           } else {
-            this.$notify.error({
-              title: '错误',
-              message: '请输入正确的信息'
-            });
+            this.$message('请输入正确的信息');
             return false;
           }
         });

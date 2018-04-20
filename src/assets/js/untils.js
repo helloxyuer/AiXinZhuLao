@@ -92,27 +92,6 @@ let JsonAxios = function (noRequestInterceptors, noResonseInterceptors) {
   return myAxios;
 }
 
-//校验
-let  validate = {
-  name:function (params) {
-
-  },
-  idCard:function ({data='',reg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/}) {
-    if(reg.test(data) === false) {
-
-      alert("身份证输入不合法");
-      return false;
-    }else {
-
-    }
-  },
-  tel:function (params) {
-
-  },
-  pwd:function (params) {
-
-  }
-}
 let dialogs = {
   load(type,str,time){
     let iconClass = '_layerload';
@@ -185,6 +164,7 @@ let storageL ={
 
 let regExp = {
   password:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,10}$/,
+  idcard:/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
 }
 
 const common = {

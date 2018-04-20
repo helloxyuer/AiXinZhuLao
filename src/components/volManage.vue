@@ -24,10 +24,9 @@
         min-width="180">
       </el-table-column>
       <el-table-column
-        prop="address"
+        prop="volcode"
         label="志愿者编号"
-        min-width="180"
-        :formatter="formatter">
+        min-width="180">
       </el-table-column>
       <el-table-column
         prop="phone"
@@ -83,10 +82,6 @@
       }
     },
     methods: {
-      formatter(row, column) {
-        return row.address;
-      },
-
       getVolList (status) {
         let _self=this;
         let params ={
@@ -105,14 +100,10 @@
       handleSizeChange(val) {
         this.pageSize = val;
         this.getVolList();
-        console.log(`每页 ${val} 条`);
-        console.log(this.pageSize);
       },
       handleCurrentChange(val) {
         this.pageIndex = val;
         this.getVolList();
-        console.log(`当前页: ${val}`);
-        console.log(this.pageIndex);
       }
     },
     created(){
