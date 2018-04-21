@@ -3,16 +3,41 @@
 */
 
 <template>
-    <div class="mainBox">{{msg}}</div>
+  <div class="components-container">
+    <button @click="getUEContent()">获取内容</button>
+    <div class="editor-container">
+      <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+    </div>
+  </div>
 </template>
 
 <script>
+  import UE from '@/components/UE';
+
   export default {
     name: 'volHonorManage',
     data () {
       return {
-        msg: '荣誉实数管理--主体页面'
+        defaultMsg: '这里是UE测试',
+        config: {
+          initialFrameWidth: null,
+          initialFrameHeight: 350
+        }
       }
+    },
+    methods:{
+      getUEContent() {
+        let content = this.$refs.ue.getUEContent();
+        this.$notify({
+          title: '获取成功，可在控制台查看！',
+          message: content,
+          type: 'success'
+        });
+        console.log(content)
+      }
+    },
+    components:{
+      UE
     }
   }
 </script>
