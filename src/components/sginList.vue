@@ -27,7 +27,10 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期">
       </el-date-picker>
-      <el-button type="primary" icon="el-icon-search">搜索</el-button>
+      <el-button type="success" icon="el-icon-search">搜索</el-button>
+    </div>
+    <div class="addAct">
+      <el-button type="danger" icon="el-icon-plus" @click="gotoSginAct()">新增</el-button>
     </div>
     <el-table
       :data="tableData"
@@ -165,6 +168,9 @@
         this.getVolList();
         console.log(`当前页: ${val}`);
         console.log(this.pageIndex);
+      },
+      gotoSginAct(){
+        this.$router.push({name:'addSignAct'})
       }
     },
     created(){
@@ -177,6 +183,10 @@
 <style scoped>
   .actName{
     width: 200px;
+  }
+  .addAct{
+    padding: 10px;
+    text-align: left;
   }
 </style>
 

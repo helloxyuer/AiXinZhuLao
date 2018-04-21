@@ -2,7 +2,7 @@
   <div class="mainBox">
     <div class="volTableTitleBox">组织详情</div>
     <el-form class="adminTable fixFormHead" label-width="100px">
-      <el-form-item class="eee" label="组织头像">
+      <el-form-item label="组织头像">
         <img class="headImg" :src="orgData.hdportrait||headImg" alt="">
       </el-form-item>
       <el-form-item label="组织名称">

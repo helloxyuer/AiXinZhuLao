@@ -96,6 +96,27 @@ input{
   font-size: 18px;
   vertical-align: middle;
 }
+.el-button--success{
+  background: #06c1ad !important;
+  border-color: #06c1ad !important;
+  color: #fff;
+}
+.el-button--success:hover{
+  background: #06c9b5 !important;
+  border-color: #06c9b5 !important;
+  color: #fff;
+}
+.el-button--danger{
+  background: #ffffff !important;
+  border-color: #06c1ad !important;
+  color: #06c1ad !important;
+}
+.el-button--danger:hover{
+  background: #ffffff !important;
+  border-color: #06c9b5 !important;
+  color: #06c1ad !important;
+}
+
 /*路由激活样式*/
 .router-link-active{
 

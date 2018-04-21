@@ -130,6 +130,20 @@ const router = new Router({
           component: (resolve)=> {
             require(['@/components/volDetails'], resolve)
           },
+        },
+        {
+          path: 'addRecrutAct',
+          name: 'addRecrutAct',
+          component: (resolve)=> {
+            require(['@/components/addRecrutAct'], resolve)
+          },
+        },
+        {
+          path: 'addSignAct',
+          name: 'addSignAct',
+          component: (resolve)=> {
+            require(['@/components/addSignAct'], resolve)
+          },
         }
       ]
     },
