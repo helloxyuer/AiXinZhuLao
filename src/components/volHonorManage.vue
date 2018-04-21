@@ -4,10 +4,10 @@
 
 <template>
   <div class="components-container">
-    <button @click="getUEContent()">获取内容</button>
     <div class="editor-container">
       <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
     </div>
+    <button @click="getUEContent()">获取内容</button>
   </div>
 </template>
 
