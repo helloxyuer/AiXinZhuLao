@@ -18,7 +18,7 @@
         v-model="actPersonCard"
         clearable>
       </el-input>
-      <el-button type="primary" icon="el-icon-search">搜索</el-button>
+      <el-button type="success" icon="el-icon-search">搜索</el-button>
     </div>
     <el-table
       :data="tableData"
