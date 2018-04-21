@@ -177,3 +177,7 @@ input{
   from{-o-transform:rotate(0deg);}
   to{-o-transform:rotate(360deg);}
 }
+
+.fixFormHead>.el-form-item:first-child>label{
+  line-height: 60px!important;
+}

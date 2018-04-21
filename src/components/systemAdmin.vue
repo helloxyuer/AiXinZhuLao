@@ -1,7 +1,7 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">管理员详情</div>
-    <el-form class="adminTable" label-width="100px">
+    <el-form class="adminTable fixFormHead" label-width="100px">
       <el-form-item label="头像">
         <img class="headImg" :src="adminData.hdportrait||headImg" alt="">
       </el-form-item>
@@ -35,15 +35,19 @@
       }
     },
     components: {},
-    methods: {},
+    methods: {
+      getAdminInfo () {
+        let _self = this;
+        untils.JsonAxios().post('manage/orguser/volInfo',{}).then(function (res) {
+          if(res.code==0){
+            _self.adminData = res.data;
+            console.log(res);
+          }
+        })
+      },
+    },
     created () {
-      let _self = this;
-      untils.JsonAxios().post('manage/orguser/volInfo',{}).then(function (res) {
-        if(res.code==0){
-          _self.adminData = res.data;
-          console.log(res);
-        }
-      })
+      this.getAdminInfo()
     }
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">志愿者详情</div>
-    <el-form class="adminTable" label-width="100px">
+    <el-form class="adminTable fixFormHead" label-width="100px">
       <el-form-item label="头像">
         <img class="headImg" :src="userData.hdportrait||headImg" alt="">
       </el-form-item>
