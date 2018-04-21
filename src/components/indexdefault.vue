@@ -5,7 +5,7 @@
         <div class="grid-content">
           <i class="chen-chenrenshu st-red"></i>
           <div class="index_cot">
-            <div class="index_cot_1">1</div>
+            <div class="index_cot_1">{{org.num}}</div>
             <div class="index_cot_2">组织人数</div>
           </div>
         </div>
@@ -14,7 +14,7 @@
         <div class="grid-content">
           <i class="chen-chenshizhong st-violet"></i>
           <div class="index_cot">
-            <div class="index_cot_1">2</div>
+            <div class="index_cot_1">{{org.duration}}</div>
             <div class="index_cot_2">公益时数</div>
           </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="grid-content">
           <i class="chen-chenqizi st-blue"></i>
           <div class="index_cot">
-            <div class="index_cot_1">3</div>
+            <div class="index_cot_1">{{count.actnum}}</div>
             <div class="index_cot_2">招募活动</div>
           </div>
         </div>
@@ -32,7 +32,7 @@
         <div class="grid-content">
           <i class="el-icon-location st-green"></i>
           <div class="index_cot">
-            <div class="index_cot_1">4</div>
+            <div class="index_cot_1">{{count.signact}}</div>
             <div class="index_cot_2">签到活动</div>
           </div>
         </div>
@@ -42,8 +42,16 @@
       <div class="volTableTitleBox">待办事项</div>
       <div class="task-content">
         <ul class="task-list">
-          <li>待审核招募活动人员</li>
-          <li>待审核加入组织人员</li>
+          <li>
+            <el-badge :value="count.waitactsign" :max="99" class="item">
+              <span class="elSpan">待审核招募活动人员</span>
+            </el-badge>
+          </li>
+          <li>
+            <el-badge :value="count.waitorgsign" :max="99" class="item">
+              <span class="elSpan">待审核加入组织人员</span>
+            </el-badge>
+          </li>
         </ul>
       </div>
     </div>
@@ -56,7 +64,18 @@
   export default {
     name: 'indexDefault',
     data () {
-      return {}
+      return {
+        count:{
+          actnum:0,
+          signact:0,
+          waitactsign:0,
+          waitorgsign:0
+        },
+        org:{
+          num:0,
+          duration:0
+        }
+      }
     },
     components: {},
     methods: {
@@ -148,5 +167,8 @@
     border-bottom: 1px dashed #eaeaea;
     text-align: left;
     margin: 0 10px;
+  }
+  .elSpan{
+    padding-right: 20px;
   }
 </style>

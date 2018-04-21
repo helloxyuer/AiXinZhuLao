@@ -12,7 +12,7 @@
         <navbar></navbar>
       </el-aside>
       <el-main>
-        <div class="orgName">组织名称</div>
+        <div class="orgName">{{orgName}}</div>
         <router-view/>
       </el-main>
     </el-container>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+  import untils from '@/assets/js/untils'
   import titlebar from '@/components/titlebar'
   import navbar from '@/components/navbar'
 
@@ -27,14 +28,25 @@
     name: 'index',
     data () {
       return {
-        msg: 'msg'
+        orgName: ''
       }
     },
     components:{
       titlebar,
       navbar,
     },
+    methods:{
+      getIndex () {
+        let _self=this;
+        untils.JsonAxios().post('manage/sys/indexweb',{}).then(function (res) {
+          if(res.code==0){
+            _self.orgName = res.data.orginfo.name;
+          }
+        })
+      },
+    },
     created () {
+      this.getIndex()
     }
   }
 </script>
