@@ -126,6 +126,30 @@ input{
 .router-link-active{
 
 }
+.addAct{
+  padding: 10px;
+  text-align: left;
+  border-left: 1px solid #ebeef5;
+  border-right: 1px solid #ebeef5;
+}
+.volstatus1{
+  background: #06c1ad;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 3px 5px;
+}
+.volstatus2{
+  background: #ff6565;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 3px 5px;
+}
+.volstatus3{
+  background: #111111;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 3px 5px;
+}
 /*提示窗样式*/
 .centerBox{
   position: fixed;

@@ -184,10 +184,6 @@
   .actName{
     width: 200px;
   }
-  .addAct{
-    padding: 10px;
-    text-align: left;
-  }
   .signStatus{
     cursor: pointer;
     color: #06c9b5 ;

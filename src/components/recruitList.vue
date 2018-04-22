@@ -187,8 +187,4 @@
   .actName{
     width: 200px;
   }
-  .addAct{
-    padding: 10px;
-    text-align: left;
-  }
 </style>

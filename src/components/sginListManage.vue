@@ -76,6 +76,20 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pageTotal">
     </el-pagination>
+    <el-dialog title="修改工时" :visible.sync="dialogTableVisible">
+      <el-form label-width="100px">
+        <el-form-item label="工时修改">
+          <el-input-number v-model="gongshi" class="gongshi" :step="1"></el-input-number>
+        </el-form-item>
+        <el-form-item label="修改理由">
+          <el-input
+            v-model.trim="changeReson"
+            maxlength="40"
+            clearable></el-input>
+        </el-form-item>
+      </el-form>
+      <el-button type="success" @click="changeTime()">提交</el-button>
+    </el-dialog>
   </div>
 </template>
 
@@ -92,7 +106,10 @@
         pageTotal:0,
         actPersonName:'',
         actPersonCard:'',
-        sginName:''
+        sginName:'',
+        dialogTableVisible:true,
+        gongshi:1,
+        changeReson:''
       }
     },
     methods: {
@@ -137,5 +154,8 @@
   }
   .actPersonCard{
     width: 300px;
+  }
+  .gongshi{
+    float: left;
   }
 </style>

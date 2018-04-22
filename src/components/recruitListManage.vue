@@ -101,19 +101,6 @@
     name: 'recruitListManage',
     data() {
       return {
-        options: [{
-          value: '1',
-          label: '草稿'
-        }, {
-          value: '2',
-          label: '待审核'
-        }, {
-          value: '3',
-          label: '审核通过'
-        }, {
-          value: '4',
-          label: '审核不通过'
-        }],
         tableData: [],
         pageIndex:1,
         pageSize:10,
