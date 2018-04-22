@@ -53,8 +53,8 @@
             v-model="form.actTime1"
             type="daterange"
             range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期">
+            start-placeholder="招募开始日期"
+            end-placeholder="招募结束日期">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="活动进行时间" prop="actTime2">
@@ -62,8 +62,8 @@
             v-model="form.actTime2"
             type="daterange"
             range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期">
+            start-placeholder="活动开始时间"
+            end-placeholder="活动结束时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="活动详情" prop="text">
@@ -204,12 +204,6 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-  }
-  .adminTable{
-    width: 500px;
-    margin-left: 100px;
-    padding: 20px 0;
-    text-align: left;
   }
 </style>
 

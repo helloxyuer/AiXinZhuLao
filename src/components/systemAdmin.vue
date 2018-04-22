@@ -59,10 +59,4 @@
     height: 60px;
     border-radius: 50%;
   }
-  .adminTable{
-    width: 500px;
-    margin-left: 100px;
-    padding: 20px 0;
-    text-align: left;
-  }
 </style>

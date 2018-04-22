@@ -150,6 +150,12 @@ input{
   border-radius: 4px;
   padding: 3px 5px;
 }
+.adminTable{
+  width: 500px;
+  margin-left: 50px;
+  padding: 20px 0;
+  text-align: left;
+}
 /*提示窗样式*/
 .centerBox{
   position: fixed;

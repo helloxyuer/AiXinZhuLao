@@ -59,6 +59,9 @@
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
             <el-button><i class="el-icon-view"></i></el-button>
           </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="修改时长" placement="top-start">
+            <el-button @click="dialogTableVisible=!dialogTableVisible"><i class="el-icon-time"></i></el-button>
+          </el-tooltip>
           <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
             <el-button><i class="el-icon-delete"></i></el-button>
           </el-tooltip>
@@ -107,7 +110,7 @@
         actPersonName:'',
         actPersonCard:'',
         sginName:'',
-        dialogTableVisible:true,
+        dialogTableVisible:false,
         gongshi:1,
         changeReson:''
       }
