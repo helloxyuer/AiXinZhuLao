@@ -20,9 +20,12 @@ let axiosBack = {
   },
   sucBack(res){
     if (res.status == '200') {
+      if(res.data.code!='0'){
+        dialogs.load('err',res.data.msg);
+      }
       return res.data;
     } else {
-
+      dialogs.load('err',res.data.msg);
     }
   },
   errBack(err){

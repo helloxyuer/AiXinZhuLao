@@ -42,8 +42,7 @@
         prop="address"
         sortable
         label="活动结束时间"
-        min-width="140"
-        :formatter="formatter">
+        min-width="140">
       </el-table-column>
       <el-table-column
         prop="phone"
@@ -70,7 +69,7 @@
         prop="name"
         label="操作"
         fixed="right"
-        width="80">
+        width="180">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
             <el-button><i class="el-icon-view"></i></el-button>
@@ -124,10 +123,6 @@
       }
     },
     methods: {
-      formatter(row, column) {
-        return row.address;
-      },
-
       getVolList (status) {
         let _self=this;
         let params ={

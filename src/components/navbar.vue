@@ -35,7 +35,7 @@
         <el-menu-item index="3-1" :route="{name:'sginList'}">活动列表</el-menu-item>
       </el-menu-item-group>
       <el-menu-item-group>
-        <el-menu-item index="3-2" :route="{name:'sginListManage'}">签到管理列表</el-menu-item>
+        <el-menu-item index="3-2" :route="{name:'sginListManage'}">签到人员列表</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
 
@@ -51,7 +51,7 @@
         <el-menu-item index="4-2" :route="{name:'volCheck'}">志愿者审核</el-menu-item>
       </el-menu-item-group>
       <el-menu-item-group>
-        <el-menu-item index="4-3" :route="{name:'volHonorManage'}">荣耀时数管理</el-menu-item>
+        <el-menu-item index="4-3" :route="{name:'volHonorManage'}">富文本编辑器</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <el-submenu index="5">

@@ -4,7 +4,7 @@
 
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">招募活动列表</div>
+    <div class="volTableTitleBox">签到活动列表</div>
     <div class="searchBar">
       <el-input
         placeholder="活动名称"
@@ -45,31 +45,31 @@
         min-width="180">
       </el-table-column>
       <el-table-column
-        prop="idcard"
-        label="活动开始时间"
-        sortable
+        prop="organizename"
+        label="所属机构"
         min-width="140">
       </el-table-column>
       <el-table-column
-        prop="address"
-        sortable
-        label="活动结束时间"
-        min-width="140"
-        :formatter="formatter">
+        prop="signStatus"
+        label="签到情况">
+        <template slot-scope="scope">
+          <span class="signStatus" @click="gotoSginList(scope.row)">{{scope.row.signnum}}</span> /
+          <span>{{scope.row.num}}</span>
+        </template>
       </el-table-column>
       <el-table-column
-        prop="phone"
-        label="招募情况"
+        prop="content"
+        label="发布人"
         min-width="80">
       </el-table-column>
       <el-table-column
-        prop="status"
-        label="发布人"
+        prop="phone"
+        label="联系电话"
         min-width="100">
       </el-table-column>
       <el-table-column
-        prop="status"
-        label="联系电话"
+        prop="createtime"
+        label="发布时间"
         min-width="100">
       </el-table-column>
       <el-table-column
@@ -81,8 +81,7 @@
       <el-table-column
         prop="name"
         label="操作"
-        fixed="right"
-        width="180">
+        min-width="180">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
             <el-button><i class="el-icon-view"></i></el-button>
@@ -137,10 +136,6 @@
       }
     },
     methods: {
-      formatter(row, column) {
-        return row.address;
-      },
-
       getVolList (status) {
         let _self=this;
         let params ={
@@ -171,6 +166,11 @@
       },
       gotoSginAct(){
         this.$router.push({name:'addSignAct'})
+      },
+      //跳人数详情
+      gotoSginList(data){
+        console.log(data)
+        this.$router.push({name:'sginListManage',query:{sginId:data.uuid,sginName:data.name}})
       }
     },
     created(){
@@ -187,6 +187,10 @@
   .addAct{
     padding: 10px;
     text-align: left;
+  }
+  .signStatus{
+    cursor: pointer;
+    color: #06c9b5 ;
   }
 </style>
 
