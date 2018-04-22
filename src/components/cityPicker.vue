@@ -213,7 +213,7 @@
     left: 0px;
     padding: 3px 0px;
     top: 38px;
-    border: 1px solid #beceeb;
+    border: 1px solid #dcdfe6;
     background: #ffffff;
     box-shadow: 0px 0px 3px #beceeb;
   }
@@ -251,9 +251,10 @@
     width: 100%;
     height: 34px;
     line-height: 34px;
-    padding: 5px 20px 5px 5px;
+    padding: 5px 20px 5px 15px;
     margin: 0;
-    border: 1px solid #beceeb;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
     background: url(/src/assets/images/select.png) no-repeat;
     background-position: calc(100% - 10px) 50%;
   }
@@ -275,5 +276,17 @@
     outline: none;
     right: 5px;
     top: 9px;
+  }
+  ._drAddrinput::-webkit-input-placeholder{
+    color:#cdcdce;
+  }
+  ._drAddrinput::-moz-placeholder{   /* Mozilla Firefox 19+ */
+    color:#cdcdce;
+  }
+  ._drAddrinput:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+    color:#cdcdce;
+  }
+  ._drAddrinput:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+    color:#cdcdce;
   }
 </style>

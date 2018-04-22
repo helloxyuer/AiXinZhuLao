@@ -116,7 +116,12 @@ input{
   border-color: #06c9b5 !important;
   color: #06c1ad !important;
 }
-
+#editor{
+  min-width: 800px;
+}
+.edui-default .edui-toolbar .edui-combox .edui-combox-body{
+  height: 22px;
+}
 /*路由激活样式*/
 .router-link-active{
 
