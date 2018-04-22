@@ -46,12 +46,13 @@
           <cityPicker @citypicked="getcity"></cityPicker>
         </el-form-item>
         <el-form-item label="详细地址" prop="address">
-          <el-input v-model="form.address"></el-input>
+          <el-input v-model="form.address" @focus="showMap()"></el-input>
         </el-form-item>
         <el-form-item label="活动招募时间" prop="actTime1">
           <el-date-picker
             v-model="form.actTime1"
             type="daterange"
+            value-format="yyyy-MM-dd"
             range-separator="至"
             start-placeholder="招募开始日期"
             end-placeholder="招募结束日期">
@@ -61,12 +62,13 @@
           <el-date-picker
             v-model="form.actTime2"
             type="daterange"
+            value-format="yyyy-MM-dd"
             range-separator="至"
             start-placeholder="活动开始时间"
             end-placeholder="活动结束时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="活动详情" prop="text">
+        <el-form-item label="活动详情" prop="details">
           <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
         </el-form-item>
         <el-form-item>
@@ -74,6 +76,9 @@
         </el-form-item>
       </el-form>
     </div>
+    <el-dialog title="地图选点" :visible.sync="mapdialogVisible">
+      <gaomap></gaomap>
+    </el-dialog>
   </div>
 </template>
 
@@ -82,6 +87,7 @@
   import headImg from './../assets/images/MRman.png'
   import UE from '@/components/UE';
   import cityPicker from '@/components/cityPicker'
+  import gaomap from '@/components/gaomap'
 
   export default {
     name: 'addRecrutAct',
@@ -93,6 +99,7 @@
         defaultMsg: '<p><span style="font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px;">招募要求：</span></p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">招募范围：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动内容：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动具体时间：</p><p><br/></p>',
         dialogImageUrl:'',
         dialogVisible:false,
+        mapdialogVisible:false,
         config: {
           initialFrameWidth: null,
           initialFrameHeight: 350
@@ -107,7 +114,7 @@
           address:'',
           actTime1:'',
           actTime2:'',
-          text:'',
+          details:'',
         },
         rules: {
           actImgUrl: [
@@ -120,10 +127,10 @@
             { required: true, message: '请输入活动人数', trigger: 'change' }
           ],
           actTime1: [
-            { type: 'date', required: true, message: '请选择招募时间', trigger: 'change' }
+            { required: true, message: '请选择招募时间', trigger: 'change' }
           ],
           actTime2: [
-            { type: 'date', required: true, message: '请选择进行时间', trigger: 'change' }
+            { required: true, message: '请选择进行时间', trigger: 'change' }
           ],
           actopen: [
             { required: true, message: '请选择开放类型', trigger: 'change' }
@@ -132,12 +139,12 @@
             { required: true, message: '请选择活动类型', trigger: 'change' }
           ],
           cityarea: [
-            { required: true, message: '请选择活动资源', trigger: 'change' }
+            { required: true, message: '请选择活动区域', trigger: 'change' }
           ],
           address: [
             { required: true, message: '请选择活动地址', trigger: 'change' }
           ],
-          text: [
+          details: [
             { required: true, message: '请选择活动内容', trigger: 'change' }
           ]
         }
@@ -145,7 +152,8 @@
     },
     components: {
       UE,
-      cityPicker
+      cityPicker,
+      gaomap
     },
     methods: {
       getOrgTypeList(){
@@ -159,11 +167,6 @@
       },
       getUEContent() {
         let content = this.$refs.ue.getUEContent();
-        this.$notify({
-          title: '获取成功，可在控制台查看！',
-          message: content,
-          type: 'success'
-        });
         console.log(content)
       },
       getcity:function (val) {
@@ -172,6 +175,7 @@
       },
       handleChange(file, fileList) {
         console.log('232323s');
+        this.actImgUrl ='121212'
         console.log(file, fileList);
       },
       handleExceed(file, fileList) {
@@ -183,14 +187,46 @@
       },
       submitClick(formName) {
         this.$refs[formName].validate((valid) => {
+          console.log(this.form)
+          return
           if (valid) {
-            this.submitData();
+            this.addRecAct();
           } else {
             this.$message('请输入正确的信息');
             return false;
           }
         });
       },
+      showMap(){
+        this.mapdialogVisible = true;
+      },
+      addRecAct(){
+        let _self=this;
+        let params = {
+          name:'',
+          servicetype:'',
+          simpleaddress:'',
+          address:'',
+          provincecode:'',
+          citycode:'',
+          areacode:'',
+          restarttime:'',
+          reendtime:'',
+          acbegintime:'',
+          acendtime:'',
+          details:'',
+          num:'',
+          lng:'120.108478',
+          lat:'30.220671',
+          state
+        };
+        untils.JsonAxios().post('manage/signact/save',params).then(function (res) {
+          if(res.code==0){
+            _self.actType = res.data;
+            console.log(res.data)
+          }
+        })
+      }
     },
     created () {
       this.getOrgTypeList();

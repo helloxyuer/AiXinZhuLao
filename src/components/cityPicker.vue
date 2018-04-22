@@ -209,7 +209,7 @@
     height: 250px;
     display: flex;
     position: absolute;
-    z-index: 100;
+    z-index: 1100;
     left: 0px;
     padding: 3px 0px;
     top: 38px;

@@ -4,15 +4,17 @@
 
 <template>
   <div class="components-container">
-    <div class="editor-container">
+    <!--<div class="editor-container">
       <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
     </div>
-    <button @click="getUEContent()">获取内容</button>
+    <button @click="getUEContent()">获取内容</button>-->
+    <gaomap></gaomap>
   </div>
 </template>
 
 <script>
   import UE from '@/components/UE';
+  import gaomap from '@/components/gaomap';
 
   export default {
     name: 'volHonorManage',
@@ -22,7 +24,7 @@
         config: {
           initialFrameWidth: null,
           initialFrameHeight: 350
-        }
+        },
       }
     },
     methods:{
@@ -37,7 +39,8 @@
       }
     },
     components:{
-      UE
+      UE,
+      gaomap
     }
   }
 </script>
