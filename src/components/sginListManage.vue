@@ -1,6 +1,9 @@
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">签到人员列表</div>
+    <div class="volTableTitleBox">
+      <span>签到人员列表</span>
+      <span v-if="sginName">({{sginName}})</span>
+    </div>
     <div class="searchBar">
       <el-input
         placeholder="姓名"
@@ -89,14 +92,15 @@
         pageTotal:0,
         actPersonName:'',
         actPersonCard:'',
+        sginName:''
       }
     },
     methods: {
-      getVolList (status,act) {
+      getVolList (sginId,act) {
         let _self=this;
         let params ={
-          orgid:'',
-          signactivityid:act,
+          orgid:untils.storageS.get('orgId'),
+          signactivityid:sginId,
           page:_self.pageIndex,
           limit:_self.pageSize,
         }
@@ -118,7 +122,10 @@
       }
     },
     created(){
-      this.getVolList();
+      let sginName = this.$route.query.sginName;
+      this.sginName = sginName;
+      let sginId = this.$route.query.sginId;
+      this.getVolList(sginId);
     }
   }
 </script>

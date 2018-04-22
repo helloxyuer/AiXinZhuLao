@@ -41,6 +41,8 @@
         untils.JsonAxios().post('manage/sys/indexweb',{}).then(function (res) {
           if(res.code==0){
             _self.orgName = res.data.orginfo.name;
+            untils.storageS.set('orgId',res.data.orginfo.uuid)
+            untils.storageS.set('orgName',res.data.orginfo.name)
           }
         })
       },
