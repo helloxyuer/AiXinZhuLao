@@ -21,7 +21,7 @@
         </el-form-item>
         <el-form-item label="活动类型" prop="actType">
           <el-select v-model="form.actType" placeholder="请选择活动类型">
-            <el-option v-for="x in actType" :key="x.id" :label="x.name" :value="x.id"></el-option>
+            <el-option v-for="x in actType" :key="x.id" :label="x.name" :value="x.name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="活动区域" prop="cityarea">
@@ -56,7 +56,11 @@
         </el-form-item>
         <el-form-item label="签到地点">
           <div>
-
+            <div></div>
+            <div>
+              <button @click="addSginPoint" class="el-icon-circle-plus-outline"></button>
+              <button class="el-icon-remove-outline"></button>
+            </div>
           </div>
         </el-form-item>
         <el-form-item label="活动详情" prop="text">
@@ -67,17 +71,25 @@
         </el-form-item>
       </el-form>
     </div>
+    <el-dialog title="地图选点" :visible.sync="mapdialogVisible">
+      <gaomap :areamsg="areamsg" @pointPicked="getPoint"></gaomap>
+    </el-dialog>
   </div>
 </template>
 
 <script>
   import untils from '@/assets/js/untils'
-  import headImg from './../assets/images/MRman.png'
   import UE from '@/components/UE';
   import cityPicker from '@/components/cityPicker'
+  import gaomap from '@/components/gaomap'
 
   export default {
     name: 'addSignAct',
+    components: {
+      UE,
+      cityPicker,
+      gaomap
+    },
     data () {
       return {
         actType:{},
@@ -86,9 +98,14 @@
           initialFrameWidth: null,
           initialFrameHeight: 350
         },
-        headImg:headImg,
+        areamsg:{
+          address:'',
+          adcode:'',
+          lng:'',
+          lat:''
+        },//默认签到地点
+        mapdialogVisible:false,
         form:{
-          actImgUrl:'',
           actname:'',
           actnum:'',
           actopen:'',
@@ -100,9 +117,6 @@
           text:'',
         },
         rules: {
-          actImgUrl: [
-            { required: true, message: '请选择活动图片', trigger: 'blur' },
-          ],
           actname: [
             { required: true, message: '请输入活动名称', trigger: 'change' }
           ],
@@ -122,7 +136,7 @@
             { required: true, message: '请选择活动类型', trigger: 'change' }
           ],
           cityarea: [
-            { required: true, message: '请选择活动资源', trigger: 'change' }
+            { required: true, message: '请选择活动区域', trigger: 'change' }
           ],
           address: [
             { required: true, message: '请选择活动地址', trigger: 'change' }
@@ -132,10 +146,6 @@
           ]
         }
       }
-    },
-    components: {
-      UE,
-      cityPicker
     },
     methods: {
       getOrgTypeList(){
@@ -147,9 +157,26 @@
           }
         })
       },
-      getcity:function (val) {
-        this.form.cityarea = val;
+      addSginPoint(){
+
+      },
+      getcity (val) {
         console.log(val)
+        if(val.province){
+          this.form.cityarea = val.province.adcode;
+          this.form.provincecode = val.province.adcode;
+          this.form.citycode = val.city.adcode;
+          this.form.areacode = val.area.adcode;
+          this.form.simpleaddress = val.province.name+'-'+val.city.name+'-'+val.area.name;
+          this.areamsg.adcode = val.area.adcode;
+        }else{
+          this.form.cityarea = '';
+          this.form.provincecode = '';
+          this.form.citycode = '';
+          this.form.areacode = '';
+          this.form.simpleaddress = '';
+          this.areamsg.adcode = '';
+        }
       },
       addSignAct(){
         let _self=this;
@@ -169,10 +196,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .headImg{
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-  }
+
 </style>
 

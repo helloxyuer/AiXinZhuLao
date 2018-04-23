@@ -85,7 +85,6 @@
 <script>
   import untils from '@/assets/js/untils'
   import config from '@/assets/js/config'
-  import headImg from './../assets/images/MRman.png'
   import UE from '@/components/UE';
   import cityPicker from '@/components/cityPicker'
   import gaomap from '@/components/gaomap'
@@ -93,10 +92,13 @@
 
   export default {
     name: 'addRecrutAct',
+    components: {
+      UE,
+      cityPicker,
+      gaomap
+    },
     data () {
       return {
-        headImg:headImg,
-        imageUrl:'',
         actType:{},
         defaultMsg: '<p><span style="font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px;">招募要求：</span></p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">招募范围：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动内容：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动具体时间：</p><p><br/></p>',
         dialogImageUrl:'',
@@ -158,11 +160,6 @@
         }
       }
     },
-    components: {
-      UE,
-      cityPicker,
-      gaomap
-    },
     methods: {
       getOrgTypeList(){
         let _self=this;
@@ -186,7 +183,6 @@
           this.form.areacode = val.area.adcode;
           this.form.simpleaddress = val.province.name+'-'+val.city.name+'-'+val.area.name;
           this.areamsg.adcode = val.area.adcode;
-          this.$refs.addRecFormRef.fields[5].showMessage=false;
         }else{
           this.form.cityarea = '';
           this.form.provincecode = '';
@@ -194,7 +190,6 @@
           this.form.areacode = '';
           this.form.simpleaddress = '';
           this.areamsg.adcode = '';
-          this.$refs.addRecFormRef.fields[5].showMessage=true;
         }
       },
       getPoint(val){
@@ -258,8 +253,8 @@
         let _self=this;
         let params = {
           name:this.form.actname,
-          servicetype:this.form.actnum,
-          simpleaddress:this.form.actType,
+          servicetype:this.form.actType,
+          simpleaddress:this.form.simpleaddress,
           address:this.form.address,
           provincecode:this.form.provincecode,
           citycode:this.form.citycode,
@@ -290,10 +285,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .headImg{
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-  }
+
 </style>
 
