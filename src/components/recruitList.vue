@@ -42,25 +42,28 @@
       <el-table-column
         prop="name"
         label="活动名称"
-        min-width="180">
-      </el-table-column>
-      <el-table-column
-        prop="idcard"
-        label="活动开始时间"
-        sortable
         min-width="140">
       </el-table-column>
       <el-table-column
-        prop="address"
+        prop="restarttime"
+        label="活动开始时间"
         sortable
-        label="活动结束时间"
-        min-width="140"
-        :formatter="formatter">
+        min-width="120">
       </el-table-column>
       <el-table-column
-        prop="phone"
+        prop="reendtime"
+        label="活动结束时间"
+        sortable
+        min-width="120">
+      </el-table-column>
+      <el-table-column
+        prop="num"
         label="招募情况"
         min-width="80">
+        <template slot-scope="scope">
+          <span>{{scope.row.signnum}}</span> /
+          <span>{{scope.row.num}}</span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="status"
@@ -77,12 +80,15 @@
         label="状态"
         sortable
         min-width="80">
+        <template slot-scope="scope">
+          <span class="volstatus1" v-if="scope.row.status==0">待审核</span>
+          <span class="volstatus2" v-if="scope.row.status==1">通过</span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="name"
         label="操作"
-        fixed="right"
-        width="180">
+        width="200">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
             <el-button><i class="el-icon-edit-outline"></i></el-button>
@@ -140,10 +146,6 @@
       }
     },
     methods: {
-      formatter(row, column) {
-        return row.address;
-      },
-
       getVolList (status) {
         let _self=this;
         let params ={

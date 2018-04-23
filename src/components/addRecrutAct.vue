@@ -219,8 +219,6 @@
           if(cb){
             cb()
           }
-        }).then(function (val) {
-          untils.dialogs.load('err','网络不稳定,请检查网络');
         });
       },
       handleExceed(file, fileList) {
@@ -269,7 +267,7 @@
           lat:this.form.lat,
           state:0
         };
-        untils.JsonAxios().post('manage/signact/save',params).then(function (res) {
+        untils.JsonAxios().post('manage/act/save',params).then(function (res) {
           if(res.code==0){
             _self.actType = res.data;
             console.log(res.data)

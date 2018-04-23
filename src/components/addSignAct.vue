@@ -180,7 +180,7 @@
       },
       addSignAct(){
         let _self=this;
-        untils.JsonAxios().post('manage/act/save',{}).then(function (res) {
+        untils.JsonAxios().post('manage/signact/save',{}).then(function (res) {
           if(res.code==0){
             _self.actType = res.data;
             console.log(res.data)
