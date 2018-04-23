@@ -56,13 +56,7 @@
         </el-form-item>
         <el-form-item label="签到地点">
           <div>
-            签到地点
-            签到范围
-            <el-select v-model="form.actAround" placeholder="请选择签到范围">
-              <el-option label="500M" value="500"></el-option>
-              <el-option label="1KM" value="1000"></el-option>
-              <el-option label="2KM" value="2000"></el-option>
-            </el-select>
+
           </div>
         </el-form-item>
         <el-form-item label="活动详情" prop="text">

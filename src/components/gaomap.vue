@@ -1,85 +1,151 @@
 <template>
   <div>
-    <div id="gaomap">
-      <div id="tip">
-        <input type="text" id="keyword" v-model="address" placeholder="请输入关键字：(选定后搜索)"/>
-      </div>
+    <div class="signBox">
+      <span>签到点:</span>
+      <el-autocomplete
+        class="inline-input"
+        v-model="areamsg.address"
+        :fetch-suggestions="querySearchAsync"
+        :clearable="true"
+        placeholder="请输入关键字"
+        @select="handleSelect"
+      ></el-autocomplete>
     </div>
-    <el-button type="success" style="margin-top: 20px" @click="choiceMapMarker()">提交</el-button>
+    <div class="signBox">
+      <span>类型:</span>
+      <el-select v-model="sgin.type" placeholder="请选择签到类型">
+        <el-option label="只可签到" value="in"></el-option>
+        <el-option label="只可签退" value="out"></el-option>
+        <el-option label="可签到/可签退" value="inandout"></el-option>
+      </el-select>
+    </div>
+    <div class="signBox">
+      <span>范围:</span>
+      <el-select v-model="sgin.around" placeholder="请选择签到范围">
+        <el-option label="500M" value="500"></el-option>
+        <el-option label="1KM" value="1000"></el-option>
+        <el-option label="2KM" value="2000"></el-option>
+      </el-select>
+    </div>
+    <div id="gaomap"></div>
+    <el-button type="success" style="margin-top: 20px" @click="submitPoint()">提交</el-button>
   </div>
 </template>
 
 <script>
-    export default {
-      name: "gaomap",
-      data() {
-        return{
-          map:{},
-          marker:{},
-          address:''
+  let mapVo ={};
+  export default {
+    name: 'gaomap',
+    props: {
+      areamsg: {
+        type: Object,
+        default: function () {
+          return {
+            adcode: '',
+            address: '',
+            lng: '',
+            lat: ''
+          }
         }
-      },
-      methods:{
-        newAmap(){
-          let _self = this;
-          let map = new AMap.Map('gaomap', {
-            resizeEnable: true, //自适应大小
-            zoom: 13//初始视窗
-          });
-          this.map = map;
-
-          let marker = new AMap.Marker({
-            map:map,
-            animation:'AMAP_ANIMATION_DROP',
-            draggable:true
-          })
-          this.marker = marker;
-
-          AMap.plugin('AMap.Geocoder',function(){
-            var geocoder = new AMap.Geocoder();
-            map.on('click',function(e){
-              marker.setPosition(e.lnglat);
-              geocoder.getAddress(e.lnglat,function(status,result){
-                if(status=='complete'){
-                  _self.address = result.regeocode.formattedAddress;
-                }
-              })
-            })
-          });
-
-          AMap.plugin(['AMap.Autocomplete','AMap.PlaceSearch'],function(){
-            let autocomplete= new AMap.Autocomplete({
-              city: "", //城市，默认全国
-              input: "keyword"//使用联想输入的input的id
-            });
-            var placeSearch = new AMap.PlaceSearch({
-              city:''
-            });
-            AMap.event.addListener(autocomplete, "select", function(e){
-              marker.setPosition(e.poi.location);
-              map.setCenter(marker.getPosition())
-              console.log(e.poi)
-              _self.address = result.regeocode.formattedAddress;
-            });
-          });
-
-        },
-        choiceMapMarker(){
-          this.marker.getPosition();
-
-        }
-      },
-      mounted(){
-        this.newAmap()
       }
+    },
+    data () {
+      return {
+        sgin:{
+          type:'',
+          around:''
+        }
+      }
+    },
+    methods: {
+      newAmap () {
+        let _self = this
+        let map = new AMap.Map('gaomap', {
+          resizeEnable: true, //自适应大小
+          zoom: 13//初始视窗
+        })
+        mapVo.map = map
+
+        let marker = new AMap.Marker({
+          map: map,
+          animation: 'AMAP_ANIMATION_DROP',
+          draggable: true
+        })
+        if(_self.areamsg.lng){
+          let point = new AMap.LngLat(_self.areamsg.lng,_self.areamsg.lat)
+          marker.setPosition(point);
+          map.setCenter(point);
+        }
+        mapVo.marker = marker
+
+        AMap.plugin('AMap.Geocoder', function () {
+          var geocoder = new AMap.Geocoder()
+          map.on('click', function (e) {
+            marker.setPosition(e.lnglat);
+            map.setCenter(e.lnglat);
+            _self.areamsg.lng = e.lnglat.lng;
+            _self.areamsg.lat = e.lnglat.lat;
+            geocoder.getAddress(e.lnglat, function (status, result) {
+              if (status == 'complete') {
+                _self.areamsg.address = result.regeocode.formattedAddress
+                _self.areamsg.adcode = result.regeocode.addressComponent.adcode
+              }
+            })
+          })
+        })
+
+        AMap.plugin(['AMap.Autocomplete', 'AMap.PlaceSearch'], function () {
+          if(_self.areamsg.adcode){
+            console.log()
+            mapVo.autoComplete = new AMap.Autocomplete({
+              city:_self.areamsg.adcode,
+              citylimit:true,
+              datatype:'poi'
+            })
+          }else{
+            mapVo.autoComplete = new AMap.Autocomplete({})
+          }
+        })
+
+      },
+      querySearchAsync (queryString, cb) {
+        mapVo.autoComplete.search(queryString, function (status, result) {
+          let tips = result.tips?result.tips:[]
+          tips.forEach(function (data) {
+            data.value = data.name
+          })
+          cb(tips)
+        })
+      },
+      handleSelect (item) {
+        this.areamsg.adcode = item.adcode
+        this.areamsg.address = item.address
+        this.areamsg.lng = item.location.lng
+        this.areamsg.lat = item.location.lat
+      },
+      submitPoint () {
+        _self.$emit('pointPicked',{
+          adcode:this.areamsg.adcode,
+          address:this.areamsg.address,
+          lng:this.areamsg.lng,
+          lat:this.areamsg.lat
+        })
+      },
+    },
+    mounted () {
+      this.newAmap()
     }
+  }
 </script>
 
 <style scoped>
-  #gaomap{
+  #gaomap {
     width: 100%;
     height: 300px;
   }
-
-
+  .signBox{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
 </style>

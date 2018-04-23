@@ -20,6 +20,13 @@ const router = new Router({
       }
     },
     {
+      path: '/test',
+      name: 'test',
+      component: (resolve) => {
+        require(['@/components/test'], resolve)
+      }
+    },
+    {
       path: '/register',
       name: 'register',
       component: (resolve) => {
