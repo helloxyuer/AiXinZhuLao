@@ -114,15 +114,15 @@
       }
     },
     methods: {
-      getVolList (status) {
+      getVolList (id) {
         let _self=this;
         let params ={
-          state:status||'0',
-          type:1,
+          state:status,
+          activityid: id,
           page:_self.pageIndex,
           limit:_self.pageSize,
         }
-        untils.JsonAxios().post('manage/act/list',params).then(function (res) {
+        untils.JsonAxios().post('manage/act/signlist',params).then(function (res) {
           if(res.code==0){
             _self.tableData = res.data.list;
             _self.pageTotal = res.data.totalCount;
@@ -144,8 +144,8 @@
       }
     },
     created(){
-      this.recName = this.$route.query.sginName;
-      this.recId = this.$route.query.sginId;
+      this.recName = this.$route.query.recName;
+      this.recId = this.$route.query.recId;
       this.getVolList(this.recId);
     }
   }
