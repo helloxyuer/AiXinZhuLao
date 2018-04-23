@@ -8,12 +8,12 @@
         :rules="rules"
         class="adminTable fixFormHead"
         label-width="110px">
-        <el-form-item label="活动图片" prop="actImgUrl">
+        <el-form-item label="活动图片" prop="picurl">
           <el-upload
             class="upload-demo"
             action="http://oss-cn-hangzhou.aliyuncs.com/posts/"
+            ref="upload"
             :on-preview="handlePreview"
-            :on-change="handleChange"
             :on-exceed="handleExceed"
             :auto-upload="false"
             :limit="1"
@@ -39,7 +39,7 @@
         </el-form-item>
         <el-form-item label="活动类型" prop="actType">
           <el-select v-model="form.actType" placeholder="请选择活动类型">
-            <el-option v-for="x in actType" :key="x.id" :label="x.name" :value="x.id"></el-option>
+            <el-option v-for="x in actType" :key="x.id" :label="x.name" :value="x.name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="活动区域" prop="cityarea">
@@ -84,10 +84,12 @@
 
 <script>
   import untils from '@/assets/js/untils'
+  import config from '@/assets/js/config'
   import headImg from './../assets/images/MRman.png'
   import UE from '@/components/UE';
   import cityPicker from '@/components/cityPicker'
   import gaomap from '@/components/gaomap'
+  import OSS from 'ali-oss'
 
   export default {
     name: 'addRecrutAct',
@@ -111,7 +113,7 @@
           lat:''
         },//默认签到地点
         form:{
-          actImgUrl:'',
+          picurl:'',
           actname:'',
           actnum:'',
           actopen:'',
@@ -123,7 +125,7 @@
           details:'',
         },
         rules: {
-          actImgUrl: [
+          picurl: [
             { required: true, message: '请选择活动图片', trigger: 'blur' },
           ],
           actname: [
@@ -206,10 +208,25 @@
           this.form.address = val.address;
         }
       },
-      handleChange(file, fileList) {
-        console.log('232323s');
-        this.actImgUrl ='121212'
-        console.log(file, fileList);
+      submitUpload(cb) {
+        let _self = this;
+        let imgData = this.$refs.upload.uploadFiles[0];
+        console.log(imgData);
+        let client = new OSS.Wrapper({
+          region: config.aliyun.region,
+          accessKeyId: config.aliyun.accessKeyId,
+          accessKeySecret: config.aliyun.accessKeySecret,
+          bucket: config.aliyun.bucketName
+        });
+        let imgName = '/WEB/'+imgData.uid+'-'+new Date().getTime()
+        client.put(imgName, _self.$refs.upload.uploadFiles[0].raw).then(function (val) {
+          _self.form.picurl = val.res.requestUrls[0];
+          if(cb){
+            cb()
+          }
+        }).then(function (val) {
+          untils.dialogs.load('err','网络不稳定,请检查网络');
+        });
       },
       handleExceed(file, fileList) {
         this.$message('图片只能上传一张！');
@@ -219,16 +236,20 @@
         this.dialogVisible = true;
       },
       submitClick(formName) {
-        this.$refs[formName].validate((valid) => {
-          console.log(this.form)
-          return
-          if (valid) {
-            this.addRecAct();
-          } else {
-            this.$message('请输入正确的信息');
-            return false;
-          }
-        });
+        let _self = this;
+        _self.form.details = _self.$refs.ue.getUEContent();
+        _self.submitUpload(function () {
+          _self.$refs[formName].validate((valid) => {
+            console.log(_self.form)
+            console.log(valid)
+            if (valid) {
+              _self.addRecAct()
+            } else {
+              _self.$message('请输入正确的信息');
+              return false;
+            }
+          });
+        })
       },
       showMap(){
         this.mapdialogVisible = true;
@@ -236,22 +257,22 @@
       addRecAct(){
         let _self=this;
         let params = {
-          name:'',
-          servicetype:'',
-          simpleaddress:'',
-          address:'',
-          provincecode:'',
-          citycode:'',
-          areacode:'',
-          restarttime:'',
-          reendtime:'',
-          acbegintime:'',
-          acendtime:'',
-          details:'',
-          num:'',
-          lng:'120.108478',
-          lat:'30.220671',
-          state
+          name:this.form.actname,
+          servicetype:this.form.actnum,
+          simpleaddress:this.form.actType,
+          address:this.form.address,
+          provincecode:this.form.provincecode,
+          citycode:this.form.citycode,
+          areacode:this.form.areacode,
+          restarttime:this.form.actTime1[0],
+          reendtime:this.form.actTime1[1],
+          acbegintime:this.form.actTime2[0],
+          acendtime:this.form.actTime2[1],
+          details:this.form.details,
+          num:this.form.actnum,
+          lng:this.form.lng,
+          lat:this.form.lat,
+          state:0
         };
         untils.JsonAxios().post('manage/signact/save',params).then(function (res) {
           if(res.code==0){

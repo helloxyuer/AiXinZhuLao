@@ -34,20 +34,20 @@
     methods:{
       submitUpload() {
         let _self = this;
-        console.log(this.$refs.upload.uploadFiles[0])
-        /*return*/
+        let imgData = this.$refs.upload.uploadFiles[0];
+        console.log(imgData);
         let client = new OSS.Wrapper({
           region: config.aliyun.region,
           accessKeyId: config.aliyun.accessKeyId,
           accessKeySecret: config.aliyun.accessKeySecret,
           bucket: config.aliyun.bucketName
         });
-        client.put('file', _self.$refs.upload.uploadFiles[0].raw).then(function (val) {
+        let imgName = '/WEB/'+imgData.uid+'-'+new Date().getTime()
+        client.put(imgName, _self.$refs.upload.uploadFiles[0].raw).then(function (val) {
           console.log(val.res);
           return client.get('object');
         }).then(function (val) {
-          console.log(val.res);
-          console.log(val.content.toString());
+          un
         });
       }
     }
