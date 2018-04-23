@@ -75,7 +75,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item label="活动详情" prop="text">
+        <el-form-item label="活动详情" prop="details">
           <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
         </el-form-item>
         <el-form-item>
@@ -140,7 +140,7 @@
           lat:'',
           actTime1:'',
           actTime2:'',
-          text:'',
+          details:'',
           state:0
         },
         rules: {
@@ -168,7 +168,7 @@
           address: [
             { required: true, message: '请选择活动地址', trigger: 'change' }
           ],
-          text: [
+          details: [
             { required: true, message: '请选择活动内容', trigger: 'change' }
           ]
         }
@@ -290,9 +290,62 @@
           this.form.simpleaddress = '';
         }
       },
+      checkPointArr(){
+        for(let i=0;i<this.pointArr.length;i++){
+          if(!this.pointArr[i].lng ||!this.pointArr[i].lat ||!this.pointArr[i].ranges ||!this.pointArr[i].type){
+            this.$message({
+              message:'第'+i+'个签到点有未填选项',
+              type:'error'
+            });
+            return false;
+          }
+        }
+        return true;
+      },
+      submitClick(formName) {
+        let _self = this;
+        _self.form.details = _self.$refs.ue.getUEContent();
+        _self.$refs[formName].validate((valid) => {
+          console.log(_self.form)
+          console.log(_self.pointArr)
+          console.log(valid)
+          return
+          if (valid) {
+            let rightPointArr = _self.checkPointArr();
+            if(rightPointArr){
+              _self.addSignAct()
+            }
+          } else {
+            _self.$message({
+              message:'请输入正确的信息',
+              type:'error'
+            });
+            return false;
+          }
+        })
+      },
       addSignAct(){
         let _self=this;
-        untils.JsonAxios().post('manage/signact/save',{}).then(function (res) {
+        let params = {
+          name:this.form.actname,
+          servicetype:this.form.actType,
+          simpleaddress:this.form.simpleaddress,
+          address:this.form.address,
+          provincecode:this.form.provincecode,
+          citycode:this.form.citycode,
+          areacode:this.form.areacode,
+          begintime:this.form.actTime1[0],
+          endtime:this.form.actTime1[1],
+          signbegintime:this.form.actTime2[0],
+          signendtime:this.form.actTime2[1],
+          details:this.form.details,
+          num:this.form.actnum,
+          lng:this.form.lng,
+          lat:this.form.lat,
+          state:0,
+          range:this.pointArr
+        };
+        untils.JsonAxios().post('manage/signact/save',params).then(function (res) {
           if(res.code==0){
             _self.actType = res.data;
             console.log(res.data)
