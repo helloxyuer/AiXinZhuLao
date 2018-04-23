@@ -110,13 +110,14 @@
         actPersonName:'',
         actPersonCard:'',
         sginName:'',
+        sginId:'',
         dialogTableVisible:false,
         gongshi:1,
         changeReson:''
       }
     },
     methods: {
-      getVolList (sginId,act) {
+      getVolList (sginId) {
         let _self=this;
         let params ={
           orgid:untils.storageS.get('orgId'),
@@ -142,10 +143,9 @@
       }
     },
     created(){
-      let sginName = this.$route.query.sginName;
-      this.sginName = sginName;
-      let sginId = this.$route.query.sginId;
-      this.getVolList(sginId);
+      this.sginName = this.$route.query.sginName;
+      this.sginId = this.$route.query.sginId;
+      this.getVolList(this.sginId);
     }
   }
 </script>

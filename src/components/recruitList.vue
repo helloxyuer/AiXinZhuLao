@@ -61,7 +61,7 @@
         label="招募情况"
         min-width="80">
         <template slot-scope="scope">
-          <span>{{scope.row.signnum}}</span> /
+          <span class="signStatus" @click="gotoRecList(scope.row)">{{scope.row.signnum}}</span> /
           <span>{{scope.row.num}}</span>
         </template>
       </el-table-column>
@@ -81,8 +81,8 @@
         sortable
         min-width="80">
         <template slot-scope="scope">
-          <span class="volstatus1" v-if="scope.row.status==0">待审核</span>
-          <span class="volstatus2" v-if="scope.row.status==1">通过</span>
+          <span class="volstatus1" v-if="scope.row.state==0">待审核</span>
+          <span class="volstatus2" v-if="scope.row.state==1">通过</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -176,6 +176,11 @@
       },
       gotoAddAct(){
         this.$router.push({name:'addRecrutAct'})
+      },
+      //跳人数详情
+      gotoRecList(data){
+        console.log(data)
+        this.$router.push({name:'recruitListManage',query:{recId:data.uuid,recName:data.name}})
       }
     },
     created(){
@@ -188,5 +193,9 @@
 <style scoped>
   .actName{
     width: 200px;
+  }
+  .signStatus{
+    cursor: pointer;
+    color: #06c9b5 ;
   }
 </style>

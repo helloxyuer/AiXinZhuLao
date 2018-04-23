@@ -4,7 +4,10 @@
 
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">招募报名人员列表</div>
+    <div class="volTableTitleBox">
+      <span>招募人员列表</span>
+      <span v-if="recName">({{recName}})</span>
+    </div>
     <div class="searchBar">
       <el-input
         placeholder="姓名"
@@ -106,6 +109,8 @@
         pageTotal:0,
         actPersonName:'',
         actPersonCard:'',
+        recName:'',
+        recId:''
       }
     },
     methods: {
@@ -139,7 +144,9 @@
       }
     },
     created(){
-      this.getVolList();
+      this.recName = this.$route.query.sginName;
+      this.recId = this.$route.query.sginId;
+      this.getVolList(this.recId);
     }
   }
 </script>
