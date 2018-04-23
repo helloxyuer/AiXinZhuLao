@@ -17,6 +17,13 @@ module.exports = {
         pathRewrite: {
           '^/app' : ''
         }
+      },
+      '/aliyun':{
+        target: 'http://oss-cn-hangzhou.aliyuncs.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/aliyun' : ''
+        }
       }
     },
 

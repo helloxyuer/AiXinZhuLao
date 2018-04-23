@@ -10,7 +10,9 @@ let config={
   mobile:'',
   userName:'',
   aliyun:{
-    endpoint:'http://oss-cn-hangzhou.aliyuncs.com',
+    /*endpoint:'http://oss-cn-hangzhou.aliyuncs.com',*/
+    endpoint:'http://localhost:8080/aliyun',
+    region:'oss-cn-hangzhou',
     bucketName:'zhulao-pro',
     accessKeyId:'LTAIodQqmT91wJBB',
     accessKeySecret:'F5hjfpVvmi6xPhYvc89wh1V4kImN7d'
