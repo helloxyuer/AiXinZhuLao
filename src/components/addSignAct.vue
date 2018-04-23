@@ -8,10 +8,13 @@
         ref="addRecFormRef"
         :model="form"
         :rules="rules"
-        class="adminTable"
-        label-width="130px">
-        <el-form-item label="活动名称">
-          <el-input v-model="form.actname" prop="actname"></el-input>
+        class="adminTable fixSgintable"
+        label-width="150px">
+        <el-form-item label="活动名称" prop="actname">
+          <el-input v-model="form.actname"></el-input>
+        </el-form-item>
+        <el-form-item label="招募人数" prop="actnum">
+          <el-input v-model="form.actnum" type="number" prop="actnum"></el-input>
         </el-form-item>
         <el-form-item label="开放类型" prop="actopen">
           <el-select v-model="form.actopen" placeholder="请选择开放类型">
@@ -27,28 +30,30 @@
         <el-form-item label="活动区域" prop="cityarea">
           <cityPicker @citypicked="getcity"></cityPicker>
         </el-form-item>
-        <el-form-item label="详细地址">
+        <el-form-item label="详细地址" prop="address">
           <el-input v-model="form.address" @focus="showMap()"></el-input>
         </el-form-item>
-        <el-form-item label="定时周期">
+        <el-form-item label="定时周期" prop="actCycle">
           <el-select v-model="form.actCycle" placeholder="请选择定时周期">
             <el-option label="每周定时举行" value="week"></el-option>
             <el-option label="每月定时举行" value="mouth"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="活动进行时间">
+        <el-form-item label="活动进行时间" prop="actTime1">
           <el-date-picker
             v-model="form.actTime1"
             type="daterange"
+            value-format="yyyy-MM-dd"
             range-separator="至"
             start-placeholder="活动开始日期"
             end-placeholder="活动结束日期">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="活动签到/签退时间">
+        <el-form-item label="活动签到/签退时间" prop="actTime2">
           <el-date-picker
             v-model="form.actTime2"
             type="daterange"
+            value-format="yyyy-MM-dd"
             range-separator="至"
             start-placeholder="活动签到时间"
             end-placeholder="活动签退时间">
@@ -71,7 +76,7 @@
               <button @click="removeSginPoint(index)"><i class="el-icon-remove-outline"></i></button>
             </div>
             <div>
-              <button @click="addSginPoint()"><i class="el-icon-circle-plus-outline"></i></button>
+              <button @click.prevent="addSginPoint()"><i class="el-icon-circle-plus-outline"></i></button>
             </div>
           </div>
         </el-form-item>
@@ -141,6 +146,7 @@
           actTime1:'',
           actTime2:'',
           details:'',
+          actCycle:'',
           state:0
         },
         rules: {
@@ -151,16 +157,19 @@
             { required: true, message: '请输入活动人数', trigger: 'change' }
           ],
           actTime1: [
-            { type: 'date', required: true, message: '请选择招募时间', trigger: 'change' }
+            { required: true, message: '请选择招募时间', trigger: 'change' }
           ],
           actTime2: [
-            { type: 'date', required: true, message: '请选择进行时间', trigger: 'change' }
+            { required: true, message: '请选择进行时间', trigger: 'change' }
           ],
           actopen: [
             { required: true, message: '请选择开放类型', trigger: 'change' }
           ],
           actType: [
             { required: true, message: '请选择活动类型', trigger: 'change' }
+          ],
+          actCycle: [
+            { required: true, message: '请选择定时周期', trigger: 'change' }
           ],
           cityarea: [
             { required: true, message: '请选择活动区域', trigger: 'change' }
@@ -200,7 +209,6 @@
             type:'error'
           })
         }
-
       },
       removeSginPoint(index){
         if(this.pointArr.length>1){
@@ -328,6 +336,7 @@
         let _self=this;
         let params = {
           name:this.form.actname,
+          num:this.form.actnum,
           servicetype:this.form.actType,
           simpleaddress:this.form.simpleaddress,
           address:this.form.address,
@@ -387,6 +396,9 @@
   }
   .pointArr3{
     width: 170px;
+  }
+  .fixSgintable{
+    width: 550px;
   }
 
 </style>
