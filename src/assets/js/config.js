@@ -8,7 +8,13 @@ let config={
   mapkey:'1ad687828622041a79c5ee76aa4a4fb2',
   userId:"",
   mobile:'',
-  userName:''
+  userName:'',
+  aliyun:{
+    endpoint:'http://oss-cn-hangzhou.aliyuncs.com',
+    bucketName:'zhulao-pro',
+    accessKeyId:'LTAIodQqmT91wJBB',
+    accessKeySecret:'F5hjfpVvmi6xPhYvc89wh1V4kImN7d'
+  }
 }
 
 if(sessionStorage.getItem('baseUserId')){

@@ -1,23 +1,54 @@
 <template>
   <div>
-    <gaomap :areamsg="areamsg"></gaomap>
+    <el-upload
+      class="upload-demo"
+      ref="upload"
+      :headers="headers"
+      :data="data"
+      :name="name"
+      action="http://oss-cn-hangzhou.aliyuncs.com/posts/"
+      :on-change="handleChange"
+      :on-exceed="handleExceed"
+      :http-request="uploadImg"
+      :auto-upload="true"
+      :limit="1"
+      list-type="picture">
+    </el-upload>
+    <el-button size="small" @click="uploadImg()" type="success">点击上传</el-button>
   </div>
 </template>
 
 <script>
-  import gaomap from '@/components/gaomap';
+  import config from '@/assets/js/config'
 
   export default {
     name: 'test',
     data(){
       return {
-        areamsg:{
-          adcode:330100,
-          address:'杭州市',
-          lng: 120.662449,
-          lat: 29.982132
-        }
+        headers:{
+          accessKeyId:config.aliyun.accessKeyId,
+          accessKeyId:config.aliyun.accessKeyId,
+          accessKeyId:config.aliyun.accessKeyId,
+          accessKeyId:config.aliyun.accessKeyId,
+          accessKeyId:config.aliyun.accessKeyId
+        },
+        data:{
+
+        },
+        name:''
       }
+    },
+    methods:{
+      handleChange(data){
+        this.imgData = data;
+      },
+      handleExceed(data){
+        this.imgData = data;
+      },
+      submitUpload() {
+        this.$refs.upload.submit();
+      },
+
     },
     components:{
       gaomap

@@ -124,11 +124,12 @@
         this.areamsg.lat = item.location.lat
       },
       submitPoint () {
+        let _self = this;
         _self.$emit('pointPicked',{
-          adcode:this.areamsg.adcode,
-          address:this.areamsg.address,
-          lng:this.areamsg.lng,
-          lat:this.areamsg.lat
+          adcode:_self.areamsg.adcode,
+          address:_self.areamsg.address,
+          lng:_self.areamsg.lng,
+          lat:_self.areamsg.lat
         })
       },
     },

@@ -77,7 +77,7 @@
       </el-form>
     </div>
     <el-dialog title="地图选点" :visible.sync="mapdialogVisible">
-      <gaomap></gaomap>
+      <gaomap :areamsg="areamsg" @pointPicked="getPoint"></gaomap>
     </el-dialog>
   </div>
 </template>
@@ -104,6 +104,12 @@
           initialFrameWidth: null,
           initialFrameHeight: 350
         },
+        areamsg:{
+          address:'',
+          adcode:'',
+          lng:'',
+          lat:''
+        },//默认签到地点
         form:{
           actImgUrl:'',
           actname:'',
@@ -169,9 +175,36 @@
         let content = this.$refs.ue.getUEContent();
         console.log(content)
       },
-      getcity:function (val) {
-        this.form.cityarea = val;
+      getcity (val) {
         console.log(val)
+        if(val.province){
+          this.form.cityarea = val.province.adcode;
+          this.form.provincecode = val.province.adcode;
+          this.form.citycode = val.city.adcode;
+          this.form.areacode = val.area.adcode;
+          this.form.simpleaddress = val.province.name+'-'+val.city.name+'-'+val.area.name;
+          this.areamsg.adcode = val.area.adcode;
+          this.$refs.addRecFormRef.fields[5].showMessage=false;
+        }else{
+          this.form.cityarea = '';
+          this.form.provincecode = '';
+          this.form.citycode = '';
+          this.form.areacode = '';
+          this.form.simpleaddress = '';
+          this.areamsg.adcode = '';
+          this.$refs.addRecFormRef.fields[5].showMessage=true;
+        }
+      },
+      getPoint(val){
+        this.mapdialogVisible = false;
+        console.log(val);
+        if(!val.lng){
+          this.$message('地点未选择');
+        }else{
+          this.form.lng = val.lng;
+          this.form.lat = val.lat;
+          this.form.address = val.address;
+        }
       },
       handleChange(file, fileList) {
         console.log('232323s');
