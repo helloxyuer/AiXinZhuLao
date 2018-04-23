@@ -11,7 +11,7 @@
         @select="handleSelect"
       ></el-autocomplete>
     </div>
-    <div class="signBox">
+    <div class="signBox" v-if="isSgin">
       <span>类型:</span>
       <el-select v-model="sgin.type" placeholder="请选择签到类型">
         <el-option label="只可签到" value="in"></el-option>
@@ -19,7 +19,7 @@
         <el-option label="可签到/可签退" value="inandout"></el-option>
       </el-select>
     </div>
-    <div class="signBox">
+    <div class="signBox" v-if="isSgin">
       <span>范围:</span>
       <el-select v-model="sgin.around" placeholder="请选择签到范围">
         <el-option label="500M" value="500"></el-option>
@@ -47,6 +47,10 @@
             lat: ''
           }
         }
+      },
+      isSgin:{
+        type:Boolean,
+        default:false
       }
     },
     data () {

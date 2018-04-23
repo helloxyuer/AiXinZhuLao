@@ -55,11 +55,21 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="签到地点">
-          <div>
-            <div></div>
+          <div class="pointArrBox">
+            <div v-for="(item,index) in pointArr">
+              <div class="pointArr1" @click="setThePoint(item,index)">
+                <span>详细地址:</span>
+              </div>
+              <div class="pointArr2" @click="setThePoint(item,index)">
+                <span>签到范围:</span>
+              </div>
+              <div class="pointArr3" @click="setThePoint(item,index)">
+                <span>类型:</span>
+              </div>
+              <button @click="removeSginPoint(index)"><i class="el-icon-remove-outline"></i></button>
+            </div>
             <div>
-              <button @click="addSginPoint" class="el-icon-circle-plus-outline"></button>
-              <button class="el-icon-remove-outline"></button>
+              <button @click="addSginPoint()"><i class="el-icon-circle-plus-outline"></i></button>
             </div>
           </div>
         </el-form-item>
@@ -72,7 +82,7 @@
       </el-form>
     </div>
     <el-dialog title="地图选点" :visible.sync="mapdialogVisible">
-      <gaomap :areamsg="areamsg" @pointPicked="getPoint"></gaomap>
+      <gaomap :areamsg="areamsg" :isSgin="true" @pointPicked="getPoint"></gaomap>
     </el-dialog>
   </div>
 </template>
@@ -98,6 +108,19 @@
           initialFrameWidth: null,
           initialFrameHeight: 350
         },
+        pointArr:[{
+          address:'',
+          adcode:'',
+          lng:'',
+          lat:'',
+        }],
+        choicePointItem:{
+          address:'',
+          adcode:'',
+          lng:'',
+          lat:'',
+        },
+        choicePointIndex:0,
         areamsg:{
           address:'',
           adcode:'',
@@ -158,6 +181,30 @@
         })
       },
       addSginPoint(){
+        if(this.pointArr.length<20){
+          this.pointArr.push({
+            address:'',
+            adcode:'',
+            lng:'',
+            lat:'',
+          })
+        }else {
+          this.$message('至多20个签到点')
+        }
+
+      },
+      removeSginPoint(index){
+        if(this.pointArr.length>1){
+          this.pointArr.splice(index,1)
+        }else {
+          this.$message('至少有一个签到点')
+        }
+      },
+      setThePoint(item,index){
+        this.choicePointIndex = index;
+        this.choicePointItem = item;
+      },
+      getPoint(val){
 
       },
       getcity (val) {
@@ -196,6 +243,33 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .pointArrBox{
+    width: 700px;
+  }
+  .pointArr1,.pointArr2,.pointArr3{
+    -webkit-appearance: none;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #606266;
+    float: left;
+    font-size: inherit;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px;
+    margin-right: 10px;
+  }
+  .pointArr1{
+    width: 300px;
+  }
+  .pointArr2{
+    width: 150px;
+  }
+  .pointArr3{
+    width: 170px;
+  }
 
 </style>
 
