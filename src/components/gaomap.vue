@@ -14,9 +14,9 @@
     <div class="signBox" v-if="isSgin">
       <span>类型:</span>
       <el-select v-model="sgin.type" placeholder="请选择签到类型">
-        <el-option label="只可签到" value="in"></el-option>
-        <el-option label="只可签退" value="out"></el-option>
-        <el-option label="可签到/可签退" value="inandout"></el-option>
+        <el-option label="只可签到" value="2"></el-option>
+        <el-option label="只可签退" value="3"></el-option>
+        <el-option label="可签到/可签退" value="1"></el-option>
       </el-select>
     </div>
     <div class="signBox" v-if="isSgin">
@@ -83,7 +83,18 @@
         mapVo.marker = marker
 
         AMap.plugin('AMap.Geocoder', function () {
-          var geocoder = new AMap.Geocoder()
+          let geocoder = new AMap.Geocoder()
+          let mapCenter = map.getCenter();
+          _self.areamsg.lng = mapCenter.lng;
+          _self.areamsg.lat = mapCenter.lat;
+          geocoder.getAddress(mapCenter, function (status, result) {
+            if (status == 'complete') {
+              _self.areamsg.address = result.regeocode.formattedAddress
+              _self.areamsg.adcode = result.regeocode.addressComponent.adcode
+            }
+          })
+
+
           map.on('click', function (e) {
             marker.setPosition(e.lnglat);
             map.setCenter(e.lnglat);
@@ -129,12 +140,23 @@
       },
       submitPoint () {
         let _self = this;
-        _self.$emit('pointPicked',{
-          adcode:_self.areamsg.adcode,
-          address:_self.areamsg.address,
-          lng:_self.areamsg.lng,
-          lat:_self.areamsg.lat
-        })
+        if(!this.isSgin){
+          _self.$emit('pointPicked',{
+            adcode:_self.areamsg.adcode,
+            address:_self.areamsg.address,
+            lng:_self.areamsg.lng,
+            lat:_self.areamsg.lat
+          })
+        }else{
+          _self.$emit('pointPicked',{
+            adcode:_self.areamsg.adcode,
+            address:_self.areamsg.address,
+            lng:_self.areamsg.lng,
+            lat:_self.areamsg.lat,
+            sginType:_self.sgin.type,
+            sginAround:_self.sgin.around,
+          })
+        }
       },
     },
     mounted () {

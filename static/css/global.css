@@ -156,6 +156,11 @@ input{
   padding: 20px 0;
   text-align: left;
 }
+.moreHide{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 /*提示窗样式*/
 .centerBox{
   position: fixed;

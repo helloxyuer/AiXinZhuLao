@@ -57,14 +57,16 @@
         <el-form-item label="签到地点">
           <div class="pointArrBox">
             <div v-for="(item,index) in pointArr">
-              <div class="pointArr1" @click="setThePoint(item,index)">
-                <span>详细地址:</span>
-              </div>
+              <div class="pointArr1 moreHide" @click="setThePoint(item,index)">详细地址: {{item.address}}</div>
               <div class="pointArr2" @click="setThePoint(item,index)">
                 <span>签到范围:</span>
+                <span v-if="item.sginAround">{{item.sginAround+'Km'}}</span>
               </div>
               <div class="pointArr3" @click="setThePoint(item,index)">
                 <span>类型:</span>
+                <span v-if="item.sginType==1">可签到/可签退</span>
+                <span v-if="item.sginType==2">只可签到</span>
+                <span v-if="item.sginType==3">只可签退</span>
               </div>
               <button @click="removeSginPoint(index)"><i class="el-icon-remove-outline"></i></button>
             </div>
@@ -81,8 +83,8 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-dialog title="地图选点" :visible.sync="mapdialogVisible">
-      <gaomap :areamsg="areamsg" :isSgin="true" @pointPicked="getPoint"></gaomap>
+    <el-dialog :title="'第'+(choicePointIndex+1)+'个签到点'" :visible.sync="mapdialogVisible">
+      <gaomap :areamsg="choicePointItem" :isSgin="true" @pointPicked="getPoint"></gaomap>
     </el-dialog>
   </div>
 </template>
@@ -121,12 +123,6 @@
           lat:'',
         },
         choicePointIndex:0,
-        areamsg:{
-          address:'',
-          adcode:'',
-          lng:'',
-          lat:''
-        },//默认签到地点
         mapdialogVisible:false,
         form:{
           actname:'',
@@ -203,8 +199,31 @@
       setThePoint(item,index){
         this.choicePointIndex = index;
         this.choicePointItem = item;
+        this.mapdialogVisible = true;
       },
       getPoint(val){
+        console.log(val);
+        this.mapdialogVisible = false;
+        if(!val.lng){
+          this.$message('地点未选择');
+          return
+        }
+        if(!val.sginType){
+          this.$message('签到时间未选!');
+          return
+        }
+        if(!val.sginAround){
+          this.$message('签到时间未选!');
+          return
+        }
+        this.pointArr[this.choicePointIndex]={
+          address:val.address,
+          adcode:val.adcode,
+          sginAround:val.sginAround,
+          sginType:val.sginType,
+          lng:val.lng,
+          lat:val.lat
+        };
 
       },
       getcity (val) {
@@ -215,14 +234,12 @@
           this.form.citycode = val.city.adcode;
           this.form.areacode = val.area.adcode;
           this.form.simpleaddress = val.province.name+'-'+val.city.name+'-'+val.area.name;
-          this.areamsg.adcode = val.area.adcode;
         }else{
           this.form.cityarea = '';
           this.form.provincecode = '';
           this.form.citycode = '';
           this.form.areacode = '';
           this.form.simpleaddress = '';
-          this.areamsg.adcode = '';
         }
       },
       addSignAct(){
@@ -258,7 +275,7 @@
     font-size: inherit;
     height: 30px;
     line-height: 30px;
-    padding: 0 15px;
+    padding-left:15px;
     margin-right: 10px;
   }
   .pointArr1{
