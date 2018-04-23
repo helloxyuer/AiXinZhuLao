@@ -28,7 +28,7 @@
           <cityPicker @citypicked="getcity"></cityPicker>
         </el-form-item>
         <el-form-item label="详细地址">
-          <el-input v-model="form.address"></el-input>
+          <el-input v-model="form.address" @focus="showMap()"></el-input>
         </el-form-item>
         <el-form-item label="定时周期">
           <el-select v-model="form.actCycle" placeholder="请选择定时周期">
@@ -84,7 +84,7 @@
       </el-form>
     </div>
     <el-dialog :title="'第'+(choicePointIndex+1)+'个签到点'" :visible.sync="mapdialogVisible">
-      <gaomap :areamsg="choicePointItem" :isSgin="true" @pointPicked="getPoint"></gaomap>
+      <gaomap :areamsg="choicePointItem" :isSgin="isSgin" @pointPicked="getPoint"></gaomap>
     </el-dialog>
   </div>
 </template>
@@ -128,6 +128,7 @@
         },
         choicePointIndex:0,
         mapdialogVisible:false,
+        isSgin:false,//是否为选签到点
         form:{
           actname:'',
           actnum:'',
@@ -135,9 +136,12 @@
           actType:'',
           cityarea:'',
           address:'',
+          lng:'',
+          lat:'',
           actTime1:'',
           actTime2:'',
           text:'',
+          state:0
         },
         rules: {
           actname: [
@@ -209,43 +213,66 @@
         }
       },
       setThePoint(item,index){
+        this.mapdialogVisible = true;
+        this.isSgin = true;
         this.choicePointIndex = index;
         this.choicePointItem = item;
+      },
+      showMap(){
         this.mapdialogVisible = true;
+        this.isSgin = false;
+        this.choicePointItem = {
+          lng:this.form.lng,
+          lat:this.form.lat,
+          address:this.form.address,
+        };
+
       },
       getPoint(val){
         console.log(val);
         this.mapdialogVisible = false;
-        if(!val.lng){
-          this.$message({
-            message:'地点未选择',
-            type:'error'
-          });
-          return
+        if(this.isSgin){
+          if(!val.lng){
+            this.$message({
+              message:'地点未选择',
+              type:'error'
+            });
+            return
+          }
+          if(!val.type){
+            this.$message({
+              message:'签到时间未选',
+              type:'error'
+            });
+            return
+          }
+          if(!val.ranges){
+            this.$message({
+              message:'签到时间未选',
+              type:'error'
+            });
+            return
+          }
+          this.pointArr[this.choicePointIndex]={
+            address:val.address,
+            adcode:val.adcode,
+            ranges:val.ranges,
+            type:val.type,
+            lng:val.lng,
+            lat:val.lat
+          };
+        }else{
+          if(!val.lng){
+            this.$message({
+              message:'地点未选择',
+              type:'error'
+            });
+          }else {
+            this.form.lng = val.lng;
+            this.form.lat = val.lat;
+            this.form.address = val.address;
+          }
         }
-        if(!val.type){
-          this.$message({
-            message:'签到时间未选',
-            type:'error'
-          });
-          return
-        }
-        if(!val.ranges){
-          this.$message({
-            message:'签到时间未选',
-            type:'error'
-          });
-          return
-        }
-        this.pointArr[this.choicePointIndex]={
-          address:val.address,
-          adcode:val.adcode,
-          ranges:val.ranges,
-          type:val.type,
-          lng:val.lng,
-          lat:val.lat
-        };
-
       },
       getcity (val) {
         console.log(val)
