@@ -60,13 +60,13 @@
               <div class="pointArr1 moreHide" @click="setThePoint(item,index)">详细地址: {{item.address}}</div>
               <div class="pointArr2" @click="setThePoint(item,index)">
                 <span>签到范围:</span>
-                <span v-if="item.sginAround">{{item.sginAround+'Km'}}</span>
+                <span v-if="item.ranges">{{item.ranges+'Km'}}</span>
               </div>
               <div class="pointArr3" @click="setThePoint(item,index)">
                 <span>类型:</span>
-                <span v-if="item.sginType==1">可签到/可签退</span>
-                <span v-if="item.sginType==2">只可签到</span>
-                <span v-if="item.sginType==3">只可签退</span>
+                <span v-if="item.type==1">可签到/可签退</span>
+                <span v-if="item.type==2">只可签到</span>
+                <span v-if="item.type==3">只可签退</span>
               </div>
               <button @click="removeSginPoint(index)"><i class="el-icon-remove-outline"></i></button>
             </div>
@@ -115,12 +115,16 @@
           adcode:'',
           lng:'',
           lat:'',
+          ranges:'',
+          type:'',
         }],
         choicePointItem:{
           address:'',
           adcode:'',
           lng:'',
           lat:'',
+          ranges:'',
+          type:'',
         },
         choicePointIndex:0,
         mapdialogVisible:false,
@@ -183,9 +187,14 @@
             adcode:'',
             lng:'',
             lat:'',
+            ranges:'',
+            type:'',
           })
         }else {
-          this.$message('至多20个签到点')
+          this.$message({
+            message:'至多20个签到点',
+            type:'error'
+          })
         }
 
       },
@@ -193,7 +202,10 @@
         if(this.pointArr.length>1){
           this.pointArr.splice(index,1)
         }else {
-          this.$message('至少有一个签到点')
+          this.$message({
+            message:'至少有一个签到点',
+            type:'error'
+          })
         }
       },
       setThePoint(item,index){
@@ -205,22 +217,31 @@
         console.log(val);
         this.mapdialogVisible = false;
         if(!val.lng){
-          this.$message('地点未选择');
+          this.$message({
+            message:'地点未选择',
+            type:'error'
+          });
           return
         }
-        if(!val.sginType){
-          this.$message('签到时间未选!');
+        if(!val.type){
+          this.$message({
+            message:'签到时间未选',
+            type:'error'
+          });
           return
         }
-        if(!val.sginAround){
-          this.$message('签到时间未选!');
+        if(!val.ranges){
+          this.$message({
+            message:'签到时间未选',
+            type:'error'
+          });
           return
         }
         this.pointArr[this.choicePointIndex]={
           address:val.address,
           adcode:val.adcode,
-          sginAround:val.sginAround,
-          sginType:val.sginType,
+          ranges:val.ranges,
+          type:val.type,
           lng:val.lng,
           lat:val.lat
         };

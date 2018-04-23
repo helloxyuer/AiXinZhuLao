@@ -196,7 +196,10 @@
         this.mapdialogVisible = false;
         console.log(val);
         if(!val.lng){
-          this.$message('地点未选择');
+          this.$message({
+            message:'地点未选择',
+            type:'error'
+          });
         }else{
           this.form.lng = val.lng;
           this.form.lat = val.lat;
@@ -222,7 +225,10 @@
         });
       },
       handleExceed(file, fileList) {
-        this.$message('图片只能上传一张！');
+        this.$message({
+          message:'图片只能上传一张',
+          type:'error'
+        });
       },
       handlePreview(file) {
         this.dialogImageUrl = file.url;
@@ -238,7 +244,10 @@
             if (valid) {
               _self.addRecAct()
             } else {
-              _self.$message('请输入正确的信息');
+              _self.$message({
+                message:'请输入正确的信息',
+                type:'error'
+              });
               return false;
             }
           });

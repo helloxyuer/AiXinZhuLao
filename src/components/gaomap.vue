@@ -13,7 +13,7 @@
     </div>
     <div class="signBox" v-if="isSgin">
       <span>类型:</span>
-      <el-select v-model="sgin.type" placeholder="请选择签到类型">
+      <el-select v-model="areamsg.type" placeholder="请选择签到类型">
         <el-option label="只可签到" value="2"></el-option>
         <el-option label="只可签退" value="3"></el-option>
         <el-option label="可签到/可签退" value="1"></el-option>
@@ -21,7 +21,7 @@
     </div>
     <div class="signBox" v-if="isSgin">
       <span>范围:</span>
-      <el-select v-model="sgin.around" placeholder="请选择签到范围">
+      <el-select v-model="areamsg.ranges" placeholder="请选择签到范围">
         <el-option label="500M" value="500"></el-option>
         <el-option label="1KM" value="1000"></el-option>
         <el-option label="2KM" value="2000"></el-option>
@@ -44,7 +44,9 @@
             adcode: '',
             address: '',
             lng: '',
-            lat: ''
+            lat: '',
+            ranges:'',
+            type:'',
           }
         }
       },
@@ -55,10 +57,7 @@
     },
     data () {
       return {
-        sgin:{
-          type:'',
-          around:''
-        }
+
       }
     },
     methods: {
@@ -153,8 +152,8 @@
             address:_self.areamsg.address,
             lng:_self.areamsg.lng,
             lat:_self.areamsg.lat,
-            sginType:_self.sgin.type,
-            sginAround:_self.sgin.around,
+            type:_self.areamsg.type,
+            ranges:_self.areamsg.ranges,
           })
         }
       },

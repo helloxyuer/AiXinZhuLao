@@ -96,7 +96,10 @@
           if (valid) {
             this.submitData();
           } else {
-            this.$message('请输入正确的信息');
+            this.$message({
+              message:'请输入正确的信息',
+              type:'error'
+            });
             return false;
           }
         });
