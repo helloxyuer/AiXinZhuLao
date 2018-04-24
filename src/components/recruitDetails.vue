@@ -33,7 +33,7 @@
       getDetails(){
         let _self = this;
         let params = {
-          userId:this.$route.query.volId
+          userId:this.$route.query.recId
         }
         untils.JsonAxios().post('manage/orguser/voluserinfo',params).then(function (res) {
           if(res.code==0){
