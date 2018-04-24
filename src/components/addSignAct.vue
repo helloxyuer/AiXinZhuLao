@@ -39,12 +39,6 @@
         <el-form-item label="详细地址" prop="address">
           <el-input v-model="form.address" @focus="showMap()"></el-input>
         </el-form-item>
-        <el-form-item label="定时周期" prop="actCycle">
-          <el-select v-model="form.actCycle" placeholder="请选择定时周期">
-            <el-option label="每周定时举行" value="week"></el-option>
-            <el-option label="每月定时举行" value="mouth"></el-option>
-          </el-select>
-        </el-form-item>
         <el-form-item label="活动进行时间" prop="actTime1">
           <el-date-picker
             v-model="form.actTime1"
@@ -58,9 +52,12 @@
         <el-form-item label="活动签到/签退时间" prop="actTime2">
           <el-date-picker
             v-model="form.actTime2"
-            type="daterange"
+            type="datetimerange"
             value-format="yyyy-MM-dd"
             range-separator="至"
+            :picker-options="{
+              firstDayOfWeek:'3',
+            }"
             start-placeholder="活动签到时间"
             end-placeholder="活动签退时间">
           </el-date-picker>
@@ -71,7 +68,7 @@
               <div class="pointArr1 moreHide" @click="setThePoint(item,index)">详细地址: {{item.address}}</div>
               <div class="pointArr2" @click="setThePoint(item,index)">
                 <span>签到范围:</span>
-                <span v-if="item.ranges">{{item.ranges+'Km'}}</span>
+                <span v-if="item.ranges">{{item.ranges+'m'}}</span>
               </div>
               <div class="pointArr3" @click="setThePoint(item,index)">
                 <span>类型:</span>
@@ -79,7 +76,7 @@
                 <span v-if="item.type==2">只可签到</span>
                 <span v-if="item.type==3">只可签退</span>
               </div>
-              <button @click="removeSginPoint(index)"><i class="el-icon-remove-outline"></i></button>
+              <button @click.prevent="removeSginPoint(index)"><i class="el-icon-remove-outline"></i></button>
             </div>
             <div>
               <button @click.prevent="addSginPoint()"><i class="el-icon-circle-plus-outline"></i></button>
@@ -153,7 +150,6 @@
           actTime1:'',
           actTime2:'',
           details:'',
-          actCycle:'',
           relationid:'',
           state:0
         },
@@ -175,9 +171,6 @@
           ],
           actType: [
             { required: true, message: '请选择活动类型', trigger: 'change' }
-          ],
-          actCycle: [
-            { required: true, message: '请选择定时周期', trigger: 'change' }
           ],
           cityarea: [
             { required: true, message: '请选择活动区域', trigger: 'change' }
@@ -382,7 +375,7 @@
         console.log(params)
         untils.JsonAxios().post('manage/signact/save',params).then(function (res) {
           if(res.code==0){
-            this.$router.push({name:'sginList'})
+            _self.$router.push({name:'sginList'})
           }
         })
       }

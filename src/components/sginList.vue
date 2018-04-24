@@ -87,7 +87,7 @@
             <el-button><i class="el-icon-view"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
-            <el-button><i class="el-icon-delete"></i></el-button>
+            <el-button @click="opendeleteDialog(scope.row)"><i class="el-icon-delete"></i></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -103,6 +103,16 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pageTotal">
     </el-pagination>
+    <el-dialog
+      title="删除提示"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <span>确认要删除该签到活动？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="success" @click="deleteSgin()">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -133,6 +143,8 @@
         actName:'',
         actNameStatus:'',
         actNameTime:'',
+        dialogVisible:false,
+        RecToDel:{}
       }
     },
     methods: {
@@ -172,11 +184,17 @@
         console.log(data)
         this.$router.push({name:'sginListManage',query:{sginId:data.uuid,sginName:data.name}})
       },
+      //打开弹窗
+      opendeleteDialog(x){
+        this.dialogVisible = true;
+        this.RecToDel = x;
+      },
       //删除签到
       deleteSgin (x) {
+        this.dialogVisible = false;
         let _self=this;
         let params ={
-          signActId:x.uuid,
+          signActId:_self.RecToDel.uuid,
         }
         untils.JsonAxios().post('manage/signact/delete',params).then(function (res) {
           if(res.code==0){
@@ -184,6 +202,7 @@
           }
         })
       },
+
     },
     created(){
       this.getVolList();

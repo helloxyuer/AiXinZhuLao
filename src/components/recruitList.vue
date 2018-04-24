@@ -121,9 +121,9 @@
       width="30%">
       <span>确认要删除该招募活动？</span>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="success" @click="deleteRecruit()">确 定</el-button>
-  </span>
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="success" @click="deleteRecruit()">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
