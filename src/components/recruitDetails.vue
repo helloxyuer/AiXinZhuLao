@@ -1,6 +1,6 @@
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">志愿者详情</div>
+    <div class="volTableTitleBox">签到活动详情</div>
     <el-form class="adminTable" label-width="100px">
       <el-form-item label="姓名">
         <span>{{userData.name}}</span>
