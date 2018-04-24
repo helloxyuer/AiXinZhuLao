@@ -81,8 +81,10 @@
         sortable
         min-width="80">
         <template slot-scope="scope">
-          <span class="volstatus1" v-if="scope.row.state==0">待审核</span>
-          <span class="volstatus2" v-if="scope.row.state==1">通过</span>
+          <span class="volstatus5" v-if="scope.row.state==0">草稿</span>
+          <span class="volstatus1" v-if="scope.row.state==1">待审核</span>
+          <span class="volstatus4" v-if="scope.row.state==2">通过</span>
+          <span class="volstatus2" v-if="scope.row.state==3">不通过</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -96,8 +98,8 @@
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
             <el-button><i class="el-icon-view"></i></el-button>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
-            <el-button><i class="el-icon-delete"></i></el-button>
+          <el-tooltip v-if="scope.row.state!=2" class="item" effect="dark" content="删除" placement="top-start">
+            <el-button @click="opendeleteDialog(scope.row)"><i class="el-icon-delete"></i></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -113,6 +115,16 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pageTotal">
     </el-pagination>
+    <el-dialog
+      title="删除提示"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <span>确认要删除该招募活动？</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="success" @click="deleteRecruit()">确 定</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -143,13 +155,15 @@
         actName:'',
         actNameStatus:'',
         actNameTime:'',
+        dialogVisible:false,
+        RecToDel:{}
       }
     },
     methods: {
       getVolList (status) {
         let _self=this;
         let params ={
-          state:status||'0',
+          state:status,
           type:1,
           page:_self.pageIndex,
           limit:_self.pageSize,
@@ -181,7 +195,25 @@
       gotoRecList(data){
         console.log(data)
         this.$router.push({name:'recruitListManage',query:{recId:data.uuid,recName:data.name}})
-      }
+      },
+      //打开弹窗
+      opendeleteDialog(x){
+        this.dialogVisible = true;
+        this.RecToDel = x;
+      },
+      //删除招募
+      deleteRecruit () {
+        this.dialogVisible = false;
+        let _self=this;
+        let params ={
+          actId:_self.RecToDel.uuid,
+        }
+        untils.JsonAxios().post('manage/act/delete',params).then(function (res) {
+          if(res.code==0){
+            _self.getVolList();
+          }
+        })
+      },
     },
     created(){
       this.getVolList();

@@ -171,7 +171,19 @@
       gotoSginList(data){
         console.log(data)
         this.$router.push({name:'sginListManage',query:{sginId:data.uuid,sginName:data.name}})
-      }
+      },
+      //删除签到
+      deleteSgin (x) {
+        let _self=this;
+        let params ={
+          signActId:x.uuid,
+        }
+        untils.JsonAxios().post('manage/signact/delete',params).then(function (res) {
+          if(res.code==0){
+            _self.getVolList();
+          }
+        })
+      },
     },
     created(){
       this.getVolList();

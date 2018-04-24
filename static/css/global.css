@@ -49,6 +49,8 @@ input{
   position: relative;
   min-height: calc(100vh - 161px);
   background: #fff;
+  padding-bottom: 50px;
+  box-sizing: border-box;
 }
 .mypagination{
   position: absolute;
@@ -144,8 +146,20 @@ input{
   border-radius: 4px;
   padding: 3px 5px;
 }
+.volstatus4{
+  background: #409EFF;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 3px 5px;
+}
 .volstatus3{
   background: #111111;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 3px 5px;
+}
+.volstatus5{
+  background: #E6A23C;
   color: #ffffff;
   border-radius: 4px;
   padding: 3px 5px;

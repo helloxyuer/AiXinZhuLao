@@ -209,7 +209,13 @@
       submitUpload(cb) {
         let _self = this;
         let imgData = this.$refs.upload.uploadFiles[0];
-        console.log(imgData);
+        if(!imgData){
+          _self.$message({
+            message:'请选择图片',
+            type:'error'
+          });
+          return
+        }
         let client = new OSS.Wrapper({
           region: config.aliyun.region,
           accessKeyId: config.aliyun.accessKeyId,
@@ -257,6 +263,12 @@
         this.mapdialogVisible = true;
       },
       addRecAct(){
+        const loading = this.$loading({
+          lock: true,
+          text: '信息提交中...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.2)'
+        });
         let _self=this;
         let params = {
           name:this.form.actname,
@@ -277,10 +289,12 @@
           state:0
         };
         untils.JsonAxios().post('manage/act/save',params).then(function (res) {
+          loading.close();
           if(res.code==0){
-            _self.actType = res.data;
-            console.log(res.data)
+            _self.$router.push({name:'recruitList'})
           }
+        },function () {
+          loading.close();
         })
       }
     },
