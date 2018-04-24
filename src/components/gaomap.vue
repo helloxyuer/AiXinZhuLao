@@ -74,44 +74,28 @@
           animation: 'AMAP_ANIMATION_DROP',
           draggable: true
         })
-        if(_self.areamsg.lng){
-          let point = new AMap.LngLat(_self.areamsg.lng,_self.areamsg.lat)
-          marker.setPosition(point);
-          map.setCenter(point);
-        }
         mapVo.marker = marker
 
+        let circle = new AMap.Circle({
+          strokeOpacity: 0.3,
+          strokeColor: '#06c1ad',
+          fillOpacity: 0.3,
+          fillColor: '#06DECA',
+          radius: 0
+        })
+        mapVo.circle = circle
+
         AMap.plugin('AMap.Geocoder', function () {
-          let geocoder = new AMap.Geocoder()
+          mapVo.geocoder = new AMap.Geocoder()
           let mapCenter = map.getCenter();
-          _self.areamsg.lng = mapCenter.lng;
-          _self.areamsg.lat = mapCenter.lat;
-          geocoder.getAddress(mapCenter, function (status, result) {
-            if (status == 'complete') {
-              console.log('point')
-              _self.areamsg.address = result.regeocode.formattedAddress
-              _self.areamsg.adcode = result.regeocode.addressComponent.adcode
-            }
-          })
-
-
+          _self.resetMap(mapCenter)
           map.on('click', function (e) {
-            marker.setPosition(e.lnglat);
-            map.setCenter(e.lnglat);
-            _self.areamsg.lng = e.lnglat.lng;
-            _self.areamsg.lat = e.lnglat.lat;
-            geocoder.getAddress(e.lnglat, function (status, result) {
-              if (status == 'complete') {
-                _self.areamsg.address = result.regeocode.formattedAddress
-                _self.areamsg.adcode = result.regeocode.addressComponent.adcode
-              }
-            })
+            _self.resetMap(e.lnglat)
           })
         })
 
         AMap.plugin(['AMap.Autocomplete', 'AMap.PlaceSearch'], function () {
           if(_self.areamsg.adcode){
-            console.log()
             mapVo.autoComplete = new AMap.Autocomplete({
               city:_self.areamsg.adcode,
               citylimit:true,
@@ -122,6 +106,27 @@
           }
         })
 
+      },
+      resetMap(point){
+        let _self = this
+        if(_self.isSgin){
+          mapVo.circle.setMap(mapVo.map);
+          mapVo.circle.setCenter(point);
+          mapVo.circle.setRadius(_self.areamsg.ranges||0);
+        }else{
+          mapVo.circle.setMap(null);
+        }
+        _self.areamsg.lng = point.lng;
+        _self.areamsg.lat = point.lat;
+        mapVo.marker.setPosition(point);
+        mapVo.map.setCenter(point);
+        mapVo.geocoder.getAddress(point, function (status, result) {
+          if (status == 'complete') {
+            console.log('point')
+            _self.areamsg.address = result.regeocode.formattedAddress
+            _self.areamsg.adcode = result.regeocode.addressComponent.adcode
+          }
+        })
       },
       querySearchAsync (queryString, cb) {
         mapVo.autoComplete.search(queryString, function (status, result) {
@@ -160,8 +165,22 @@
       },
     },
     mounted () {
-      console.log('mounted')
       this.newAmap()
+    },
+    watch: {
+      areamsg: {
+        handler(newValue, oldValue) {
+          let _self = this;
+          if(_self.areamsg.lng){
+            let point = new AMap.LngLat(_self.areamsg.lng,_self.areamsg.lat)
+            _self.resetMap(point)
+          }else{
+            let point = mapVo.map.getCenter();
+            _self.resetMap(point)
+          }
+        },
+        deep: true
+      },
     }
   }
 </script>
