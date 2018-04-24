@@ -5,6 +5,27 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">志愿者列表</div>
+    <div class="searchBar">
+      <el-input
+        placeholder="姓名"
+        class="volName"
+        v-model="volName"
+        clearable>
+      </el-input>
+      <el-input
+        placeholder="证件号"
+        class="volIdCard"
+        v-model="volIdCard"
+        clearable>
+      </el-input>
+      <el-input
+        placeholder="手机号"
+        class="volTel"
+        v-model="volTel"
+        clearable>
+      </el-input>
+      <el-button type="success" icon="el-icon-search">搜索</el-button>
+    </div>
     <el-table
       :data="tableData"
       class="volTable"
@@ -24,7 +45,7 @@
         min-width="180">
       </el-table-column>
       <el-table-column
-        prop="volcode"
+        prop="volunteernumber"
         label="志愿者编号"
         min-width="180">
       </el-table-column>
@@ -80,6 +101,9 @@
     name: 'volManage',
     data() {
       return {
+        volName:'',
+        volIdCard:'',
+        volTel:'',
         tableData: [],
         pageIndex:1,
         pageSize:10,
@@ -122,5 +146,13 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .volName{
+    width: 200px;
+  }
+  .volIdCard{
+    width: 300px;
+  }
+  .volTel{
+    width: 200px;
+  }
 </style>

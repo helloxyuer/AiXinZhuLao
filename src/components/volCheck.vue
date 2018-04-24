@@ -5,6 +5,27 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">志愿者审核</div>
+    <div class="searchBar">
+      <el-input
+        placeholder="姓名"
+        class="volName"
+        v-model="volName"
+        clearable>
+      </el-input>
+      <el-input
+        placeholder="证件号"
+        class="volIdCard"
+        v-model="volIdCard"
+        clearable>
+      </el-input>
+      <el-input
+        placeholder="手机号"
+        class="volTel"
+        v-model="volTel"
+        clearable>
+      </el-input>
+      <el-button type="success" icon="el-icon-search">搜索</el-button>
+    </div>
     <el-table
       :data="tableData"
       class="volTable"
@@ -24,7 +45,7 @@
         min-width="180">
       </el-table-column>
       <el-table-column
-        prop="volcode"
+        prop="volunteernumber"
         label="志愿者编号"
         min-width="180">
       </el-table-column>
@@ -50,11 +71,14 @@
         fixed="right"
         width="200">
         <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" content="通过" placement="top-start">
+            <el-button v-on:click="passVol(scope.row)"><i class="el-icon-check"></i></el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="拒绝" placement="top-start">
+            <el-button v-on:click="unpassVol(scope.row)"><i class="el-icon-close"></i></el-button>
+          </el-tooltip>
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
             <el-button v-on:click="checkDetails(scope.row)"><i class="el-icon-view"></i></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
-            <el-button><i class="el-icon-delete"></i></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -70,6 +94,30 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pageTotal">
     </el-pagination>
+    <el-dialog
+      title="通过"
+      :visible.sync="passVisible"
+      width="30%">
+      <span>确认要通过该志愿者？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="passVisible = false">取 消</el-button>
+        <el-button type="success" @click="submitpassVol()">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="拒绝"
+      :visible.sync="unpassVisible"
+      width="30%">
+      <span>确认要拒绝该志愿者？</span>
+      <div class="reasonDiv">
+        <span class="reasonSpan">拒绝理由(必填):</span>
+        <el-input class='reasonInput' v-model.trim="unpassReason" placeholder="请输入拒绝理由" clearable></el-input>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="unpassVisible = false">取 消</el-button>
+        <el-button type="success" @click="submitunpassVol()">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -80,10 +128,17 @@
     name: 'volCheck',
     data() {
       return {
+        volName:'',
+        volIdCard:'',
+        volTel:'',
         tableData: [],
         pageIndex:1,
         pageSize:10,
         pageTotal:0,
+        passVisible:false,
+        unpassVisible:false,
+        unpassReason:'',
+        checkedMan:{}
       }
     },
     methods: {
@@ -112,7 +167,50 @@
       handleCurrentChange(val) {
         this.pageIndex = val;
         this.getVolList();
-      }
+      },
+      passVol(vol){
+        this.checkedMan = vol;
+        this.passVisible = true;
+
+      },
+      submitpassVol(){
+        this.passVisible = false;
+        let _self=this;
+        let params ={
+          type:'1',
+          actsignupId:_self.checkedMan.userid,
+        }
+        untils.JsonAxios().post('manage/act/examine',params).then(function (res) {
+          if(res.code==0){
+            _self.getVolList();
+          }
+        })
+      },
+      unpassVol(vol){
+        this.checkedMan = vol;
+        this.unpassVisible = true;
+      },
+      submitunpassVol(){
+        let _self=this;
+        if(!_self.unpassReason){
+          _self.$message({
+            message:'拒绝理由为空',
+            type:'error'
+          })
+          return
+        }
+        this.unpassVisible = false;
+        let params ={
+          type:'2',
+          reason:_self.unpassReason,
+          actsignupId:_self.checkedMan.userid,
+        }
+        untils.JsonAxios().post('manage/act/examine',params).then(function (res) {
+          if(res.code==0){
+            _self.getVolList();
+          }
+        })
+      },
     },
     created(){
       this.getVolList();
@@ -122,6 +220,27 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .reasonDiv{
+    line-height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .reasonSpan{
+    float: left;
+    margin-right: 10px;
+  }
+  .reasonInput{
+    float: left;
+    width: 300px;
+  }
+  .volName{
+    width: 200px;
+  }
+  .volIdCard{
+    width: 300px;
+  }
+  .volTel{
+    width: 200px;
+  }
 </style>
 

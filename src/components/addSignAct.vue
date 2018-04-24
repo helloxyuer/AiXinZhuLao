@@ -55,9 +55,6 @@
             type="datetimerange"
             value-format="yyyy-MM-dd"
             range-separator="至"
-            :picker-options="{
-              firstDayOfWeek:'3',
-            }"
             start-placeholder="活动签到时间"
             end-placeholder="活动签退时间">
           </el-date-picker>

@@ -12,7 +12,7 @@
         v-model="actName"
         clearable>
       </el-input>
-      <el-select v-model="actNameStatus" clearable placeholder="请选择">
+      <el-select v-model="actNameStatus" clearable placeholder="状态">
         <el-option
           v-for="item in options"
           :key="item.value"
