@@ -18,8 +18,14 @@
         </el-form-item>
         <el-form-item label="开放类型" prop="actopen">
           <el-select v-model="form.actopen" placeholder="请选择开放类型">
-            <el-option label="全体开放" value="all"></el-option>
-            <el-option label="组织开放" value="org"></el-option>
+            <el-option label="全体开放" value="1"></el-option>
+            <el-option label="组织开放" value="2"></el-option>
+            <el-option label="关联签到活动" value="3"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="关联活动" prop="relationid" v-if="form.actopen==3">
+          <el-select v-model="form.relationid" placeholder="请选择关联活动">
+            <el-option v-for="x in relationAct" :key="x.uuid" :label="x.name" :value="x.uuid"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="活动类型" prop="actType">
@@ -109,7 +115,8 @@
     },
     data () {
       return {
-        actType:{},
+        actType:[],
+        relationAct:[],
         defaultMsg: '<p><span style="font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px;">招募要求：</span></p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">招募范围：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动内容：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动具体时间：</p><p><br/></p>',
         config: {
           initialFrameWidth: null,
@@ -147,6 +154,7 @@
           actTime2:'',
           details:'',
           actCycle:'',
+          relationid:'',
           state:0
         },
         rules: {
@@ -189,6 +197,15 @@
         untils.JsonAxios().post('sys/serviceTypelist',{}).then(function (res) {
           if(res.code==0){
             _self.actType = res.data;
+            console.log(res.data)
+          }
+        })
+      },
+      getRelationAct(){
+        let _self=this;
+        untils.JsonAxios().post('manage/act/signlisttosign',{}).then(function (res) {
+          if(res.code==0){
+            _self.relationAct = res.data.actlist;
             console.log(res.data)
           }
         })
@@ -314,15 +331,19 @@
         let _self = this;
         _self.form.details = _self.$refs.ue.getUEContent();
         _self.$refs[formName].validate((valid) => {
-          console.log(_self.form)
-          console.log(_self.pointArr)
-          console.log(valid)
-          return
           if (valid) {
             let rightPointArr = _self.checkPointArr();
-            if(rightPointArr){
-              _self.addSignAct()
+            if(_self.form.actopen==3 && !_self.form.relationid){
+              _self.$message({
+                message:'请选择关联活动',
+                type:'error'
+              });
+              return
             }
+            if(!rightPointArr){
+              return
+            }
+            _self.addSignAct()
           } else {
             _self.$message({
               message:'请输入正确的信息',
@@ -338,6 +359,7 @@
           name:this.form.actname,
           num:this.form.actnum,
           servicetype:this.form.actType,
+          opentype:this.form.actopen,
           simpleaddress:this.form.simpleaddress,
           address:this.form.address,
           provincecode:this.form.provincecode,
@@ -354,16 +376,20 @@
           state:0,
           range:this.pointArr
         };
+        if(params.opentype==3){
+          params.relationactivityid = params.relationid
+        }
+        console.log(params)
         untils.JsonAxios().post('manage/signact/save',params).then(function (res) {
           if(res.code==0){
-            _self.actType = res.data;
-            console.log(res.data)
+            this.$router.push({name:'sginList'})
           }
         })
       }
     },
     created () {
       this.getOrgTypeList();
+      this.getRelationAct();
     }
   }
 </script>

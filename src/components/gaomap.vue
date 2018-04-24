@@ -88,6 +88,7 @@
           _self.areamsg.lat = mapCenter.lat;
           geocoder.getAddress(mapCenter, function (status, result) {
             if (status == 'complete') {
+              console.log('point')
               _self.areamsg.address = result.regeocode.formattedAddress
               _self.areamsg.adcode = result.regeocode.addressComponent.adcode
             }
@@ -159,6 +160,7 @@
       },
     },
     mounted () {
+      console.log('mounted')
       this.newAmap()
     }
   }
