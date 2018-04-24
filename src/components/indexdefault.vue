@@ -44,12 +44,12 @@
         <ul class="task-list">
           <li>
             <el-badge :value="count.waitactsign" :max="99" class="item">
-              <span class="elSpan">待审核招募活动人员</span>
+              <span class="elSpan" @click="goRecCheck()">待审核招募活动人员</span>
             </el-badge>
           </li>
           <li>
             <el-badge :value="count.waitorgsign" :max="99" class="item">
-              <span class="elSpan">待审核加入组织人员</span>
+              <span class="elSpan" @click="goVolCheck()">待审核加入组织人员</span>
             </el-badge>
           </li>
         </ul>
@@ -87,6 +87,12 @@
           }
         })
       },
+      goRecCheck(){
+        this.$router.push({name:'recruitListManage'})
+      },
+      goVolCheck(){
+        this.$router.push({name:'volCheck'})
+      }
     },
     created () {
       this.getIndex()
@@ -169,6 +175,7 @@
     margin: 0 10px;
   }
   .elSpan{
+    cursor: pointer;
     padding-right: 20px;
   }
 </style>

@@ -52,12 +52,36 @@
         <el-form-item label="活动签到/签退时间" prop="actTime2">
           <el-date-picker
             v-model="form.actTime2"
-            type="datetimerange"
+            type="daterange"
             value-format="yyyy-MM-dd"
             range-separator="至"
-            start-placeholder="活动签到时间"
-            end-placeholder="活动签退时间">
+            start-placeholder="活动签到日期"
+            end-placeholder="活动签退日期">
           </el-date-picker>
+          <el-time-select
+            class="hourpicker1"
+            v-model="form.sginHour1"
+            value-format="HH-mm"
+            :picker-options="{
+              start: '00:00',
+              step: '00:30',
+              end: '24:00'
+            }"
+            :clearable="false"
+            placeholder="活动签到时间">
+          </el-time-select>
+          <el-time-select
+            class="hourpicker2"
+            v-model="form.sginHour2"
+            value-format="HH-mm"
+            :picker-options="{
+              start: '00:00',
+              step: '00:30',
+              end: '24:00'
+            }"
+            :clearable="false"
+            placeholder="活动签退时间">
+          </el-time-select>
         </el-form-item>
         <el-form-item label="签到地点">
           <div class="pointArrBox">
@@ -148,6 +172,8 @@
           actTime2:'',
           details:'',
           relationid:'',
+          sginHour1:'',
+          sginHour2:'',
           state:0
         },
         rules: {
@@ -416,6 +442,16 @@
   .fixSgintable{
     width: 550px;
   }
-
+  .hourpicker1{
+    float: left;
+    margin-top: 10px;
+    width:165px;
+  }
+  .hourpicker2{
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    width:165px;
+  }
 </style>
 
