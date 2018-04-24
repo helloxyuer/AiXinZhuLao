@@ -139,6 +139,20 @@ const router = new Router({
           },
         },
         {
+          path: 'recruitDetails',
+          name: 'recruitDetails',
+          component: (resolve)=> {
+            require(['@/components/recruitDetails'], resolve)
+          },
+        },
+        {
+          path: 'sginDetails',
+          name: 'sginDetails',
+          component: (resolve)=> {
+            require(['@/components/sginDetails'], resolve)
+          },
+        },
+        {
           path: 'addRecrutAct',
           name: 'addRecrutAct',
           component: (resolve)=> {

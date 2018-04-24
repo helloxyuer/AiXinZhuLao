@@ -1,10 +1,7 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">志愿者详情</div>
-    <el-form class="adminTable fixFormHead" label-width="100px">
-      <el-form-item label="头像">
-        <img class="headImg" :src="userData.hdportrait||headImg" alt="">
-      </el-form-item>
+    <el-form class="adminTable" label-width="100px">
       <el-form-item label="姓名">
         <span>{{userData.name}}</span>
       </el-form-item>
@@ -23,19 +20,17 @@
 
 <script>
   import untils from '@/assets/js/untils'
-  import headImg from './../assets/images/MRman.png'
 
   export default {
-    name: 'volDetails',
+    name: 'sginDetails',
     data () {
       return {
         userData:{
         },
-        headImg:headImg
       }
     },
     methods: {
-      getVolDetails(){
+      getDetails(){
         let _self = this;
         let params = {
           userId:this.$route.query.volId
@@ -49,16 +44,13 @@
       }
     },
     created () {
-      this.getVolDetails()
+      this.getDetails()
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .headImg{
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-  }
+
 </style>
+

@@ -97,7 +97,7 @@
             <el-button><i class="el-icon-edit-outline"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
-            <el-button><i class="el-icon-view"></i></el-button>
+            <el-button @click="goDetails(scope.row)"><i class="el-icon-view"></i></el-button>
           </el-tooltip>
           <el-tooltip v-if="scope.row.state!=2" class="item" effect="dark" content="删除" placement="top-start">
             <el-button @click="opendeleteDialog(scope.row)"><i class="el-icon-delete"></i></el-button>
@@ -214,6 +214,9 @@
             _self.getVolList();
           }
         })
+      },
+      goDetails(params){
+        this.$router.push({name:'recruitDetails',query:{recId:params.uuid }})
       },
     },
     created(){

@@ -85,7 +85,7 @@
         width="200">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
-            <el-button><i class="el-icon-view"></i></el-button>
+            <el-button @click="goDetails(scope.row)"><i class="el-icon-view"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
             <el-button @click="opendeleteDialog(scope.row)"><i class="el-icon-delete"></i></el-button>
@@ -203,7 +203,9 @@
           }
         })
       },
-
+      goDetails(params){
+        this.$router.push({name:'sginDetails',query:{sginId:params.uuid }})
+      },
     },
     created(){
       this.getVolList();

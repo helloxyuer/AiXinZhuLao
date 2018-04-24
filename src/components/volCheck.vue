@@ -78,7 +78,7 @@
             <el-button v-on:click="unpassVol(scope.row)"><i class="el-icon-close"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
-            <el-button v-on:click="checkDetails(scope.row)"><i class="el-icon-view"></i></el-button>
+            <el-button v-on:click="goDetails(scope.row)"><i class="el-icon-view"></i></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -157,7 +157,7 @@
           }
         })
       },
-      checkDetails(params){
+      goDetails(params){
         this.$router.push({name:'volDetails',query:{volId:params.userid }})
       },
       handleSizeChange(val) {

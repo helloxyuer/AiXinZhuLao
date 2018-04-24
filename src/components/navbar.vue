@@ -50,9 +50,9 @@
       <el-menu-item-group>
         <el-menu-item index="4-2" :route="{name:'volCheck'}">志愿者审核</el-menu-item>
       </el-menu-item-group>
-      <el-menu-item-group>
+     <!-- <el-menu-item-group>
         <el-menu-item index="4-3" :route="{name:'volHonorManage'}">富文本编辑器</el-menu-item>
-      </el-menu-item-group>
+      </el-menu-item-group>-->
     </el-submenu>
     <el-submenu index="5">
       <template slot="title">
