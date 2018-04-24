@@ -72,7 +72,7 @@
         let marker = new AMap.Marker({
           map: map,
           animation: 'AMAP_ANIMATION_DROP',
-          draggable: true
+          draggable: false
         })
         mapVo.marker = marker
 
