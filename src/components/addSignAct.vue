@@ -107,8 +107,13 @@
         <el-form-item label="活动详情" prop="details">
           <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
         </el-form-item>
-        <el-form-item>
-          <el-button type="success" @click="submitClick('addRecFormRef')">提交</el-button>
+        <el-form-item v-if="!sginId">
+          <el-button @click="submitClick('addRecFormRef',0)">草稿</el-button>
+          <el-button type="success" @click="submitClick('addRecFormRef',1)">提交</el-button>
+        </el-form-item>
+        <el-form-item v-if="sginId">
+          <el-button @click="submitClick('addRecFormRef',0)">修改草稿</el-button>
+          <el-button type="success" @click="submitClick('addRecFormRef',1)">修改提交</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -228,6 +233,7 @@
               _self.form.citycode = res.data.citycode;
               _self.form.areacode = res.data.areacode;
               _self.form.simpleaddress = res.data.simpleaddress;
+              _self.form.relationid = res.data.relationid;
               _self.form.actTime1 = [
                 res.data.begintime,
                 res.data.endtime];
@@ -376,7 +382,7 @@
         }
         return true;
       },
-      submitClick(formName) {
+      submitClick(formName,state) {
         let _self = this;
         _self.form.details = _self.$refs.ue.getUEContent();
         _self.$refs[formName].validate((valid) => {
@@ -392,7 +398,7 @@
             if(!rightPointArr){
               return
             }
-            _self.addSignAct()
+            _self.addSignAct(state)
           } else {
             _self.$message({
               message:'请输入正确的信息',
@@ -402,7 +408,7 @@
           }
         })
       },
-      addSignAct(){
+      addSignAct(state){
         let _self=this;
         let params = {
           name:this.form.actname,
@@ -422,7 +428,7 @@
           num:this.form.actnum,
           lng:this.form.lng,
           lat:this.form.lat,
-          state:0,
+          state:state,
           range:this.pointArr
         };
         if(params.opentype==3){
@@ -435,11 +441,21 @@
           params.signendtime = params.signendtime +' '+this.form.sginHour2
         }
         console.log(params)
-        untils.JsonAxios().post('manage/signact/save',params).then(function (res) {
-          if(res.code==0){
-            _self.$router.push({name:'sginList'})
-          }
-        })
+        if(_self.sginId){
+          params.uuid = _self.sginId;
+          untils.JsonAxios().post('manage/signact/update',params).then(function (res) {
+            if(res.code==0){
+              _self.$router.push({name:'sginList'})
+            }
+          })
+        }else{
+          untils.JsonAxios().post('manage/signact/save',params).then(function (res) {
+            if(res.code==0){
+              _self.$router.push({name:'sginList'})
+            }
+          })
+        }
+
       }
     },
     created () {

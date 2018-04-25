@@ -78,6 +78,12 @@
         label="状态"
         sortable
         min-width="80">
+        <template slot-scope="scope">
+          <span class="volstatus5" v-if="scope.row.state==0">草稿</span>
+          <span class="volstatus1" v-if="scope.row.state==1">待审核</span>
+          <span class="volstatus4" v-if="scope.row.state==2">通过</span>
+          <span class="volstatus2" v-if="scope.row.state==3">不通过</span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="name"

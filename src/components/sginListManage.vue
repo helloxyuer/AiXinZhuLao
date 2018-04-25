@@ -60,7 +60,7 @@
             <el-button><i class="el-icon-view"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="修改时长" placement="top-start">
-            <el-button @click="dialogTableVisible=!dialogTableVisible"><i class="el-icon-time"></i></el-button>
+            <el-button @click="changeTime(scope.row)"><i class="el-icon-time"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
             <el-button><i class="el-icon-delete"></i></el-button>
@@ -91,7 +91,7 @@
             clearable></el-input>
         </el-form-item>
       </el-form>
-      <el-button type="success" @click="changeTime()">提交</el-button>
+      <el-button type="success" @click="submitTime()">提交</el-button>
     </el-dialog>
   </div>
 </template>
@@ -113,7 +113,8 @@
         sginId:'',
         dialogTableVisible:false,
         gongshi:1,
-        changeReson:''
+        changeReson:'',
+        changeTimeMan:'',
       }
     },
     methods: {
@@ -140,6 +141,24 @@
       handleCurrentChange(val) {
         this.pageIndex = val;
         this.getVolList();
+      },
+      changeTime(val){
+        this.dialogTableVisible = true;
+        this.changeTimeMan = val;
+        this.gongshi = val.gongshi;
+      },
+      submitTime(){
+        let _self=this;
+        let params ={
+          reason:this.changeReson,
+          signactactid:this.changeTimeMan.signactactid,
+          upnum:this.gongshi,
+        }
+        untils.JsonAxios().post('manage/signact/signlist',params).then(function (res) {
+          if(res.code==0){
+            _self.getVolList(_self.sginId);
+          }
+        })
       }
     },
     created(){

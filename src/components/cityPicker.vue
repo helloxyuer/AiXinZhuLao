@@ -7,10 +7,10 @@
     <input
       class="_drAddrinput"
       v-bind:placeholder="drplaceholder"
-      v-model="showText"
+      v-model="showText1"
       readonly="readonly"
       v-on:click="showPancel()">
-    <a class="_draddrclearX" v-if="!!showText" v-on:click="_clearx()"></a>
+    <a class="_draddrclearX" v-if="!!showText1" v-on:click="_clearx()"></a>
     <div class="_areaBox" v-if="showAreaBox">
       <ul class="_citypicker_ul">
         <li v-for="x in proobj" v-on:click="choiceProvince(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
@@ -46,6 +46,7 @@
         drplaceholder:'请选择地址',
         proobj:[],
         choicedProvince:{},
+        showText1: this.showText,
         choicedCity:{},
         choicedArea:{},
       }
@@ -63,7 +64,7 @@
         _self.choicedProvince = province;
         _self.choicedCity = [];
         _self.choicedArea = [];
-        _self.showText =_self.choicedProvince.name;
+        _self.showText1 =_self.choicedProvince.name;
       },
       choiceCity(city){
         let _self = this;
@@ -72,7 +73,7 @@
         city.checked = true;
         _self.choicedCity = city;
         _self.choicedArea = [];
-        _self.showText =_self.choicedProvince.name+'-'+_self.choicedCity.name;
+        _self.showText1 =_self.choicedProvince.name+'-'+_self.choicedCity.name;
         if(_self.level=='city'){
           _self.showAreaBox = false;
           let result ={
@@ -93,7 +94,7 @@
         _self.choicedArea.checked = false;
         area.checked = true;
         _self.choicedArea = area;
-        _self.showText =_self.choicedProvince.name+_self.choicedCity.name+_self.choicedArea.name;
+        _self.showText1 =_self.choicedProvince.name+_self.choicedCity.name+_self.choicedArea.name;
         _self.showAreaBox = false;
         var result ={
           province:{
@@ -119,7 +120,7 @@
         _self.choicedProvince = {};
         _self.choicedCity = {};
         _self.choicedArea = {};
-        _self.showText = '';
+        _self.showText1 = '';
         _self.showAreaBox = false;
       }
     },
@@ -136,6 +137,13 @@
             }
           })
       }
+    },
+    watch: {
+      showText: {
+        handler(newValue, oldValue) {
+          this.showText1 = this.showText
+        }
+      },
     }
   }
 </script>

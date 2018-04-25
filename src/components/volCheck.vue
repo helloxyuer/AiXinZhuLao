@@ -74,10 +74,10 @@
         fixed="right"
         width="200">
         <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" content="通过" placement="top-start">
+          <el-tooltip v-if="scope.row.status==1" class="item" effect="dark" content="通过" placement="top-start">
             <el-button v-on:click="passVol(scope.row)"><i class="el-icon-check"></i></el-button>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="拒绝" placement="top-start">
+          <el-tooltip v-if="scope.row.status==1" class="item" effect="dark" content="拒绝" placement="top-start">
             <el-button v-on:click="unpassVol(scope.row)"><i class="el-icon-close"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
