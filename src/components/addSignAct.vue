@@ -223,7 +223,7 @@
           }
           untils.JsonAxios().post('manage/signact/info',params).then(function (res) {
             if(res.code==0){
-              _self.form.picurl = res.data.orghdportrait;
+              _self.form.picurl = res.data.picurl;
               _self.form.actname = res.data.name;
               _self.form.actnum = res.data.num;
               _self.form.actopen = res.data.opentype;
@@ -362,7 +362,7 @@
           this.form.provincecode = val.province.adcode;
           this.form.citycode = val.city.adcode;
           this.form.areacode = val.area.adcode;
-          this.form.simpleaddress = val.province.name+'-'+val.city.name+'-'+val.area.name;
+          this.form.simpleaddress = val.province.name+val.city.name+val.area.name;
         }else{
           this.form.provincecode = '';
           this.form.citycode = '';

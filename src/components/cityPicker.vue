@@ -73,7 +73,7 @@
         city.checked = true;
         _self.choicedCity = city;
         _self.choicedArea = [];
-        _self.showText1 =_self.choicedProvince.name+'-'+_self.choicedCity.name;
+        _self.showText1 =_self.choicedProvince.name+_self.choicedCity.name;
         if(_self.level=='city'){
           _self.showAreaBox = false;
           let result ={

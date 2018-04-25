@@ -31,6 +31,13 @@
         return this.editor.getContent()
       }
     },
+    watch: {
+      defaultMsg: {
+        handler(newValue, oldValue) {
+          this.editor.setContent(this.defaultMsg);
+        }
+      },
+    },
     destroyed() {
       this.editor.destroy();
     }

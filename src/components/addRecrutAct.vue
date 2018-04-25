@@ -23,7 +23,7 @@
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
-        <el-form-item label="旧头像">
+        <el-form-item label="旧头像" v-if="form.picurl">
           <img class="oldimg" @click="showBigImg()" :src="form.picurl" alt="">
         </el-form-item>
         <el-form-item label="活动名称" prop="actname">
@@ -70,7 +70,7 @@
           <el-button @click="submitClick('addRecFormRef',0)">草稿</el-button>
           <el-button type="success" @click="submitClick('addRecFormRef',1)">提交</el-button>
         </el-form-item>
-        <el-form-item v-if="!recId">
+        <el-form-item v-if="recId">
           <el-button @click="submitClick('addRecFormRef',0)">修改草稿</el-button>
           <el-button type="success" @click="submitClick('addRecFormRef',1)">修改提交</el-button>
         </el-form-item>
@@ -128,6 +128,11 @@
           actTime1:'',
           actTime2:'',
           details:'',
+          provincecode:'',
+          citycode:'',
+          areacode:'',
+          lng:'',
+          lat:'',
         },
         rules: {
           picurl: [
@@ -170,12 +175,17 @@
           }
           untils.JsonAxios().post('manage/act/info',params).then(function (res) {
             if(res.code==0){
-              _self.form.picurl = res.data.orghdportrait;
+              _self.form.picurl = res.data.picurl;
               _self.form.actname = res.data.name;
               _self.form.actnum = res.data.num;
               _self.form.actType = res.data.servicetype;
               _self.form.address = res.data.address;
               _self.form.simpleaddress = res.data.simpleaddress;
+              _self.form.provincecode = res.data.provincecode;
+              _self.form.citycode = res.data.citycode;
+              _self.form.areacode = res.data.areacode;
+              _self.form.lng = res.data.lng;
+              _self.form.lat = res.data.lat;
               _self.form.actTime1 = [
                 res.data.restarttime,
                 res.data.reendtime];
@@ -210,7 +220,7 @@
           this.form.provincecode = val.province.adcode;
           this.form.citycode = val.city.adcode;
           this.form.areacode = val.area.adcode;
-          this.form.simpleaddress = val.province.name+'-'+val.city.name+'-'+val.area.name;
+          this.form.simpleaddress = val.province.name+val.city.name+val.area.name;
           this.areamsg.adcode = val.area.adcode;
         }else{
           this.form.provincecode = '';
@@ -280,7 +290,22 @@
       submitClick(formName,state) {
         let _self = this;
         _self.form.details = _self.$refs.ue.getUEContent();
-        if(_self.recId){
+        //修改 且 不更换图片
+        if(_self.recId && !this.$refs.upload.uploadFiles[0]){
+          _self.$refs[formName].validate((valid) => {
+            console.log(_self.form)
+            console.log(valid)
+            if (valid) {
+              _self.addRecAct(state)
+            } else {
+              _self.$message({
+                message:'请输入正确的信息',
+                type:'error'
+              });
+              return false;
+            }
+          });
+
 
         }else{
           _self.submitUpload(function () {
@@ -313,6 +338,7 @@
         let _self=this;
         let params = {
           name:this.form.actname,
+          picurl:this.form.picurl,
           servicetype:this.form.actType,
           simpleaddress:this.form.simpleaddress,
           address:this.form.address,
@@ -332,9 +358,12 @@
         if(_self.recId){
           params.uuid = _self.recId;
           untils.JsonAxios().post('manage/act/update',params).then(function (res) {
+            loading.close();
             if(res.code==0){
               _self.$router.push({name:'recruitList'})
             }
+          },function () {
+            loading.close();
           })
         }else {
           untils.JsonAxios().post('manage/act/save',params).then(function (res) {

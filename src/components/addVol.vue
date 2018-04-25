@@ -141,7 +141,7 @@
           this.form.provincecode = val.province.adcode;
           this.form.citycode = val.city.adcode;
           this.form.areacode = val.area.adcode;
-          this.form.address = val.province.name+'-'+val.city.name+'-'+val.area.name;
+          this.form.address = val.province.name+val.city.name+val.area.name;
         }else{
           this.form.provincecode = '';
           this.form.citycode = '';
