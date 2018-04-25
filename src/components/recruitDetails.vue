@@ -1,24 +1,24 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">招募活动详情</div>
-    <el-form class="adminTable" label-width="100px">
+    <el-form class="adminTable" label-width="130px">
       <el-form-item label="活动名称">
         <span>{{details.name}}</span>
       </el-form-item>
       <el-form-item label="组织名称">
-        <span>{{details.cardtype}}</span>
+        <span>{{details.organizename}}</span>
       </el-form-item>
       <el-form-item label="开放类型">
         <span>{{details.idcard}}</span>
       </el-form-item>
       <el-form-item label="签到情况">
-        <span>{{details.phone}}</span>
+        <span>{{details.signnum}}/{{details.num}}</span>
       </el-form-item>
       <el-form-item label="活动类型">
         <span>{{details.phone}}</span>
       </el-form-item>
       <el-form-item label="活动地址">
-        <span>{{details.phone}}</span>
+        <span>{{details.address}}</span>
       </el-form-item>
       <el-form-item label="活动进行时间">
         <span>{{details.phone}}</span>
@@ -60,11 +60,11 @@
       getDetails(){
         let _self = this;
         let params = {
-          userId:this.$route.query.recId
+          actid:this.$route.query.recId
         }
-        untils.JsonAxios().post('manage/orguser/voluserinfo',params).then(function (res) {
+        untils.JsonAxios().post('manage/act/info',params).then(function (res) {
           if(res.code==0){
-            _self.details = res.data;
+            _self.details = res.data.activity;
             console.log(res);
           }
         })

@@ -6,16 +6,16 @@
         <span>{{details.name}}</span>
       </el-form-item>
       <el-form-item label="组织名称">
-        <span>{{details.cardtype}}</span>
+        <span>{{details.organizename}}</span>
       </el-form-item>
       <el-form-item label="招募情况">
-        <span>{{details.idcard}}</span>
+        <span>{{details.signnum}}/{{details.num}}</span>
       </el-form-item>
       <el-form-item label="活动类型">
-        <span>{{details.phone}}</span>
+        <span>{{details.servicetype}}</span>
       </el-form-item>
       <el-form-item label="活动地址">
-        <span>{{details.phone}}</span>
+        <span>{{details.address}}</span>
       </el-form-item>
       <el-form-item label="活动招募时间">
         <span>{{details.phone}}</span>
@@ -54,11 +54,11 @@
       getDetails(){
         let _self = this;
         let params = {
-          userId:this.$route.query.sginId
+          signactactid:this.$route.query.sginId
         }
-        untils.JsonAxios().post('manage/orguser/voluserinfo',params).then(function (res) {
+        untils.JsonAxios().post('manage/signact/info',params).then(function (res) {
           if(res.code==0){
-            _self.details = res.data;
+            _self.details = res.data.signactivity;
             console.log(res);
           }
         })
