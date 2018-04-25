@@ -1,6 +1,6 @@
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">新增招募活动</div>
+    <div class="volTableTitleBox">{{recId?'修改招募活动':'新增招募活动'}}</div>
     <div>
       <el-form
         ref="addRecFormRef"
@@ -29,19 +29,13 @@
         <el-form-item label="招募人数" prop="actnum">
           <el-input v-model="form.actnum" type="number"></el-input>
         </el-form-item>
-        <el-form-item label="开放类型" prop="actopen">
-          <el-select v-model="form.actopen" placeholder="请选择开放类型">
-            <el-option label="全体开放" value="all"></el-option>
-            <el-option label="组织开放" value="org"></el-option>
-          </el-select>
-        </el-form-item>
         <el-form-item label="活动类型" prop="actType">
           <el-select v-model="form.actType" placeholder="请选择活动类型">
             <el-option v-for="x in actType" :key="x.id" :label="x.name" :value="x.name"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="活动区域" prop="cityarea">
-          <cityPicker @citypicked="getcity"></cityPicker>
+        <el-form-item label="活动区域" prop="simpleaddress">
+          <cityPicker :showText="form.simpleaddress" @citypicked="getcity"></cityPicker>
         </el-form-item>
         <el-form-item label="详细地址" prop="address">
           <el-input v-model="form.address" @focus="showMap()"></el-input>
@@ -120,9 +114,8 @@
           picurl:'',
           actname:'',
           actnum:'',
-          actopen:'',
           actType:'',
-          cityarea:'',
+          simpleaddress:'',
           address:'',
           actTime1:'',
           actTime2:'',
@@ -144,13 +137,10 @@
           actTime2: [
             { required: true, message: '请选择进行时间', trigger: 'change' }
           ],
-          actopen: [
-            { required: true, message: '请选择开放类型', trigger: 'change' }
-          ],
           actType: [
             { required: true, message: '请选择活动类型', trigger: 'change' }
           ],
-          cityarea: [
+          simpleaddress: [
             { required: true, message: '请选择活动区域', trigger: 'change' }
           ],
           address: [
@@ -164,6 +154,7 @@
     },
     methods: {
       getDetails(){
+        let _self = this;
         this.recId = this.$route.query.recId;
         if(this.recId){
           let params = {
@@ -171,7 +162,24 @@
           }
           untils.JsonAxios().post('manage/act/info',params).then(function (res) {
             if(res.code==0){
-
+              _self.form.picurl = res.data.orghdportrait;
+              _self.form.actname = res.data.name;
+              _self.form.actnum = res.data.num;
+              _self.form.actType = res.data.servicetype;
+              _self.form.address = res.data.address;
+              _self.form.simpleaddress = res.data.simpleaddress;
+              _self.form.actTime1 = [
+                res.data.restarttime,
+                res.data.reendtime];
+              _self.form.actTime2 = [
+                res.data.acbegintime,
+                res.data.acendtime];
+              _self.form.details = res.data.details;
+              _self.defaultMsg = res.data.details;
+              _self.areamsg.address = res.data.address;
+              _self.areamsg.adcode = res.data.adcode;
+              _self.areamsg.lng = res.data.lng;
+              _self.areamsg.lat = res.data.lat;
             }
           })
         }
@@ -181,7 +189,6 @@
         untils.JsonAxios().post('sys/serviceTypelist',{}).then(function (res) {
           if(res.code==0){
             _self.actType = res.data;
-            console.log(res.data)
           }
         })
       },
@@ -192,14 +199,12 @@
       getcity (val) {
         console.log(val)
         if(val.province){
-          this.form.cityarea = val.province.adcode;
           this.form.provincecode = val.province.adcode;
           this.form.citycode = val.city.adcode;
           this.form.areacode = val.area.adcode;
           this.form.simpleaddress = val.province.name+'-'+val.city.name+'-'+val.area.name;
           this.areamsg.adcode = val.area.adcode;
         }else{
-          this.form.cityarea = '';
           this.form.provincecode = '';
           this.form.citycode = '';
           this.form.areacode = '';
@@ -320,6 +325,7 @@
     },
     created () {
       this.getOrgTypeList();
+      this.getDetails();
     }
   }
 </script>

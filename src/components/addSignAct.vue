@@ -1,7 +1,7 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">
-      <span>新增签到活动</span>
+      <span>{{sginId?'修改签到活动':'新增签到活动'}}</span>
     </div>
     <div>
       <el-form
@@ -33,8 +33,8 @@
             <el-option v-for="x in actType" :key="x.id" :label="x.name" :value="x.name"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="活动区域" prop="cityarea">
-          <cityPicker @citypicked="getcity"></cityPicker>
+        <el-form-item label="活动区域" prop="simpleaddress">
+          <cityPicker :showText="form.simpleaddress" @citypicked="getcity"></cityPicker>
         </el-form-item>
         <el-form-item label="详细地址" prop="address">
           <el-input v-model="form.address" @focus="showMap()"></el-input>
@@ -133,7 +133,7 @@
     },
     data () {
       return {
-        actid:'',
+        sginId:'',
         actType:[],
         relationAct:[],
         defaultMsg: '<p><span style="font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px;">招募要求：</span></p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">招募范围：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动内容：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动具体时间：</p><p><br/></p>',
@@ -165,7 +165,7 @@
           actnum:'',
           actopen:'',
           actType:'',
-          cityarea:'',
+          simpleaddress:'',
           address:'',
           lng:'',
           lat:'',
@@ -196,7 +196,7 @@
           actType: [
             { required: true, message: '请选择活动类型', trigger: 'change' }
           ],
-          cityarea: [
+          simpleaddress: [
             { required: true, message: '请选择活动区域', trigger: 'change' }
           ],
           address: [
@@ -210,14 +210,35 @@
     },
     methods: {
       getDetails(){
-        this.actid = this.$route.query.sginId;
-        if(this.actid){
+        let _self = this;
+        this.sginId = this.$route.query.sginId;
+        if(this.sginId){
           let params = {
-            actid:this.$route.query.sginId
+            signactactid:this.$route.query.sginId
           }
-          untils.JsonAxios().post('manage/act/info',params).then(function (res) {
+          untils.JsonAxios().post('manage/signact/info',params).then(function (res) {
             if(res.code==0){
-
+              _self.form.picurl = res.data.orghdportrait;
+              _self.form.actname = res.data.name;
+              _self.form.actnum = res.data.num;
+              _self.form.actopen = res.data.opentype;
+              _self.form.actType = res.data.servicetype;
+              _self.form.address = res.data.address;
+              _self.form.provincecode = res.data.provincecode;
+              _self.form.citycode = res.data.citycode;
+              _self.form.areacode = res.data.areacode;
+              _self.form.simpleaddress = res.data.simpleaddress;
+              _self.form.actTime1 = [
+                res.data.begintime,
+                res.data.endtime];
+              _self.form.actTime2 = [
+                res.data.signbegintime.split(' ')[0],
+                res.data.signendtime.split(' ')[0]];
+              _self.pointArr = res.data.range
+              _self.form.sginHour1 = res.data.signbegintime.split(' ')[1];
+              _self.form.sginHour2 = res.data.signendtime.split(' ')[1];
+              _self.form.details = res.data.details;
+              _self.defaultMsg = res.data.details;
             }
           })
         }
@@ -332,13 +353,11 @@
       getcity (val) {
         console.log(val)
         if(val.province){
-          this.form.cityarea = val.province.adcode;
           this.form.provincecode = val.province.adcode;
           this.form.citycode = val.city.adcode;
           this.form.areacode = val.area.adcode;
           this.form.simpleaddress = val.province.name+'-'+val.city.name+'-'+val.area.name;
         }else{
-          this.form.cityarea = '';
           this.form.provincecode = '';
           this.form.citycode = '';
           this.form.areacode = '';
@@ -426,6 +445,7 @@
     created () {
       this.getOrgTypeList();
       this.getRelationAct();
+      this.getDetails();
     }
   }
 </script>
