@@ -5,6 +5,9 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">志愿者审核</div>
+    <div class="addAct">
+      <el-button type="danger" icon="el-icon-plus" @click="gotoAddVol()">新增</el-button>
+    </div>
     <div class="searchBar">
       <el-input
         placeholder="姓名"
@@ -211,6 +214,9 @@
           }
         })
       },
+      gotoAddVol(){
+        this.$router.push({name:'addVol'})
+      }
     },
     created(){
       this.getVolList();
