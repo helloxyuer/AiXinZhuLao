@@ -393,7 +393,13 @@
           range:this.pointArr
         };
         if(params.opentype==3){
-          params.relationactivityid = params.relationid
+          params.relationactivityid = this.form.relationid
+        }
+        if(this.form.sginHour1){
+          params.signbegintime = params.signbegintime +' '+this.form.sginHour1
+        }
+        if(this.form.sginHour2){
+          params.signendtime = params.signendtime +' '+this.form.sginHour2
         }
         console.log(params)
         untils.JsonAxios().post('manage/signact/save',params).then(function (res) {

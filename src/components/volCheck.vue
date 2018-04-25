@@ -222,6 +222,7 @@
 <style scoped>
   .reasonDiv{
     line-height: 30px;
+    height: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -231,7 +232,7 @@
   }
   .reasonInput{
     float: left;
-    width: 300px;
+    width: calc(100% - 110px);
   }
   .volName{
     width: 200px;
