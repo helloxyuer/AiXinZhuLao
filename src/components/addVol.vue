@@ -75,7 +75,11 @@
           idNum:'',
           tel:'',
           address:'',
-          partyType:''
+          partyType:'',
+          provincecode:'',
+          citycode:'',
+          areacode:'',
+          loading:''
         },
         rules: {
           name: [
@@ -159,27 +163,41 @@
         })
       },
       addVol(){
-        const loading = this.$loading({
+        let _self=this;
+        let params = {
+          username:this.form.idNum,
+          name:this.form.name,
+          phone:this.form.tel,
+          provincecode:this.form.provincecode,
+          citycode:this.form.citycode,
+          areacode:this.form.areacode,
+          simpleaddress:this.form.address,
+          politicaloutlook:this.form.partyType,
+          cardtype:this.form.cardType,
+        };
+        untils.JsonAxios().post('manage/org/adduser',params).then(function (res) {
+          if(res.code==0){
+          }
+        },function () {
+        })
+      },
+      addToOrg(id){
+        let params={
+          userid:id
+        }
+        untils.JsonAxios().post('manage/org/signuser',params).then(function (res) {
+          if(res.code==0){
+          }
+        },function () {
+        })
+      },
+      showLoad(){
+        this.loading = this.$loading({
           lock: true,
           text: '信息提交中...',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.2)'
         });
-        let _self=this;
-        let params = {
-          simpleaddress:this.form.simpleaddress,
-          provincecode:this.form.provincecode,
-          citycode:this.form.citycode,
-          areacode:this.form.areacode,
-        };
-        untils.JsonAxios().post('manage/act/save',params).then(function (res) {
-          loading.close();
-          if(res.code==0){
-            _self.$router.push({name:'recruitList'})
-          }
-        },function () {
-          loading.close();
-        })
       }
     },
     components:{
