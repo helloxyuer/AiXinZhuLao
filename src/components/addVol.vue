@@ -151,6 +151,7 @@
         this.$refs['addVolFormRef'].fields[5].clearValidate();
       },
       checkVol(){
+        this.showLoad();
         let _self=this;
         let params={
           username:_self.form.idNum
@@ -158,8 +159,16 @@
         untils.JsonAxios().post('manage/org/checkorguser',params).then(function (res) {
           console.log(res);
           if(res.code==0){
+            if(res.data.exist==0){
+              _self.addVol();
+            }else if(res.data.exist==1){
+              _self.addToOrg(res.data.userid);
+            }else{
+              _self.loading.close();
+            }
           }
         },function () {
+          this.loading.close();
         })
       },
       addVol(){
