@@ -15,6 +15,7 @@
             ref="upload"
             :on-preview="handlePreview"
             :on-exceed="handleExceed"
+            :on-change="changeImg"
             :auto-upload="false"
             :limit="1"
             list-type="picture">
@@ -191,6 +192,7 @@
           this.form.simpleaddress = '';
           this.areamsg.adcode = '';
         }
+        this.$refs['addRecFormRef'].fields[5].clearValidate();
       },
       getPoint(val){
         this.mapdialogVisible = false;
@@ -235,6 +237,10 @@
           message:'图片只能上传一张',
           type:'error'
         });
+      },
+      changeImg(){
+        let img = this.$refs.upload.uploadFiles[0];
+        this.$refs['addRecFormRef'].fields[0].clearValidate();
       },
       handlePreview(file) {
         this.dialogImageUrl = file.url;
