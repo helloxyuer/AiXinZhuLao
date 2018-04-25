@@ -16,10 +16,10 @@
         <li v-for="x in proobj" v-on:click="choiceProvince(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
       </ul>
       <ul class="_citypicker_ul">
-        <li v-for="x in choicedProvince.child" v-on:click="choiceCity(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
+        <li v-for="x in choicedProvince.regionEntitys" v-on:click="choiceCity(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
       </ul>
       <ul class="_citypicker_ul" v-if="level=='county'">
-        <li v-for="x in choicedCity.child" v-on:click="choiceArea(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
+        <li v-for="x in choicedCity.regionEntitys" v-on:click="choiceArea(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
       </ul>
     </div>
   </div>
@@ -49,29 +49,6 @@
       }
     },
     methods:{
-      turnData(allArry){
-        //数组转成对象
-        let _self = this;
-        allArry.forEach(function (province) {
-          if(province.levelInt==1){
-            _self.proobj.push(province);
-          }
-        })
-        _self.proobj.forEach(function (province) {
-          province.child =[];
-          allArry.forEach(function (city) {
-            if(city.levelInt==2 && city.name!='' && city.parentAdcode==province.adcode){
-              city.child =[];
-              allArry.forEach(function (area) {
-                if(area.levelInt==3 && area.name!='' && area.parentAdcode==city.adcode){
-                  city.child.push(area);
-                }
-              })
-              province.child.push(city);
-            }
-          })
-        })
-      },
       showPancel(){
         this.showAreaBox = true;
       },
@@ -99,13 +76,11 @@
           let result ={
             province:{
               name:_self.choicedProvince.name,
-              adcode:_self.choicedProvince.adcode,
-              center:_self.choicedProvince.center
+              adcode:_self.choicedProvince.code,
             },
             city:{
               name:_self.choicedCity.name,
-              adcode:_self.choicedCity.adcode,
-              center:_self.choicedCity.center
+              adcode:_self.choicedCity.code,
             }
           }
           _self.$emit('cityPicked',result)
@@ -116,23 +91,20 @@
         _self.choicedArea.checked = false;
         area.checked = true;
         _self.choicedArea = area;
-        _self.showText =_self.choicedProvince.name+'-'+_self.choicedCity.name+'-'+_self.choicedArea.name;
+        _self.showText =_self.choicedProvince.name+_self.choicedCity.name+_self.choicedArea.name;
         _self.showAreaBox = false;
         var result ={
           province:{
             name:_self.choicedProvince.name,
-            adcode:_self.choicedProvince.adcode,
-            center:_self.choicedProvince.center
+            adcode:_self.choicedProvince.code,
           },
           city:{
             name:_self.choicedCity.name,
-            adcode:_self.choicedCity.adcode,
-            center:_self.choicedCity.center
+            adcode:_self.choicedCity.code,
           },
           area:{
             name:_self.choicedArea.name,
-            adcode:_self.choicedArea.adcode,
-            center:_self.choicedArea.center
+            adcode:_self.choicedArea.code,
           }
         }
         _self.$emit('citypicked',result)
@@ -152,13 +124,13 @@
     created(){
       let _self = this;
       if(window.cityData){
-        _self.turnData(window.cityData);
+        _self.proobj = window.cityData;
       }else{
-        axios.get('/static/CityData/districtDist.json')
+        axios.get('/static/CityData/areaall.json')
           .then(function (res) {
             if(res.status==200 && res.data){
               window.cityData = res.data;
-              _self.turnData(window.cityData);
+              _self.proobj = res.data;
             }
           })
       }

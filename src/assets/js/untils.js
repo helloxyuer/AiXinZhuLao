@@ -39,7 +39,7 @@ let getCityJson = function () {
   if(window.cityData){
     return
   }
-  axios.get('/static/CityData/districtDist.json')
+  axios.get('/static/CityData/areaall.json')
     .then(function (res) {
       if(res.status==200 && res.data){
         window.cityData = res.data;
