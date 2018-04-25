@@ -23,6 +23,9 @@
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
+        <el-form-item label="旧头像">
+          <img class="oldimg" @click="showBigImg()" :src="form.picurl" alt="">
+        </el-form-item>
         <el-form-item label="活动名称" prop="actname">
           <el-input v-model="form.actname"></el-input>
         </el-form-item>
@@ -63,8 +66,13 @@
         <el-form-item label="活动详情" prop="details">
           <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
         </el-form-item>
-        <el-form-item>
-          <el-button type="success" @click="submitClick('addRecFormRef')">提交</el-button>
+        <el-form-item v-if="!recId">
+          <el-button @click="submitClick('addRecFormRef',0)">草稿</el-button>
+          <el-button type="success" @click="submitClick('addRecFormRef',1)">提交</el-button>
+        </el-form-item>
+        <el-form-item v-if="!recId">
+          <el-button @click="submitClick('addRecFormRef',0)">修改草稿</el-button>
+          <el-button type="success" @click="submitClick('addRecFormRef',1)">修改提交</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -261,33 +269,41 @@
         let img = this.$refs.upload.uploadFiles[0];
         this.$refs['addRecFormRef'].fields[0].clearValidate();
       },
+      showBigImg(){
+        this.dialogImageUrl = this.form.picurl;
+        this.dialogVisible = true;
+      },
       handlePreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
-      submitClick(formName) {
+      submitClick(formName,state) {
         let _self = this;
         _self.form.details = _self.$refs.ue.getUEContent();
-        _self.submitUpload(function () {
-          _self.$refs[formName].validate((valid) => {
-            console.log(_self.form)
-            console.log(valid)
-            if (valid) {
-              _self.addRecAct()
-            } else {
-              _self.$message({
-                message:'请输入正确的信息',
-                type:'error'
-              });
-              return false;
-            }
-          });
-        })
+        if(_self.recId){
+
+        }else{
+          _self.submitUpload(function () {
+            _self.$refs[formName].validate((valid) => {
+              console.log(_self.form)
+              console.log(valid)
+              if (valid) {
+                _self.addRecAct(state)
+              } else {
+                _self.$message({
+                  message:'请输入正确的信息',
+                  type:'error'
+                });
+                return false;
+              }
+            });
+          })
+        }
       },
       showMap(){
         this.mapdialogVisible = true;
       },
-      addRecAct(){
+      addRecAct(state){
         const loading = this.$loading({
           lock: true,
           text: '信息提交中...',
@@ -311,16 +327,26 @@
           num:this.form.actnum,
           lng:this.form.lng,
           lat:this.form.lat,
-          state:0
+          state:state
         };
-        untils.JsonAxios().post('manage/act/save',params).then(function (res) {
-          loading.close();
-          if(res.code==0){
-            _self.$router.push({name:'recruitList'})
-          }
-        },function () {
-          loading.close();
-        })
+        if(_self.recId){
+          params.uuid = _self.recId;
+          untils.JsonAxios().post('manage/act/update',params).then(function (res) {
+            if(res.code==0){
+              _self.$router.push({name:'recruitList'})
+            }
+          })
+        }else {
+          untils.JsonAxios().post('manage/act/save',params).then(function (res) {
+            loading.close();
+            if(res.code==0){
+              _self.$router.push({name:'recruitList'})
+            }
+          },function () {
+            loading.close();
+          })
+        }
+
       }
     },
     created () {
@@ -332,6 +358,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .oldimg{
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+  }
 </style>
 

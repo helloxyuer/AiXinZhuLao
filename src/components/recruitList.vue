@@ -93,7 +93,7 @@
         label="操作"
         width="200">
         <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
+          <el-tooltip v-if="scope.row.state!=2" class="item" effect="dark" content="编辑" placement="top-start">
             <el-button @click="endit(scope.row)"><i class="el-icon-edit-outline"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
