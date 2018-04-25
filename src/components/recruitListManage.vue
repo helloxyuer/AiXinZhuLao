@@ -114,7 +114,7 @@
       }
     },
     methods: {
-      getVolList (id) {
+      getVolList (id,status) {
         let _self=this;
         let params ={
           state:status,

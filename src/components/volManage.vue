@@ -75,10 +75,10 @@
         width="200">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
-            <el-button v-on:click="goDetails(scope.row)"><i class="el-icon-view"></i></el-button>
+            <el-button @click="goDetails(scope.row)"><i class="el-icon-view"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
-            <el-button><i class="el-icon-delete"></i></el-button>
+            <el-button @click="toDelVol(scope.row)"><i class="el-icon-delete"></i></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -94,6 +94,16 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pageTotal">
     </el-pagination>
+    <el-dialog
+      title="刪除"
+      :visible.sync="delVisible"
+      width="30%">
+      <span>确认要刪除该志愿者？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="delVisible = false">取 消</el-button>
+        <el-button type="success" @click="submitDelVol()">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -111,13 +121,15 @@
         pageIndex:1,
         pageSize:10,
         pageTotal:0,
+        delVisible:false,
+        volToDel:{}
       }
     },
     methods: {
       getVolList (status) {
         let _self=this;
         let params ={
-          status:status||'1',
+          status:status,
           page:_self.pageIndex,
           limit:_self.pageSize,
         }
@@ -142,6 +154,22 @@
       },
       gotoAddVol(){
         this.$router.push({name:'addVol'})
+      },
+      toDelVol(val){
+        this.delVisible = true;
+        this.volToDel = val
+      },
+      submitDelVol(){
+        this.delVisible = false;
+        let _self=this;
+        let params ={
+          signupOrganizeId:_self.volToDel.signupOrganizeId,
+        }
+        untils.JsonAxios().post('manage/org/deluser',params).then(function (res) {
+          if(res.code==0){
+            _self.getVolList()
+          }
+        })
       }
     },
     created(){
