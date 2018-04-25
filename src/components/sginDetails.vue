@@ -31,12 +31,6 @@
       <el-form-item label="签到地点">
         <span>{{details.phone}}</span>
       </el-form-item>
-      <el-form-item label="签到范围">
-        <span>{{details.phone}}</span>
-      </el-form-item>
-      <el-form-item label="发布人姓名">
-        <span>{{details.content}}</span>
-      </el-form-item>
       <el-form-item label="联系电话">
         <span>{{details.phone}}</span>
       </el-form-item>
