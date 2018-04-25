@@ -34,7 +34,10 @@
     watch: {
       defaultMsg: {
         handler(newValue, oldValue) {
-          this.editor.setContent(this.defaultMsg);
+          const _this = this;
+          this.editor.addListener("ready", function () {
+            _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
+          });
         }
       },
     },
