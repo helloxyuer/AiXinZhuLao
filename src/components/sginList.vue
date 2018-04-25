@@ -76,7 +76,6 @@
       <el-table-column
         prop="status"
         label="状态"
-        sortable
         min-width="80">
         <template slot-scope="scope">
           <span class="volstatus5" v-if="scope.row.state==0">草稿</span>
