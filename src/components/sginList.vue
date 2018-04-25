@@ -84,6 +84,9 @@
         label="操作"
         width="200">
         <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
+            <el-button @click="endit(scope.row)"><i class="el-icon-edit-outline"></i></el-button>
+          </el-tooltip>
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
             <el-button @click="goDetails(scope.row)"><i class="el-icon-view"></i></el-button>
           </el-tooltip>
@@ -205,6 +208,9 @@
       },
       goDetails(params){
         this.$router.push({name:'sginDetails',query:{sginId:params.uuid }})
+      },
+      endit(params){
+        this.$router.push({name:'addSignAct',query:{sginId:params.uuid }})
       },
     },
     created(){

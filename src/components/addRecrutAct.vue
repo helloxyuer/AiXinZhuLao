@@ -100,6 +100,7 @@
     },
     data () {
       return {
+        recId:'',
         actType:{},
         defaultMsg: '<p><span style="font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px;">招募要求：</span></p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">招募范围：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动内容：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动具体时间：</p><p><br/></p>',
         dialogImageUrl:'',
@@ -162,6 +163,19 @@
       }
     },
     methods: {
+      getDetails(){
+        this.recId = this.$route.query.recId;
+        if(this.recId){
+          let params = {
+            actid:this.$route.query.recId
+          }
+          untils.JsonAxios().post('manage/act/info',params).then(function (res) {
+            if(res.code==0){
+
+            }
+          })
+        }
+      },
       getOrgTypeList(){
         let _self=this;
         untils.JsonAxios().post('sys/serviceTypelist',{}).then(function (res) {
