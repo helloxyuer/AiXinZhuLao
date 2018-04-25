@@ -133,14 +133,10 @@
       handleSizeChange(val) {
         this.pageSize = val;
         this.getVolList();
-        console.log(`每页 ${val} 条`);
-        console.log(this.pageSize);
       },
       handleCurrentChange(val) {
         this.pageIndex = val;
         this.getVolList();
-        console.log(`当前页: ${val}`);
-        console.log(this.pageIndex);
       }
     },
     created(){

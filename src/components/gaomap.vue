@@ -122,7 +122,6 @@
         mapVo.map.setCenter(point);
         mapVo.geocoder.getAddress(point, function (status, result) {
           if (status == 'complete') {
-            console.log('point')
             _self.areamsg.address = result.regeocode.formattedAddress
             _self.areamsg.adcode = result.regeocode.addressComponent.adcode
           }
