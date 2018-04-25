@@ -178,9 +178,9 @@
         let _self=this;
         let params ={
           type:'1',
-          actsignupId:_self.checkedMan.userid,
+          signupOrganizeId:_self.checkedMan.userid,
         }
-        untils.JsonAxios().post('manage/act/examine',params).then(function (res) {
+        untils.JsonAxios().post('manage/org/examine',params).then(function (res) {
           if(res.code==0){
             _self.getVolList();
           }
@@ -203,9 +203,9 @@
         let params ={
           type:'2',
           reason:_self.unpassReason,
-          actsignupId:_self.checkedMan.userid,
+          signupOrganizeId:_self.checkedMan.userid,
         }
-        untils.JsonAxios().post('manage/act/examine',params).then(function (res) {
+        untils.JsonAxios().post('manage/org/examine',params).then(function (res) {
           if(res.code==0){
             _self.getVolList();
           }
