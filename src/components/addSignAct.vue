@@ -233,7 +233,7 @@
               _self.form.citycode = res.data.citycode;
               _self.form.areacode = res.data.areacode;
               _self.form.simpleaddress = res.data.simpleaddress;
-              _self.form.relationid = res.data.relationid;
+              _self.form.relationid = res.data.relationactivityid;
               _self.form.actTime1 = [
                 res.data.begintime,
                 res.data.endtime];
@@ -263,7 +263,6 @@
         untils.JsonAxios().post('manage/act/signlisttosign',{}).then(function (res) {
           if(res.code==0){
             _self.relationAct = res.data.actlist;
-            console.log(res.data)
           }
         })
       },

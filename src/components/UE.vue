@@ -8,7 +8,8 @@
     name: 'UE',
     data () {
       return {
-        editor: null
+        editor: null,
+        isready:false
       }
     },
     props: {
@@ -23,6 +24,7 @@
       const _this = this;
       this.editor = UE.getEditor('editor', this.config); // 初始化UE
       this.editor.addListener("ready", function () {
+        _this.isready = true;
         _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
       });
     },
@@ -35,9 +37,9 @@
       defaultMsg: {
         handler(newValue, oldValue) {
           const _this = this;
-          this.editor.addListener("ready", function () {
-            _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
-          });
+          if(_this.isready){
+            _this.editor.setContent(_this.defaultMsg);
+          }
         }
       },
     },
