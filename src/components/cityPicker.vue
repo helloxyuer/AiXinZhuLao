@@ -35,11 +35,13 @@
         type:String,
         default:'county'
       },
-      adcode:[Number]
+      showText:{
+        type:String,
+        default:''
+      }
     },
     data () {
       return {
-        showText: '',
         showAreaBox:false,//是否展示城市选择框
         drplaceholder:'请选择地址',
         proobj:[],

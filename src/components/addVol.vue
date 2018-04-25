@@ -166,6 +166,8 @@
             }else{
               _self.loading.close();
             }
+          }else{
+            _self.loading.close();
           }
         },function () {
           this.loading.close();
@@ -185,19 +187,26 @@
           cardtype:this.form.cardType,
         };
         untils.JsonAxios().post('manage/org/adduser',params).then(function (res) {
+          _self.loading.close();
           if(res.code==0){
+            _self.$router.replace({ name: 'volManage'})
           }
         },function () {
+          _self.loading.close();
         })
       },
       addToOrg(id){
+        let _self=this;
         let params={
           userid:id
         }
         untils.JsonAxios().post('manage/org/signuser',params).then(function (res) {
+          _self.loading.close();
           if(res.code==0){
+            _self.$router.replace({ name: 'volManage'})
           }
         },function () {
+          _self.loading.close();
         })
       },
       showLoad(){
