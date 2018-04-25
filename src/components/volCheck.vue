@@ -5,9 +5,6 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">志愿者审核</div>
-    <div class="addAct">
-      <el-button type="danger" icon="el-icon-plus" @click="gotoAddVol()">新增</el-button>
-    </div>
     <div class="searchBar">
       <el-input
         placeholder="姓名"
@@ -28,6 +25,9 @@
         clearable>
       </el-input>
       <el-button type="success" icon="el-icon-search">搜索</el-button>
+    </div>
+    <div class="addAct">
+      <el-button type="danger" icon="el-icon-plus" @click="gotoAddVol()">新增</el-button>
     </div>
     <el-table
       :data="tableData"

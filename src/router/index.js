@@ -165,6 +165,13 @@ const router = new Router({
           component: (resolve)=> {
             require(['@/components/addSignAct'], resolve)
           },
+        },
+        {
+          path: 'addVol',
+          name: 'addVol',
+          component: (resolve)=> {
+            require(['@/components/addVol'], resolve)
+          },
         }
       ]
     },
