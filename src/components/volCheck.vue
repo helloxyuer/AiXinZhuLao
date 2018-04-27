@@ -9,22 +9,23 @@
       <el-input
         placeholder="姓名"
         class="volName"
-        v-model="volName"
+        v-model="name"
         clearable>
       </el-input>
       <el-input
         placeholder="证件号"
         class="volIdCard"
-        v-model="volIdCard"
+        v-model="idcard"
         clearable>
       </el-input>
       <el-input
         placeholder="手机号"
         class="volTel"
-        v-model="volTel"
+        maxlength="11"
+        v-model="phone"
         clearable>
       </el-input>
-      <el-button type="success" icon="el-icon-search">搜索</el-button>
+      <el-button @click="getVolList()" type="success" icon="el-icon-search">搜索</el-button>
     </div>
     <div class="addAct">
       <el-button type="danger" icon="el-icon-plus" @click="gotoAddVol()">新增</el-button>
@@ -131,9 +132,9 @@
     name: 'volCheck',
     data() {
       return {
-        volName:'',
-        volIdCard:'',
-        volTel:'',
+        name:'',
+        idcard:'',
+        phone:'',
         tableData: [],
         pageIndex:1,
         pageSize:10,
@@ -148,9 +149,12 @@
       getVolList (status) {
         let _self=this;
         let params ={
-          status:status||'1',
+          status:null,
           page:_self.pageIndex,
           limit:_self.pageSize,
+          name:_self.name,
+          idcard:_self.idcard,
+          phone:_self.phone,
         }
         untils.JsonAxios().post('manage/org/list',params).then(function (res) {
           if(res.code==0){
@@ -181,7 +185,7 @@
         let _self=this;
         let params ={
           type:'1',
-          signupOrganizeId:_self.checkedMan.userid,
+          signupOrganizeId:_self.checkedMan.signupOrganizeId,
         }
         untils.JsonAxios().post('manage/org/examine',params).then(function (res) {
           if(res.code==0){
@@ -206,7 +210,7 @@
         let params ={
           type:'2',
           reason:_self.unpassReason,
-          signupOrganizeId:_self.checkedMan.userid,
+          signupOrganizeId:_self.checkedMan.signupOrganizeId,
         }
         untils.JsonAxios().post('manage/org/examine',params).then(function (res) {
           if(res.code==0){

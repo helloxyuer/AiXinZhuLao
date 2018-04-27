@@ -162,9 +162,13 @@
             if(res.data.exist==0){
               _self.addVol();
             }else if(res.data.exist==1){
-              _self.addToOrg(res.data.userid);
-            }else{
               _self.loading.close();
+              _self.$message({
+                message:'你已添加过该用户',
+                type:'error'
+              });
+            }else{
+              _self.addToOrg(res.data.userid);
             }
           }else{
             _self.loading.close();
