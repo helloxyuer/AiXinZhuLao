@@ -3,20 +3,23 @@
 */
 
 <template>
-  <div class="loginBox">
-    <el-form  ref="loginformRef" :rules="rules" :model="form" label-width="80px">
-      <el-form-item label="账号" prop="username">
-        <el-input
-          v-model.trim="form.username"
-          clearable></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input
-          v-model.trim="form.password"
-          clearable></el-input>
-      </el-form-item>
-      <el-button type="primary" @click="loginClick('loginformRef')">登录</el-button>
-    </el-form>
+  <div class="loginPage">
+    <div class="loginBox">
+      <div class="welcomeTitle">欢迎登陆组织管理</div>
+      <el-form class="formClass"  ref="loginformRef" :rules="rules" :model="form" label-width="80px">
+        <el-form-item label="账号" prop="username">
+          <el-input
+            v-model.trim="form.username"
+            clearable></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input
+            v-model.trim="form.password"
+            clearable></el-input>
+        </el-form-item>
+        <el-button type="success" @click="loginClick('loginformRef')">登录</el-button>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -94,9 +97,30 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .welcomeTitle{
+    color: #fff;
+    font-size: 20px;
+    padding-left: 33px;
+    line-height: 50px;
+    background: rgba(0,0,0,0.4);
+  }
+  .formClass{
+    padding: 20px;
+    background: rgba(0,0,0,0.2);
+  }
   .loginBox{
-    width: 300px;
+    width: 400px;
     margin: 0 auto;
-    margin-top: 100px;
+  }
+  .loginPage{
+    padding-top: 100px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    background: url('../assets/images/showcase-bg.jpg');
+    background-size: cover;
+  }
+  .formClass label{
+    color: #fff !important;
   }
 </style>

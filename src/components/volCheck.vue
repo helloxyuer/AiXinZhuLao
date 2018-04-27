@@ -132,9 +132,9 @@
     name: 'volCheck',
     data() {
       return {
-        name:'',
-        idcard:'',
-        phone:'',
+        name:null,
+        idcard:null,
+        phone:null,
         tableData: [],
         pageIndex:1,
         pageSize:10,
