@@ -12,16 +12,16 @@
       <el-input
         placeholder="姓名"
         class="actPersonName"
-        v-model="actPersonName"
+        v-model="name"
         clearable>
       </el-input>
       <el-input
         placeholder="证件号"
         class="actPersonCard"
-        v-model="actPersonCard"
+        v-model="idcard"
         clearable>
       </el-input>
-      <el-button type="success" icon="el-icon-search">搜索</el-button>
+      <el-button @click="getVolList()" type="success" icon="el-icon-search">搜索</el-button>
     </div>
     <el-table
       :data="tableData"
@@ -110,15 +110,18 @@
         actPersonName:'',
         actPersonCard:'',
         recName:'',
+        idcard:'',
+        name:'',
         recId:''
       }
     },
     methods: {
-      getVolList (id,status) {
+      getVolList (id) {
         let _self=this;
         let params ={
-          state:status,
           activityid: id,
+          name: _self.name,
+          idcard: _self.idcard,
           page:_self.pageIndex,
           limit:_self.pageSize,
         }

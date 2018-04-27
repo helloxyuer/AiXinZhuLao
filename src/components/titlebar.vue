@@ -15,7 +15,7 @@
       active-text-color="#ffffff"
       :router="true"
       mode="horizontal">
-      <el-menu-item index="6" :route="{name:'my'}">
+      <el-menu-item index="6" :route="{name:'systemAdmin'}">
         <i class="chen-wode titleIconColor"></i>
         <span slot="title">我的</span>
       </el-menu-item>

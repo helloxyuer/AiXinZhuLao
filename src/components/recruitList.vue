@@ -9,10 +9,10 @@
       <el-input
         placeholder="活动名称"
         class="actName"
-        v-model="actName"
+        v-model="name"
         clearable>
       </el-input>
-      <el-select v-model="actNameStatus" clearable placeholder="状态">
+      <el-select v-model="state" clearable placeholder="状态">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -28,7 +28,7 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期">
       </el-date-picker>
-      <el-button type="success" icon="el-icon-search">搜索</el-button>
+      <el-button @click="getVolList()" type="success" icon="el-icon-search">搜索</el-button>
     </div>
     <div class="addAct">
       <el-button type="danger" icon="el-icon-plus" @click="gotoAddAct()">新增</el-button>
@@ -136,35 +136,38 @@
     data() {
       return {
         options: [{
-          value: '1',
+          value: '0',
           label: '草稿'
         }, {
-          value: '2',
+          value: '1',
           label: '待审核'
         }, {
-          value: '3',
+          value: '2',
           label: '审核通过'
         }, {
-          value: '4',
+          value: '3',
           label: '审核不通过'
         }],
         tableData: [],
         pageIndex:1,
         pageSize:10,
         pageTotal:0,
-        actName:'',
-        actNameStatus:'',
-        actNameTime:'',
+        name:'',
+        state:'',
+        actNameTime:[],
         dialogVisible:false,
         RecToDel:{}
       }
     },
     methods: {
-      getVolList (status) {
+      getVolList () {
         let _self=this;
         let params ={
-          state:status,
+          state:_self.state,
           type:1,
+          name:_self.name,
+          acbegintime:_self.actNameTime[0],
+          acendtime:_self.actNameTime[1],
           page:_self.pageIndex,
           limit:_self.pageSize,
         }
