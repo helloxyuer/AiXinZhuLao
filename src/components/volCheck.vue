@@ -145,7 +145,7 @@
       }
     },
     methods: {
-      getVolList (status) {
+      getVolList () {
         let _self=this;
         let params ={
           status:null,
