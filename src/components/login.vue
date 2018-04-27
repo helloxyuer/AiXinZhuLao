@@ -6,7 +6,7 @@
   <div class="loginPage">
     <div class="loginBox">
       <div class="welcomeTitle">欢迎登陆组织管理</div>
-      <el-form class="formClass"  ref="loginformRef" :rules="rules" :model="form" label-width="80px">
+      <el-form class="loginForm formClass"  ref="loginformRef" :rules="rules" :model="form" label-width="80px">
         <el-form-item label="账号" prop="username">
           <el-input
             v-model.trim="form.username"
@@ -125,5 +125,6 @@
   }
   .loginBtn{
     margin-left: 80px;
+    width:110px;
   }
 </style>

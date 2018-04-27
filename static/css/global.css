@@ -256,3 +256,6 @@ input{
 .fixFormHead>.el-form-item:first-child>label{
   line-height: 60px!important;
 }
+.loginForm .el-form-item label{
+  color:#fff !important;
+}
