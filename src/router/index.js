@@ -20,27 +20,6 @@ const router = new Router({
       }
     },
     {
-      path: '/test',
-      name: 'test',
-      component: (resolve) => {
-        require(['@/components/test'], resolve)
-      }
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: (resolve) => {
-        require(['@/components/register'], resolve)
-      }
-    },
-    {
-      path: '/forgetpw',
-      name: 'forgetpw',
-      component: (resolve) => {
-        require(['@/components/forgetpw'], resolve)
-      }
-    },
-    {
       path: '/index',
       name: 'index',
       component:(resolve) => {
@@ -66,13 +45,6 @@ const router = new Router({
           name: 'volCheck',
           component: (resolve)=> {
             require(['@/components/volCheck'], resolve)
-          },
-        },
-        {
-          path: 'volHonorManage',
-          name: 'volHonorManage',
-          component: (resolve)=> {
-            require(['@/components/volHonorManage'], resolve)
           },
         },
         {
