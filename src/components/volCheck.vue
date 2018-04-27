@@ -65,8 +65,8 @@
         min-width="180">
         <template slot-scope="scope">
           <span class="volstatus1" v-if="scope.row.status==1">待审核</span>
-          <span class="volstatus2" v-if="scope.row.status==2">通过</span>
-          <span class="volstatus3" v-if="scope.row.status==3">未通过</span>
+          <span class="volstatus4" v-if="scope.row.status==2">通过</span>
+          <span class="volstatus2" v-if="scope.row.status==3">未通过</span>
         </template>
       </el-table-column>
       <el-table-column
