@@ -33,7 +33,7 @@
       <el-table-column
         prop="username"
         label="姓名"
-        min-width="100">
+        min-width="80">
       </el-table-column>
       <el-table-column
         prop="idcard"
