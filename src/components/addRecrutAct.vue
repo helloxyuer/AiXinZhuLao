@@ -261,7 +261,7 @@
           accessKeySecret: config.aliyun.accessKeySecret,
           bucket: config.aliyun.bucketName
         });
-        let imgName = '/WEB/'+imgData.uid+'-'+new Date().getTime()
+        let imgName = '/WEB/'+imgData.uid+'-'+new Date().getTime()+'.'+imgData.raw.type.split('/')[1];
         client.put(imgName, _self.$refs.upload.uploadFiles[0].raw).then(function (val) {
           _self.form.picurl = val.res.requestUrls[0];
           if(cb){

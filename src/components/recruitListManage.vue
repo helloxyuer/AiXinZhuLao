@@ -31,48 +31,42 @@
       :default-sort = "{prop: 'date', order: 'descending'}"
     >
       <el-table-column
-        prop="name"
-        label="活动名称"
-        min-width="180">
+        prop="username"
+        label="姓名"
+        min-width="100">
       </el-table-column>
       <el-table-column
         prop="idcard"
-        label="活动开始时间"
+        label="证件号"
         sortable
         min-width="140">
       </el-table-column>
       <el-table-column
-        prop="address"
-        sortable
-        label="活动结束时间"
+        prop="activityname"
+        label="活动名称"
         min-width="140">
       </el-table-column>
       <el-table-column
-        prop="phone"
-        label="招募情况"
-        min-width="80">
-      </el-table-column>
-      <el-table-column
-        prop="status"
-        label="发布人"
+        prop="activityname"
+        label="活动时间"
         min-width="100">
       </el-table-column>
       <el-table-column
-        prop="status"
-        label="联系电话"
+        prop="createtime"
+        label="报名时间"
         min-width="100">
-      </el-table-column>
-      <el-table-column
-        prop="status"
-        label="状态"
-        sortable
-        min-width="80">
       </el-table-column>
       <el-table-column
         prop="name"
         label="操作"
-        width="200">
+        width="250">
         <template slot-scope="scope">
+          <el-tooltip v-if="scope.row.status==1" class="item" effect="dark" content="通过" placement="top-start">
+            <el-button v-on:click="passVol(scope.row)"><i class="el-icon-check"></i></el-button>
+          </el-tooltip>
+          <el-tooltip v-if="scope.row.status==1" class="item" effect="dark" content="拒绝" placement="top-start">
+            <el-button v-on:click="unpassVol(scope.row)"><i class="el-icon-close"></i></el-button>
+          </el-tooltip>
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
             <el-button><i class="el-icon-view"></i></el-button>
           </el-tooltip>
@@ -93,6 +87,30 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pageTotal">
     </el-pagination>
+    <el-dialog
+      title="通过"
+      :visible.sync="passVisible"
+      width="30%">
+      <span>确认要通过该志愿者？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="passVisible = false">取 消</el-button>
+        <el-button type="success" @click="submitpassVol()">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="拒绝"
+      :visible.sync="unpassVisible"
+      width="30%">
+      <span>确认要拒绝该志愿者？</span>
+      <div class="reasonDiv">
+        <span class="reasonSpan">拒绝理由(必填):</span>
+        <el-input class='reasonInput' v-model.trim="unpassReason" placeholder="请输入拒绝理由" clearable></el-input>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="unpassVisible = false">取 消</el-button>
+        <el-button type="success" @click="submitunpassVol()">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -107,19 +125,21 @@
         pageIndex:1,
         pageSize:10,
         pageTotal:0,
-        actPersonName:'',
-        actPersonCard:'',
         recName:'',
         idcard:'',
         name:'',
-        recId:''
+        recId:'',
+        passVisible:false,
+        unpassVisible:false,
+        unpassReason:'',
+        checkedMan:{}
       }
     },
     methods: {
-      getVolList (id) {
+      getVolList () {
         let _self=this;
         let params ={
-          activityid: id,
+          activityid: _self.recId,
           name: _self.name,
           idcard: _self.idcard,
           page:_self.pageIndex,
@@ -140,12 +160,55 @@
       handleCurrentChange(val) {
         this.pageIndex = val;
         this.getVolList();
-      }
+      },
+      passVol(vol){
+        this.checkedMan = vol;
+        this.passVisible = true;
+
+      },
+      submitpassVol(){
+        this.passVisible = false;
+        let _self=this;
+        let params ={
+          type:'1',
+          signupOrganizeId:_self.checkedMan.signupOrganizeId,
+        }
+        untils.JsonAxios().post('manage/act/examine',params).then(function (res) {
+          if(res.code==0){
+            _self.getVolList();
+          }
+        })
+      },
+      unpassVol(vol){
+        this.checkedMan = vol;
+        this.unpassVisible = true;
+      },
+      submitunpassVol(){
+        let _self=this;
+        if(!_self.unpassReason){
+          _self.$message({
+            message:'拒绝理由为空',
+            type:'error'
+          })
+          return
+        }
+        this.unpassVisible = false;
+        let params ={
+          type:'2',
+          reason:_self.unpassReason,
+          actsignupId:_self.checkedMan.uuid,
+        }
+        untils.JsonAxios().post('manage/act/examine',params).then(function (res) {
+          if(res.code==0){
+            _self.getVolList();
+          }
+        })
+      },
     },
     created(){
       this.recName = this.$route.query.recName;
       this.recId = this.$route.query.recId;
-      this.getVolList(this.recId);
+      this.getVolList();
     }
   }
 </script>
