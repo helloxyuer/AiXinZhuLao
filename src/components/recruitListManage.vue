@@ -209,8 +209,14 @@
       this.recId = this.$route.query.recId;
       this.getVolList();
     },
-    updated(){
-      console.log('update')
+    watch:{
+      $route: {
+        handler(newValue, oldValue) {
+          this.recName = this.$route.query.recName;
+          this.recId = this.$route.query.recId;
+          this.getVolList();
+        }
+      },
     }
   }
 </script>

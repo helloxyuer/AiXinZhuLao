@@ -177,6 +177,15 @@
       this.sginName = this.$route.query.sginName;
       this.sginId = this.$route.query.sginId;
       this.getVolList();
+    },
+    watch:{
+      $route: {
+        handler(newValue, oldValue) {
+          this.sginName = this.$route.query.sginName;
+          this.sginId = this.$route.query.sginId;
+          this.getVolList();
+        }
+      },
     }
   }
 </script>
