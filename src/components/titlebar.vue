@@ -5,7 +5,7 @@
 <template>
   <div class="titleBar">
     <div class="logoBox">
-      <div class="logoImg" v-if="false"><img :src="logo" alt=""></div>
+      <div class="logoImg"><img :src="logo" alt=""></div>
       <div class="entName">后台管理系统</div>
     </div>
     <el-menu

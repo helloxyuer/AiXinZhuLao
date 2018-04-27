@@ -59,19 +59,16 @@
       <el-table-column
         prop="name"
         label="操作"
-        width="250">
+        width="200">
         <template slot-scope="scope">
           <el-tooltip v-if="scope.row.status==1" class="item" effect="dark" content="通过" placement="top-start">
-            <el-button v-on:click="passVol(scope.row)"><i class="el-icon-check"></i></el-button>
+            <el-button @click="passVol(scope.row)"><i class="el-icon-check"></i></el-button>
           </el-tooltip>
           <el-tooltip v-if="scope.row.status==1" class="item" effect="dark" content="拒绝" placement="top-start">
-            <el-button v-on:click="unpassVol(scope.row)"><i class="el-icon-close"></i></el-button>
+            <el-button @click="unpassVol(scope.row)"><i class="el-icon-close"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
-            <el-button><i class="el-icon-view"></i></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
-            <el-button><i class="el-icon-delete"></i></el-button>
+            <el-button @click="goDetails(scope.row)"><i class="el-icon-view"></i></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -203,6 +200,9 @@
             _self.getVolList();
           }
         })
+      },
+      goDetails(params){
+        this.$router.push({name:'volDetails',query:{volId:params.userid }})
       },
     },
     created(){

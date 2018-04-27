@@ -27,9 +27,9 @@
       :default-sort = "{prop: 'date', order: 'descending'}"
     >
       <el-table-column
-        prop="name"
+        prop="username"
         label="姓名"
-        width="180">
+        min-width="80">
       </el-table-column>
       <el-table-column
         prop="idcard"
@@ -38,17 +38,17 @@
         min-width="140">
       </el-table-column>
       <el-table-column
-        prop="signTime1"
+        prop="signtime"
         label="签到时间"
         sortable
         min-width="140">
       </el-table-column>
       <el-table-column
-        prop="signTime2"
+        prop="outtime"
         label="签退时间">
       </el-table-column>
       <el-table-column
-        prop="alltime"
+        prop="duration"
         label="工时">
       </el-table-column>
       <el-table-column
@@ -57,13 +57,10 @@
         width="200">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="详情" placement="top-start">
-            <el-button><i class="el-icon-view"></i></el-button>
+            <el-button @click="goDetails(scope.row)"><i class="el-icon-view"></i></el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="修改时长" placement="top-start">
             <el-button @click="changeTime(scope.row)"><i class="el-icon-time"></i></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
-            <el-button><i class="el-icon-delete"></i></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -82,7 +79,7 @@
     <el-dialog title="修改工时" :visible.sync="dialogTableVisible">
       <el-form label-width="100px">
         <el-form-item label="工时修改">
-          <el-input-number v-model="duration" class="gongshi" :step="1"></el-input-number>
+          <el-input-number v-model="duration" class="gongshi" :min="0"></el-input-number>
         </el-form-item>
         <el-form-item label="修改理由">
           <el-input
@@ -112,7 +109,7 @@
         sginName:'',
         sginId:'',
         dialogTableVisible:false,
-        duration:1,
+        duration:0,
         changeReson:'',
         changeTimeMan:{},
       }
@@ -147,10 +144,18 @@
       changeTime(val){
         this.dialogTableVisible = true;
         this.changeTimeMan = val;
-        this.duration = val.duration;
+        this.changeReson = '';
+        this.duration = val.duration||0;
       },
       submitTime(){
         let _self=this;
+        if(!_self.changeReson){
+          _self.$message({
+            message:'修改理由为空',
+            type:'error'
+          })
+          return
+        }
         let params ={
           reason:this.changeReson,
           signactactid:this.changeTimeMan.uuid,
@@ -158,10 +163,16 @@
         }
         untils.JsonAxios().post('manage/signact/upsigntime',params).then(function (res) {
           if(res.code==0){
+            _self.dialogTableVisible = false;
             _self.getVolList();
           }
-        })
-      }
+        }),function () {
+          _self.dialogTableVisible = false;
+        }
+      },
+      goDetails(params){
+        this.$router.push({name:'volDetails',query:{volId:params.userid }})
+      },
     },
     created(){
       this.sginName = this.$route.query.sginName;
