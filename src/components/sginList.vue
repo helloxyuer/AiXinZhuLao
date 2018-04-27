@@ -28,7 +28,7 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期">
       </el-date-picker>
-      <el-button type="success" icon="el-icon-search">搜索</el-button>
+      <el-button @click="getVolList()" type="success" icon="el-icon-search">搜索</el-button>
     </div>
     <div class="addAct">
       <el-button type="danger" icon="el-icon-plus" @click="gotoSginAct()">新增</el-button>
@@ -150,7 +150,7 @@
         pageSize:10,
         pageTotal:0,
         state:'',
-        actNameTime:'',
+        actNameTime:[],
         name:'',
         dialogVisible:false,
         RecToDel:{}
@@ -162,8 +162,8 @@
         let params ={
           state:_self.state,
           type:1,
-          begintime:_self.begintime,
-          endtime:_self.endtime,
+          begintime:_self.actNameTime[0],
+          endtime:_self.actNameTime[1],
           name:_self.name,
           page:_self.pageIndex,
           limit:_self.pageSize,
