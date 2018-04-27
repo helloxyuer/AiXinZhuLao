@@ -72,7 +72,6 @@
       <el-table-column
         prop="name"
         label="操作"
-        fixed="right"
         width="200">
         <template slot-scope="scope">
           <el-tooltip v-if="scope.row.status==1" class="item" effect="dark" content="通过" placement="top-start">
