@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/app':{
-        target: 'http://www.seajun.com/haijun/app',
+        target: 'http://www.seajun.com:8090/haijun/app',
         changeOrigin: true,
         pathRewrite: {
           '^/app' : ''
@@ -65,7 +65,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

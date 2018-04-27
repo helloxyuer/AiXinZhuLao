@@ -17,7 +17,7 @@
             v-model.trim="form.password"
             clearable></el-input>
         </el-form-item>
-        <el-button type="success" @click="loginClick('loginformRef')">登录</el-button>
+        <el-button class="loginBtn" type="success" @click="loginClick('loginformRef')">登录</el-button>
       </el-form>
     </div>
   </div>
@@ -122,5 +122,8 @@
   }
   .formClass label{
     color: #fff !important;
+  }
+  .loginBtn{
+    margin-left: 80px;
   }
 </style>

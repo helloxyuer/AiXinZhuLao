@@ -101,6 +101,9 @@
           <el-tooltip v-if="scope.row.state!=2" class="item" effect="dark" content="删除" placement="top-start">
             <el-button @click="opendeleteDialog(scope.row)"><i class="el-icon-delete"></i></el-button>
           </el-tooltip>
+          <el-tooltip v-if="scope.row.state==2" class="item" effect="dark" content="查看人员" placement="top-start">
+            <el-button @click="gotoRecList(scope.row)"><i class="el-icon-delete"></i></el-button>
+          </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
