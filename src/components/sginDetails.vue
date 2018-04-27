@@ -29,7 +29,15 @@
         <span>{{details.signbegintime}} - {{details.signendtime}}</span>
       </el-form-item>
       <el-form-item label="签到地点">
-        <span>{{details.phone}}</span>
+        <div>
+          <div v-for="item in details.range">
+            <div>签到地址：{{item.address}}</div>
+            <div>签到范围：{{item.ranges}}m</div>
+            <div v-if="item.type==1">签到类型：[可签到/可签退]</div>
+            <div v-if="item.type==2">签到类型：[只可签到]</div>
+            <div v-if="item.type==3">签到类型：[只可签退]</div>
+          </div>
+        </div>
       </el-form-item>
       <el-form-item label="联系电话">
         <span>{{details.phone}}</span>

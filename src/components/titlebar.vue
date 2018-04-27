@@ -5,7 +5,7 @@
 <template>
   <div class="titleBar">
     <div class="logoBox">
-      <div class="entLog"></div>
+      <div class="logoImg" v-if="false"><img :src="logo" alt=""></div>
       <div class="entName">后台管理系统</div>
     </div>
     <el-menu
@@ -32,10 +32,13 @@
 </template>
 
 <script>
+  import logo from './../assets/images/logo.png'
+
   export default {
     name: 'titlebar',
     data () {
       return {
+        logo:logo,
         msg: 'titlebar'
       }
     },
@@ -54,10 +57,15 @@
   .titleBar{
     color: #ffffff;
   }
+  .logoImg{
+    float: left;
+    margin-top: 10px;
+  }
   .logoBox{
     float: left;
   }
   .entName{
+    float: left;
     font-size: 24px;
     font-weight: 500;
     padding-left: 20px;

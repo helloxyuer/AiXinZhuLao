@@ -8,16 +8,16 @@
       <el-input
         placeholder="姓名"
         class="actPersonName"
-        v-model="actPersonName"
+        v-model="name"
         clearable>
       </el-input>
       <el-input
         placeholder="证件号"
         class="actPersonCard"
-        v-model="actPersonCard"
+        v-model="idcard"
         clearable>
       </el-input>
-      <el-button type="success" icon="el-icon-search">搜索</el-button>
+      <el-button type="success" @click="getVolList()" icon="el-icon-search">搜索</el-button>
     </div>
     <el-table
       :data="tableData"
@@ -82,7 +82,7 @@
     <el-dialog title="修改工时" :visible.sync="dialogTableVisible">
       <el-form label-width="100px">
         <el-form-item label="工时修改">
-          <el-input-number v-model="gongshi" class="gongshi" :step="1"></el-input-number>
+          <el-input-number v-model="duration" class="gongshi" :step="1"></el-input-number>
         </el-form-item>
         <el-form-item label="修改理由">
           <el-input
@@ -107,22 +107,24 @@
         pageIndex:1,
         pageSize:10,
         pageTotal:0,
-        actPersonName:'',
-        actPersonCard:'',
+        name:'',
+        idcard:'',
         sginName:'',
         sginId:'',
         dialogTableVisible:false,
-        gongshi:1,
+        duration:1,
         changeReson:'',
-        changeTimeMan:'',
+        changeTimeMan:{},
       }
     },
     methods: {
-      getVolList (sginId) {
+      getVolList () {
         let _self=this;
         let params ={
           orgid:untils.storageS.get('orgId'),
-          signactivityid:sginId,
+          signactivityid:_self.sginId,
+          idcard:_self.idcard,
+          name:_self.name,
           page:_self.pageIndex,
           limit:_self.pageSize,
         }
@@ -145,18 +147,18 @@
       changeTime(val){
         this.dialogTableVisible = true;
         this.changeTimeMan = val;
-        this.gongshi = val.gongshi;
+        this.duration = val.duration;
       },
       submitTime(){
         let _self=this;
         let params ={
           reason:this.changeReson,
-          signactactid:this.changeTimeMan.signactactid,
-          upnum:this.gongshi,
+          signactactid:this.changeTimeMan.uuid,
+          upnum:this.duration,
         }
-        untils.JsonAxios().post('manage/signact/signlist',params).then(function (res) {
+        untils.JsonAxios().post('manage/signact/upsigntime',params).then(function (res) {
           if(res.code==0){
-            _self.getVolList(_self.sginId);
+            _self.getVolList();
           }
         })
       }
@@ -164,7 +166,7 @@
     created(){
       this.sginName = this.$route.query.sginName;
       this.sginId = this.$route.query.sginId;
-      this.getVolList(this.sginId);
+      this.getVolList();
     }
   }
 </script>
