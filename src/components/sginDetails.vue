@@ -69,7 +69,6 @@
         untils.JsonAxios().post('manage/signact/info',params).then(function (res) {
           if(res.code==0){
             _self.details = res.data;
-            console.log(res);
           }
         })
       }

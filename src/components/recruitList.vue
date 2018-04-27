@@ -178,7 +178,6 @@
           if(res.code==0){
             _self.tableData = res.data.list;
             _self.pageTotal = res.data.totalCount;
-            console.log(res);
           }
         })
       },
@@ -195,7 +194,6 @@
       },
       //跳人数详情
       gotoRecList(data){
-        console.log(data)
         this.$router.push({name:'recruitListManage',query:{recId:data.uuid,recName:data.name}})
       },
       //打开弹窗

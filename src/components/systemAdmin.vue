@@ -41,7 +41,6 @@
         untils.JsonAxios().post('manage/orguser/volInfo',{}).then(function (res) {
           if(res.code==0){
             _self.adminData = res.data;
-            console.log(res);
           }
         })
       },

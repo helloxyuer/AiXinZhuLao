@@ -43,7 +43,6 @@
         untils.JsonAxios().post('manage/orguser/voluserinfo',params).then(function (res) {
           if(res.code==0){
             _self.userData = res.data;
-            console.log(res);
           }
         })
       }

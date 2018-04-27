@@ -254,7 +254,6 @@
         untils.JsonAxios().post('sys/serviceTypelist',{}).then(function (res) {
           if(res.code==0){
             _self.actType = res.data;
-            console.log(res.data)
           }
         })
       },
@@ -310,7 +309,6 @@
 
       },
       getPoint(val){
-        console.log(val);
         this.mapdialogVisible = false;
         if(this.isSgin){
           if(!val.lng){
@@ -356,7 +354,6 @@
         }
       },
       getcity (val) {
-        console.log(val)
         if(val.province){
           this.form.provincecode = val.province.adcode;
           this.form.citycode = val.city.adcode;
@@ -439,7 +436,6 @@
         if(this.form.sginHour2){
           params.signendtime = params.signendtime +' '+this.form.sginHour2
         }
-        console.log(params)
         if(_self.sginId){
           params.uuid = _self.sginId;
           untils.JsonAxios().post('manage/signact/update',params).then(function (res) {

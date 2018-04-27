@@ -122,8 +122,6 @@
       submitClick(formName){
         let _self = this;
         _self.$refs[formName].validate((valid) => {
-          console.log(_self.form)
-          console.log(valid)
           if (valid) {
             _self.checkVol()
           } else {
@@ -136,7 +134,6 @@
         });
       },
       getcity(val){
-        console.log(val)
         if(val.province){
           this.form.provincecode = val.province.adcode;
           this.form.citycode = val.city.adcode;
@@ -157,7 +154,6 @@
           username:_self.form.idNum
         }
         untils.JsonAxios().post('manage/org/checkorguser',params).then(function (res) {
-          console.log(res);
           if(res.code==0){
             if(res.data.exist==0){
               _self.addVol();

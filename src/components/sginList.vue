@@ -175,7 +175,6 @@
           if(res.code==0){
             _self.tableData = res.data.list;
             _self.pageTotal = res.data.totalCount;
-            console.log(res);
           }
         })
       },
@@ -192,7 +191,6 @@
       },
       //跳人数详情
       gotoSginList(data){
-        console.log(data)
         this.$router.push({name:'sginListManage',query:{sginId:data.uuid,sginName:data.name}})
       },
       //打开弹窗

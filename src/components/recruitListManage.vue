@@ -146,7 +146,6 @@
           if(res.code==0){
             _self.tableData = res.data.list;
             _self.pageTotal = res.data.totalCount;
-            console.log(res);
           }
         })
       },
@@ -209,6 +208,9 @@
       this.recName = this.$route.query.recName;
       this.recId = this.$route.query.recId;
       this.getVolList();
+    },
+    updated(){
+      console.log('update')
     }
   }
 </script>

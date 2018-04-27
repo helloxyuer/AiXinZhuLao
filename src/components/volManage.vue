@@ -140,7 +140,6 @@
           if(res.code==0){
             _self.tableData = res.data.list;
             _self.pageTotal = res.data.totalCount;
-            console.log(res);
           }
         })
       },

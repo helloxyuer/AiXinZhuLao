@@ -83,7 +83,6 @@
         let _self=this;
         untils.JsonAxios().post('manage/sys/indexweb',{}).then(function (res) {
           if(res.code==0){
-            console.log(res);
           }
         })
       },

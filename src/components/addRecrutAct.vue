@@ -212,10 +212,8 @@
       },
       getUEContent() {
         let content = this.$refs.ue.getUEContent();
-        console.log(content)
       },
       getcity (val) {
-        console.log(val)
         if(val.province){
           this.form.provincecode = val.province.adcode;
           this.form.citycode = val.city.adcode;
@@ -233,7 +231,6 @@
       },
       getPoint(val){
         this.mapdialogVisible = false;
-        console.log(val);
         if(!val.lng){
           this.$message({
             message:'地点未选择',
@@ -293,8 +290,6 @@
         //修改 且 不更换图片
         if(_self.recId && !this.$refs.upload.uploadFiles[0]){
           _self.$refs[formName].validate((valid) => {
-            console.log(_self.form)
-            console.log(valid)
             if (valid) {
               _self.addRecAct(state)
             } else {
@@ -310,8 +305,6 @@
         }else{
           _self.submitUpload(function () {
             _self.$refs[formName].validate((valid) => {
-              console.log(_self.form)
-              console.log(valid)
               if (valid) {
                 _self.addRecAct(state)
               } else {
