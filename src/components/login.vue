@@ -4,9 +4,12 @@
 
 <template>
   <div class="loginPage" :style="bgStyle">
+    <div>
+      <img class="img-responsive" :src="logo" alt="logo">
+    </div>
     <div class="loginBox">
       <div class="welcomeTitle">欢迎登陆组织管理</div>
-      <el-form class="loginForm formClass"  ref="loginformRef" :rules="rules" :model="form" label-width="80px">
+      <el-form class="loginForm formClass"  ref="loginformRef" :rules="rules" :model="form" label-width="60px">
         <el-form-item label="账号" prop="username">
           <el-input
             v-model.trim="form.username"
@@ -27,6 +30,7 @@
   import untils from '@/assets/js/untils'
   import cityPicker from '@/components/cityPicker'
   import bg from './../assets/images/showcase-bg.jpg'
+  import logo from './../assets/images/logo.png'
 
   export default {
     name: 'login',
@@ -43,6 +47,7 @@
         callback();
       };
       return {
+        logo:logo,
         form:{
           username:'342225198807221053',
           password:'123456'
@@ -104,30 +109,44 @@
   .welcomeTitle{
     color: #fff;
     font-size: 20px;
-    padding-left: 33px;
-    line-height: 50px;
+    line-height: 60px;
     background: rgba(0,0,0,0.4);
+    overflow: hidden;
+    padding: 0 25px;
+    background: #444;
+    background: rgba(0, 0, 0, 0.35);
+    -moz-border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+    text-align: left;
   }
   .formClass{
     padding: 20px;
     background: rgba(0,0,0,0.2);
   }
   .loginBox{
+    padding-top: 100px;
     width: 400px;
     margin: 0 auto;
   }
   .loginPage{
-    padding-top: 100px;
+    padding: 20px;
     box-sizing: border-box;
     width: 100%;
     height: 100vh;
+    position: relative;
     background-size: cover;
   }
   .formClass label{
     color: #fff !important;
   }
   .loginBtn{
-    margin-left: 80px;
+    margin-left: 60px;
     width:110px;
+  }
+  .img-responsive{
+    display: block;
+    max-width: 100%;
+    height: auto;
   }
 </style>

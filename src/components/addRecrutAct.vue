@@ -64,7 +64,13 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="活动详情" prop="details">
-          <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+          <!--<UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>-->
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 8}"
+            placeholder="请输入活动详情"
+            v-model.trim="form.details">
+          </el-input>
         </el-form-item>
         <el-form-item v-if="!recId">
           <el-button @click="submitClick('addRecFormRef',0)">草稿</el-button>
@@ -193,7 +199,7 @@
                 res.data.acbegintime,
                 res.data.acendtime];
               _self.form.details = res.data.details;
-              _self.defaultMsg = res.data.details;
+              /*_self.defaultMsg = res.data.details;*/
               _self.areamsg.address = res.data.address;
               _self.areamsg.adcode = res.data.adcode;
               _self.areamsg.lng = res.data.lng;
@@ -286,7 +292,7 @@
       },
       submitClick(formName,state) {
         let _self = this;
-        _self.form.details = _self.$refs.ue.getUEContent();
+        //_self.form.details = _self.$refs.ue.getUEContent();
         //修改 且 不更换图片
         if(_self.recId && !this.$refs.upload.uploadFiles[0]){
           _self.$refs[formName].validate((valid) => {

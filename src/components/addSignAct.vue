@@ -105,7 +105,13 @@
           </div>
         </el-form-item>
         <el-form-item label="活动详情" prop="details">
-          <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+          <!--<UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>-->
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 8}"
+            placeholder="请输入活动详情"
+            v-model.trim="form.details">
+          </el-input>
         </el-form-item>
         <el-form-item v-if="!sginId">
           <el-button @click="submitClick('addRecFormRef',0)">草稿</el-button>
@@ -176,7 +182,6 @@
           lat:'',
           actTime1:'',
           actTime2:'',
-          details:'',
           relationid:'',
           sginHour1:'',
           sginHour2:'',
@@ -244,7 +249,7 @@
               _self.form.sginHour1 = res.data.signbegintime.split(' ')[1];
               _self.form.sginHour2 = res.data.signendtime.split(' ')[1];
               _self.form.details = res.data.details;
-              _self.defaultMsg = res.data.details;
+              // _self.defaultMsg = res.data.details;
             }
           })
         }
@@ -380,7 +385,7 @@
       },
       submitClick(formName,state) {
         let _self = this;
-        _self.form.details = _self.$refs.ue.getUEContent();
+        //_self.form.details = _self.$refs.ue.getUEContent();
         _self.$refs[formName].validate((valid) => {
           if (valid) {
             let rightPointArr = _self.checkPointArr();
