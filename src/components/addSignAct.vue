@@ -370,6 +370,7 @@
           this.form.areacode = '';
           this.form.simpleaddress = '';
         }
+        this.$refs['addRecFormRef'].fields[4].clearValidate();
       },
       checkPointArr(){
         for(let i=0;i<this.pointArr.length;i++){

@@ -23,7 +23,7 @@
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
-        <el-form-item label="旧头像" v-if="form.picurl">
+        <el-form-item label="旧头像" v-if="form.picurl && recId">
           <img class="oldimg" @click="showBigImg()" :src="form.picurl" alt="">
         </el-form-item>
         <el-form-item label="活动名称" prop="actname">
@@ -233,7 +233,7 @@
           this.form.simpleaddress = '';
           this.areamsg.adcode = '';
         }
-        this.$refs['addRecFormRef'].fields[5].clearValidate();
+        this.$refs['addRecFormRef'].fields[4].clearValidate();
       },
       getPoint(val){
         this.mapdialogVisible = false;
