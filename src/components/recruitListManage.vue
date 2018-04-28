@@ -177,7 +177,7 @@
         let _self=this;
         let params ={
           type:'1',
-          signupOrganizeId:_self.checkedMan.signupOrganizeId,
+          actsignupId:_self.checkedMan.uuid,
         }
         untils.JsonAxios().post('manage/act/examine',params).then(function (res) {
           if(res.code==0){

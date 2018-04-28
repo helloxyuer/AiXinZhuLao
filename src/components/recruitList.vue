@@ -67,12 +67,12 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="status"
+        prop="content"
         label="发布人"
         min-width="100">
       </el-table-column>
       <el-table-column
-        prop="status"
+        prop="phone"
         label="联系电话"
         min-width="100">
       </el-table-column>

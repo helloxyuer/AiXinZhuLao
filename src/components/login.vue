@@ -3,7 +3,7 @@
 */
 
 <template>
-  <div class="loginPage">
+  <div class="loginPage" :style="bgStyle">
     <div class="loginBox">
       <div class="welcomeTitle">欢迎登陆组织管理</div>
       <el-form class="loginForm formClass"  ref="loginformRef" :rules="rules" :model="form" label-width="80px">
@@ -26,6 +26,7 @@
 <script>
   import untils from '@/assets/js/untils'
   import cityPicker from '@/components/cityPicker'
+  import bg from './../assets/images/showcase-bg.jpg'
 
   export default {
     name: 'login',
@@ -53,6 +54,9 @@
           password: [
             { required: true, message: '请输入密码', trigger: 'change' }
           ],
+        },
+        bgStyle:{
+          backgroundImage: 'url('+ bg+ ')',
         }
       }
     },
@@ -117,7 +121,6 @@
     box-sizing: border-box;
     width: 100%;
     height: 100vh;
-    background: url('../assets/images/showcase-bg.jpg');
     background-size: cover;
   }
   .formClass label{

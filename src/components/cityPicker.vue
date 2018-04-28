@@ -129,7 +129,7 @@
       if(window.cityData){
         _self.proobj = window.cityData;
       }else{
-        axios.get('/static/CityData/areaall.json')
+        axios.get('./static/CityData/areaall.json')
           .then(function (res) {
             if(res.status==200 && res.data){
               window.cityData = res.data;
