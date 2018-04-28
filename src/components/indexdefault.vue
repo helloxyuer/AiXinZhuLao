@@ -83,6 +83,8 @@
         let _self=this;
         untils.JsonAxios().post('manage/sys/indexweb',{}).then(function (res) {
           if(res.code==0){
+             _self.org = res.data.orginfo;
+             _self.count = res.data;
           }
         })
       },

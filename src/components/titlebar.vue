@@ -6,7 +6,7 @@
   <div class="titleBar">
     <div class="logoBox">
       <div class="logoImg"><img :src="logo" alt=""></div>
-      <div class="entName">后台管理系统</div>
+      <div class="entName">组织运营管理系统</div>
     </div>
     <el-menu
       class="el-menu-my"
