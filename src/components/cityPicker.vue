@@ -101,6 +101,9 @@
         _self.choicedArea = area;
         _self.showText1 =_self.choicedProvince.name+_self.choicedCity.name+_self.choicedArea.name;
         _self.showAreaBox = false;
+        _self.choicedProvince.checked = false;
+        _self.choicedCity.checked = false;
+        _self.choicedArea.checked = false;
         var result ={
           province:{
             name:_self.choicedProvince.name,
