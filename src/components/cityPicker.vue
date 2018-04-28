@@ -6,6 +6,7 @@
   <div class="_address_div">
     <input
       class="_drAddrinput"
+      :style="bgStyle"
       v-bind:placeholder="drplaceholder"
       v-model="showText1"
       readonly="readonly"
@@ -27,6 +28,7 @@
 
 <script>
   import axios from 'axios'
+  import select from './../assets/images/select.png'
 
   export default {
     name: 'cityPicker',
@@ -49,6 +51,9 @@
         showText1: this.showText,
         choicedCity:{},
         choicedArea:{},
+        bgStyle:{
+          backgroundImage: 'url('+ select+ ')'
+        }
       }
     },
     methods:{
@@ -237,7 +242,7 @@
     margin: 0;
     border-radius: 4px;
     border: 1px solid #dcdfe6;
-    background: url(/src/assets/images/select.png) no-repeat;
+    background-repeat: no-repeat;
     background-position: calc(100% - 10px) 50%;
   }
 
