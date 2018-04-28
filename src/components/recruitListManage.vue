@@ -47,7 +47,7 @@
         min-width="140">
       </el-table-column>
       <el-table-column
-        prop="activityname"
+        prop="acbegintime"
         label="活动时间"
         min-width="100">
       </el-table-column>
@@ -55,6 +55,16 @@
         prop="createtime"
         label="报名时间"
         min-width="100">
+      </el-table-column>
+      <el-table-column
+        prop="status"
+        label="状态"
+        min-width="100">
+        <template slot-scope="scope">
+          <span class="volstatus1" v-if="scope.row.status==1">待审核</span>
+          <span class="volstatus4" v-if="scope.row.status==2">通过</span>
+          <span class="volstatus2" v-if="scope.row.status==3">未通过</span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="name"
