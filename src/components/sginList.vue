@@ -165,8 +165,8 @@
         let params ={
           state:_self.state,
           type:1,
-          begintime:_self.actNameTime[0],
-          endtime:_self.actNameTime[1],
+          begintime:_self.actNameTime?_self.actNameTime[0]:'',
+          endtime:_self.actNameTime?_self.actNameTime[1]:'',
           name:_self.name,
           page:_self.pageIndex,
           limit:_self.pageSize,

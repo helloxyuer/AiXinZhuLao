@@ -169,8 +169,8 @@
           state:_self.state,
           type:1,
           name:_self.name,
-          acbegintime:_self.actNameTime[0],
-          acendtime:_self.actNameTime[1],
+          acbegintime:_self.actNameTime?_self.actNameTime[0]:'',
+          acendtime:_self.actNameTime?_self.actNameTime[1]:'',
           page:_self.pageIndex,
           limit:_self.pageSize,
         }

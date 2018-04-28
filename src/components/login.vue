@@ -13,11 +13,13 @@
         <el-form-item label="账号" prop="username">
           <el-input
             v-model.trim="form.username"
+            placeholder="请输入账号"
             clearable></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input
             v-model.trim="form.password"
+            placeholder="请输入密码"
             clearable></el-input>
         </el-form-item>
         <el-button class="loginBtn" type="success" @click="loginClick('loginformRef')">登录</el-button>
@@ -49,8 +51,8 @@
       return {
         logo:logo,
         form:{
-          username:'342225198807221053',
-          password:'123456'
+          username:'',
+          password:''
         },
         rules:{
           username: [
