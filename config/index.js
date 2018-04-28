@@ -11,18 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/app':{
-        target: 'http://www.seajun.com:8090/haijun/app',
+      '/haijun':{
+        target: 'http://www.seajun.com:8090/haijun',
         changeOrigin: true,
         pathRewrite: {
-          '^/app' : ''
-        }
-      },
-      '/aliyun':{
-        target: 'http://oss-cn-hangzhou.aliyuncs.com',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/aliyun' : ''
+          '^/haijun' : ''
         }
       }
     },

@@ -4,7 +4,7 @@
 
 let config={
   baseUrl:window.location.origin+'/',
-  baseName:'app/',
+  baseName:'haijun/app/',
   mapkey:'1ad687828622041a79c5ee76aa4a4fb2',
   userId:"",
   mobile:'',
