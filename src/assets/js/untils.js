@@ -165,7 +165,7 @@ let storageL ={
 }
 
 let regExp = {
-  password:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,10}$/,
+  password:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/,
   idcard:/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
   numAndWord:/^[0-9a-zA-Z]+$/,
   tel:/^[1][0-9]{10}$/,
