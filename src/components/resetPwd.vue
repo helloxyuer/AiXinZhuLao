@@ -107,8 +107,8 @@
       submitData() {
         let _self=this;
         let params ={
-          pw:_self.form.oldpwd,
-          newpw:_self.form.pass,
+          pw:window.md5(_self.form.oldpwd),
+          newpw:window.md5(_self.form.pass),
         }
         untils.JsonAxios().post('manage/orguser/uppw',params).then(function (res) {
           if(res.code==0){

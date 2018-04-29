@@ -18,6 +18,7 @@
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input
+            type="password"
             v-model.trim="form.password"
             placeholder="请输入密码"
             clearable></el-input>
@@ -88,7 +89,7 @@
         let _self=this;
         let params ={
           username:_self.form.username,
-          password:_self.form.password,
+          password:window.md5(_self.form.password),
           clientType:'Web'
         }
         untils.JsonAxios().post('manage/orguser/login',params).then(function (res) {

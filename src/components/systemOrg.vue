@@ -21,7 +21,7 @@
         <span>{{orgData.autograph}}</span>
       </el-form-item>
       <el-form-item label="组织介绍">
-        <span>{{orgData.autograph}}</span>
+        <span>{{orgData.introduce}}</span>
       </el-form-item>
       <el-form-item label="详细地址">
         <span>{{orgData.address}}</span>
