@@ -11,11 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/haijun':{
-        target: 'http://www.seajun.com:8090/haijun',
+      '/zhulao':{
+        target: 'http://www.seajun.com:8090/zhulao',
         changeOrigin: true,
         pathRewrite: {
-          '^/haijun' : ''
+          '^/zhulao' : ''
         }
       }
     },
