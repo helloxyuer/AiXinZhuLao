@@ -1,6 +1,9 @@
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">{{recId?'修改招募活动':'新增招募活动'}}</div>
+    <div class="volTableTitleBox">
+      <span>{{recId?'修改招募活动':'新增招募活动'}}</span>
+      <span class="backbtn" @click="backPage()">返回</span>
+    </div>
     <div>
       <el-form
         ref="addRecFormRef"
@@ -172,6 +175,9 @@
       }
     },
     methods: {
+      backPage(){
+        this.$router.go(-1);
+      },
       getDetails(){
         let _self = this;
         this.recId = this.$route.query.recId;

@@ -175,6 +175,10 @@ input{
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.backbtn{
+  float: right;
+  cursor: pointer;
+}
 /*提示窗样式*/
 .centerBox{
   position: fixed;

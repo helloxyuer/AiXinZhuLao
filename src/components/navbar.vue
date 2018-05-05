@@ -18,7 +18,7 @@
         <span>招募管理</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="2-1" :route="{name:'recruitList'}">活动列表</el-menu-item>
+        <el-menu-item index="2-1" :route="{name:'recruitList'}">招募活动</el-menu-item>
       </el-menu-item-group>
       <el-menu-item-group>
         <el-menu-item index="2-2" :route="{name:'recruitListManage'}">报名人员列表</el-menu-item>
@@ -30,7 +30,7 @@
         <span>签到管理</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="3-1" :route="{name:'sginList'}">活动列表</el-menu-item>
+        <el-menu-item index="3-1" :route="{name:'sginList'}">签到活动</el-menu-item>
       </el-menu-item-group>
       <el-menu-item-group>
         <el-menu-item index="3-2" :route="{name:'sginListManage'}">签到人员列表</el-menu-item>

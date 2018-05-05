@@ -2,6 +2,7 @@
   <div class="mainBox">
     <div class="volTableTitleBox">
       <span>{{sginId?'修改签到活动':'新增签到活动'}}</span>
+      <span class="backbtn" @click="backPage()">返回</span>
     </div>
     <div>
       <el-form
@@ -219,6 +220,9 @@
       }
     },
     methods: {
+      backPage(){
+        this.$router.go(-1);
+      },
       getDetails(){
         let _self = this;
         this.sginId = this.$route.query.sginId;
