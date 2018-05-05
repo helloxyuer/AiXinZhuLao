@@ -110,7 +110,7 @@
         })
 
       },
-      resetMap(point){
+      resetMap(point,noChageAddress){
         let _self = this
         if(_self.isSgin){
           mapVo.circle.setMap(mapVo.map);
@@ -123,12 +123,14 @@
         _self.areamsg.lat = point.lat;
         mapVo.marker.setPosition(point);
         mapVo.map.setCenter(point);
-        mapVo.geocoder.getAddress(point, function (status, result) {
-          if (status == 'complete') {
-            _self.areamsg.address = result.regeocode.formattedAddress
-            _self.areamsg.adcode = result.regeocode.addressComponent.adcode
-          }
-        })
+        if(!noChageAddress){
+          mapVo.geocoder.getAddress(point, function (status, result) {
+            if (status == 'complete') {
+              _self.areamsg.address = result.regeocode.formattedAddress
+              _self.areamsg.adcode = result.regeocode.addressComponent.adcode
+            }
+          })
+        }
       },
       querySearchAsync (queryString, cb) {
         mapVo.autoComplete.search(queryString, function (status, result) {
@@ -141,9 +143,10 @@
       },
       handleSelect (item) {
         this.areamsg.adcode = item.adcode
-        this.areamsg.address = item.address
+        this.areamsg.address = item.name+'('+item.address+')'
         this.areamsg.lng = item.location.lng
         this.areamsg.lat = item.location.lat
+        this.resetMap(item.location,true)
       },
       submitPoint () {
         let _self = this;
@@ -173,12 +176,15 @@
       areamsg: {
         handler(newValue, oldValue) {
           let _self = this;
-          if(_self.areamsg.lng){
-            let point = new AMap.LngLat(_self.areamsg.lng,_self.areamsg.lat)
-            _self.resetMap(point)
-          }else{
-            let point = mapVo.map.getCenter();
-            _self.resetMap(point)
+          //点击不同签到地点的时候重设地图的选点
+          if(newValue.lng != oldValue.lng){
+            if(_self.areamsg.lng){
+              let point = new AMap.LngLat(_self.areamsg.lng,_self.areamsg.lat)
+              _self.resetMap(point)
+            }else{
+              let point = mapVo.map.getCenter();
+              _self.resetMap(point)
+            }
           }
         },
         deep: true
