@@ -3,6 +3,7 @@
     <div class="volTableTitleBox">
       <span>签到人员列表</span>
       <span v-if="sginName">({{sginName}})</span>
+      <span v-if="sginName" class="backbtn" @click="backPage()">返回</span>
     </div>
     <div class="searchBar">
       <el-input
@@ -50,6 +51,10 @@
       <el-table-column
         prop="duration"
         label="工时">
+        <template slot-scope="scope">
+          <span>{{scope.row.duration}}</span>
+          <span v-if="scope.row.reason">({{scope.row.reason}})</span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="name"
@@ -115,6 +120,9 @@
       }
     },
     methods: {
+      backPage(){
+        this.$router.go(-1);
+      },
       getVolList () {
         let _self=this;
         let params ={

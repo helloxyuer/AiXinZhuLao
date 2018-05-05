@@ -7,6 +7,7 @@
     <div class="volTableTitleBox">
       <span>招募人员列表</span>
       <span v-if="recName">({{recName}})</span>
+      <span v-if="recName" class="backbtn" @click="backPage()">返回</span>
     </div>
     <div class="searchBar">
       <el-input
@@ -143,6 +144,9 @@
       }
     },
     methods: {
+      backPage(){
+        this.$router.go(-1);
+      },
       getVolList () {
         let _self=this;
         let params ={

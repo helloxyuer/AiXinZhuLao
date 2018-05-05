@@ -82,6 +82,10 @@
             this.activeIndex='2-2';
           }else if(newValue.name=='sginListManage'){
             this.activeIndex='3-2';
+          }else if(newValue.name=='recruitList'){
+            this.activeIndex='2-1';
+          }else if(newValue.name=='sginList'){
+            this.activeIndex='3-1';
           }else if(newValue.name=='volCheck'){
             this.activeIndex='4-2';
           }
