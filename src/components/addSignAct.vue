@@ -38,7 +38,8 @@
           <cityPicker :showText="form.simpleaddress" @citypicked="getcity"></cityPicker>
         </el-form-item>
         <el-form-item label="详细地址" prop="address">
-          <el-input v-model="form.address" @focus="showMap()"></el-input>
+          <el-input class="addressinput" v-model="form.address"></el-input>
+          <span class="pickaddrBtn" @click="showMap()">选点</span>
         </el-form-item>
         <el-form-item label="活动进行时间" prop="actTime1">
           <el-date-picker
@@ -531,6 +532,9 @@
   .addressSelelct{
     width: 150px;
     margin-right: 6px;
+  }
+  .addressinput{
+    width: 350px;
   }
 </style>
 
