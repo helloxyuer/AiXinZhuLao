@@ -5,7 +5,7 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">
-      <span>招募人员列表</span>
+      <span>报名审核</span>
       <span v-if="recName">({{recName}})</span>
       <span v-if="recName" class="backbtn" @click="backPage()">返回</span>
     </div>
@@ -65,6 +65,7 @@
           <span class="volstatus1" v-if="scope.row.status==1">待审核</span>
           <span class="volstatus4" v-if="scope.row.status==2">通过</span>
           <span class="volstatus2" v-if="scope.row.status==3">未通过</span>
+          <span v-if="scope.row.status==3">({{scope.row.reason}})</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -150,6 +151,7 @@
       getVolList () {
         let _self=this;
         let params ={
+          status:1,
           activityid: _self.recId,
           name: _self.name,
           idcard: _self.idcard,
