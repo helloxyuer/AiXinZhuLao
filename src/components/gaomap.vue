@@ -186,6 +186,9 @@
               _self.resetMap(point)
             }
           }
+          if(!!newValue.ranges){
+            mapVo.circle.setRadius(_self.areamsg.ranges||0);
+          }
         },
         deep: true
       },

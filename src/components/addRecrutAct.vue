@@ -44,7 +44,8 @@
           <cityPicker :showText="form.simpleaddress" @citypicked="getcity"></cityPicker>
         </el-form-item>
         <el-form-item label="详细地址" prop="address">
-          <el-input v-model="form.address" @focus="showMap()"></el-input>
+          <el-input class="addressinput" v-model="form.address"></el-input>
+          <span class="pickaddrBtn" @click="showMap()">选点</span>
         </el-form-item>
         <el-form-item label="活动招募时间" prop="actTime1">
           <el-date-picker
@@ -301,6 +302,13 @@
         //_self.form.details = _self.$refs.ue.getUEContent();
         //修改 且 不更换图片
         if(_self.recId && !this.$refs.upload.uploadFiles[0]){
+          if(!_self.form.lng){
+            this.$message({
+              message:'地点未选择',
+              type:'error'
+            });
+            return
+          }
           _self.$refs[formName].validate((valid) => {
             if (valid) {
               _self.addRecAct(state)
@@ -312,9 +320,14 @@
               return false;
             }
           });
-
-
         }else{
+          if(!_self.form.lng){
+            this.$message({
+              message:'地点未选择',
+              type:'error'
+            });
+            return
+          }
           _self.submitUpload(function () {
             _self.$refs[formName].validate((valid) => {
               if (valid) {
@@ -395,6 +408,17 @@
   .oldimg{
     width: 100px;
     height: 100px;
+    cursor: pointer;
+  }
+  .addressinput{
+    width: 350px;
+  }
+  .pickaddrBtn{
+    background: #06c1ad;
+    border-color: #06c1ad;
+    color: #fff;
+    padding: 5px 5px;
+    border-radius: 3px;
     cursor: pointer;
   }
 </style>

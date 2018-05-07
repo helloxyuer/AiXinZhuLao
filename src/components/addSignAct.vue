@@ -86,13 +86,18 @@
         </el-form-item>
         <el-form-item label="签到地点">
           <div class="pointArrBox">
-            <div v-for="(item,index) in pointArr">
-              <div class="pointArr1 moreHide" @click="setThePoint(item,index)">详细地址: {{item.address}}</div>
-              <div class="pointArr2" @click="setThePoint(item,index)">
+            <div class="pointArrUnit" v-for="(item,index) in pointArr">
+              <!--<div class="pointArr1 moreHide" @click="setThePoint(item,index)">详细地址: {{item.address}}</div>-->
+              <el-input
+                class="addressInput"
+                v-model="item.address"
+                placeholder="请选择签到地址"></el-input>
+              <span class="pickaddrBtn" @click="setThePoint(item,index)">选点</span>
+              <div class="pointArr2">
                 <span>签到范围:</span>
                 <span v-if="item.ranges">{{item.ranges+'m'}}</span>
               </div>
-              <div class="pointArr3" @click="setThePoint(item,index)">
+              <div class="pointArr3">
                 <span>类型:</span>
                 <span v-if="item.type==1">可签到/可签退</span>
                 <span v-if="item.type==2">只可签到</span>
@@ -100,7 +105,7 @@
               </div>
               <button @click.prevent="removeSginPoint(index)"><i class="el-icon-remove-outline"></i></button>
             </div>
-            <div>
+            <div class="addBox">
               <button @click.prevent="addSginPoint()"><i class="el-icon-circle-plus-outline"></i></button>
             </div>
           </div>
@@ -476,6 +481,9 @@
   .pointArrBox{
     width: 700px;
   }
+  .pointArrUnit{
+    clear: both;
+  }
   .pointArr1,.pointArr2,.pointArr3{
     -webkit-appearance: none;
     background-color: #fff;
@@ -486,8 +494,8 @@
     color: #606266;
     float: left;
     font-size: inherit;
-    height: 30px;
-    line-height: 30px;
+    height: 32px;
+    line-height: 32px;
     padding-left:15px;
     margin-right: 10px;
   }
@@ -513,6 +521,22 @@
     margin-top: 10px;
     margin-left: 20px;
     width:165px;
+  }
+  .addressInput{
+    width:240px;
+    float: left;
+    margin-right: 10px;
+  }
+  .addBox{
+    clear: both;
+  }
+  .pickaddrBtn{
+    background: #06c1ad;
+    border-color: #06c1ad;
+    color: #fff;
+    padding: 5px 5px;
+    border-radius: 3px;
+    cursor: pointer;
   }
 </style>
 
