@@ -148,7 +148,7 @@
       getVolList () {
         let _self=this;
         let params ={
-          status:null,
+          status:1,
           page:_self.pageIndex,
           limit:_self.pageSize,
           name:_self.name,
