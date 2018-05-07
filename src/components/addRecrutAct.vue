@@ -229,8 +229,8 @@
                 res.data.restarttime,
                 res.data.reendtime];
               _self.form.actTime2 = [
-                res.data.acbegintime,
-                res.data.acendtime];
+                res.data.acbegintime.split(' ')[0],
+                res.data.acendtime.split(' ')[0]];
               _self.form.delHour1 = res.data.acbegintime.split(' ')[1];
               _self.form.delHour2 = res.data.acendtime.split(' ')[1];
               _self.form.details = res.data.details;
