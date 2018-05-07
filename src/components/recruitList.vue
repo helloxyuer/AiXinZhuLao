@@ -59,11 +59,12 @@
       </el-table-column>
       <el-table-column
         prop="num"
-        label="招募情况"
-        min-width="80">
+        label="待审核/已通过/计划"
+        min-width="120">
         <template slot-scope="scope">
-          <span class="signStatus" @click="gotoRecList(scope.row)">{{scope.row.signnum}}</span> /
-          <span>{{scope.row.num}}</span>
+          <span class="signStatus" @click="gotoRecList(scope.row)">{{scope.row.unAudit||0}}</span> /
+          <span>{{scope.row.signnum||0}}</span> /
+          <span>{{scope.row.num||0}}</span>
         </template>
       </el-table-column>
       <el-table-column
