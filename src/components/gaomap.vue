@@ -198,6 +198,9 @@
     width: 100%;
     height: 300px;
   }
+  .inline-input{
+    width: 300px;
+  }
   .signBox{
     float: left;
     margin-right: 10px;
