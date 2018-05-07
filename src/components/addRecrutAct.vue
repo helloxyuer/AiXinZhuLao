@@ -66,6 +66,30 @@
             start-placeholder="活动开始时间"
             end-placeholder="活动结束时间">
           </el-date-picker>
+          <el-time-select
+            class="hourpicker1"
+            v-model="form.delHour1"
+            value-format="HH-mm"
+            :picker-options="{
+              start: '00:00',
+              step: '00:30',
+              end: '24:00'
+            }"
+            :clearable="false"
+            placeholder="活动开始时分">
+          </el-time-select>
+          <el-time-select
+            class="hourpicker2"
+            v-model="form.delHour2"
+            value-format="HH-mm"
+            :picker-options="{
+              start: '00:00',
+              step: '00:30',
+              end: '24:00'
+            }"
+            :clearable="false"
+            placeholder="活动结束时分">
+          </el-time-select>
         </el-form-item>
         <el-form-item label="活动详情" prop="details">
           <!--<UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>-->
@@ -143,6 +167,8 @@
           areacode:'',
           lng:'',
           lat:'',
+          delHour1:'',
+          delHour2:'',
         },
         rules: {
           picurl: [
@@ -205,6 +231,8 @@
               _self.form.actTime2 = [
                 res.data.acbegintime,
                 res.data.acendtime];
+              _self.form.delHour1 = res.data.acbegintime.split(' ')[1];
+              _self.form.delHour2 = res.data.acendtime.split(' ')[1];
               _self.form.details = res.data.details;
               /*_self.defaultMsg = res.data.details;*/
               _self.areamsg.address = res.data.address;
@@ -373,6 +401,12 @@
           lat:this.form.lat,
           state:state
         };
+        if(this.form.delHour1){
+          params.acbegintime = params.acbegintime +' '+this.form.delHour1
+        }
+        if(this.form.delHour2){
+          params.acendtime = params.acendtime +' '+this.form.delHour2
+        }
         if(_self.recId){
           params.uuid = _self.recId;
           untils.JsonAxios().post('manage/act/update',params).then(function (res) {
@@ -420,6 +454,17 @@
     padding: 5px 5px;
     border-radius: 3px;
     cursor: pointer;
+  }
+  .hourpicker1{
+    float: left;
+    margin-top: 10px;
+    width:165px;
+  }
+  .hourpicker2{
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    width:165px;
   }
 </style>
 

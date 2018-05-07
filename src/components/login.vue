@@ -52,8 +52,8 @@
       return {
         logo:logo,
         form:{
-          username:'',
-          password:''
+          username:'342225198807221053',
+          password:'123456'
         },
         rules:{
           username: [

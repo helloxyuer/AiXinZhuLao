@@ -62,7 +62,7 @@
           </el-date-picker>
           <el-time-select
             class="hourpicker1"
-            v-model="form.sginHour1"
+            v-model="form.delHour1"
             value-format="HH-mm"
             :picker-options="{
               start: '00:00',
@@ -74,7 +74,7 @@
           </el-time-select>
           <el-time-select
             class="hourpicker2"
-            v-model="form.sginHour2"
+            v-model="form.delHour2"
             value-format="HH-mm"
             :picker-options="{
               start: '00:00',
@@ -203,8 +203,8 @@
           actTime1:'',
           actTime2:'',
           relationid:'',
-          sginHour1:'',
-          sginHour2:'',
+          delHour1:'',
+          delHour2:'',
           state:0
         },
         rules: {
@@ -269,8 +269,8 @@
                 res.data.signbegintime.split(' ')[0],
                 res.data.signendtime.split(' ')[0]];
               _self.pointArr = res.data.range
-              _self.form.sginHour1 = res.data.signbegintime.split(' ')[1];
-              _self.form.sginHour2 = res.data.signendtime.split(' ')[1];
+              _self.form.delHour1 = res.data.signbegintime.split(' ')[1];
+              _self.form.delHour2 = res.data.signendtime.split(' ')[1];
               _self.form.details = res.data.details;
               // _self.defaultMsg = res.data.details;
             }
@@ -459,11 +459,11 @@
         if(params.opentype==3){
           params.relationactivityid = this.form.relationid
         }
-        if(this.form.sginHour1){
-          params.signbegintime = params.signbegintime +' '+this.form.sginHour1
+        if(this.form.delHour1){
+          params.signbegintime = params.signbegintime +' '+this.form.delHour1
         }
-        if(this.form.sginHour2){
-          params.signendtime = params.signendtime +' '+this.form.sginHour2
+        if(this.form.delHour2){
+          params.signendtime = params.signendtime +' '+this.form.delHour2
         }
         if(_self.sginId){
           params.uuid = _self.sginId;
