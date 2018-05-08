@@ -11,7 +11,7 @@
         :rules="rules"
         class="adminTable fixFormHead"
         label-width="110px">
-        <el-form-item label="活动图片" prop="picurl">
+        <el-form-item label="服务图片" prop="picurl">
           <el-upload
             class="upload-demo"
             action="http://oss-cn-hangzhou.aliyuncs.com/posts/"
@@ -26,38 +26,38 @@
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
-        <el-form-item label="旧头像" v-if="form.picurl && recId">
+        <el-form-item label="旧服务图片" v-if="form.picurl && recId">
           <img class="oldimg" @click="showBigImg()" :src="form.picurl" alt="">
         </el-form-item>
-        <el-form-item label="活动名称" prop="actname">
+        <el-form-item label="服务内容" prop="actname">
           <el-input v-model="form.actname"></el-input>
         </el-form-item>
-        <el-form-item label="招募人数" prop="actnum">
+        <el-form-item label="需求人数" prop="actnum">
           <el-input v-model="form.actnum" type="number"></el-input>
         </el-form-item>
-        <el-form-item label="活动类型" prop="actType">
-          <el-select v-model="form.actType" placeholder="请选择活动类型">
+        <el-form-item label="服务类型" prop="actType">
+          <el-select v-model="form.actType" placeholder="请选择服务类型">
             <el-option v-for="x in actType" :key="x.id" :label="x.name" :value="x.name"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="活动区域" prop="simpleaddress">
+        <el-form-item label="服务区域" prop="simpleaddress">
           <cityPicker :showText="form.simpleaddress" @citypicked="getcity"></cityPicker>
         </el-form-item>
         <el-form-item label="详细地址" prop="address">
           <el-input class="addressinput" v-model="form.address"></el-input>
           <span class="pickaddrBtn" @click="showMap()">选点</span>
         </el-form-item>
-        <el-form-item label="活动招募时间" prop="actTime1">
+        <el-form-item label="服务发布时间" prop="actTime1">
           <el-date-picker
             v-model="form.actTime1"
             type="daterange"
             value-format="yyyy-MM-dd"
             range-separator="至"
-            start-placeholder="招募开始日期"
-            end-placeholder="招募结束日期">
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="活动进行时间" prop="actTime2">
+        <el-form-item label="服务进行时间" prop="actTime2">
           <el-date-picker
             v-model="form.actTime2"
             type="daterange"
@@ -91,12 +91,12 @@
             placeholder="活动结束时分">
           </el-time-select>
         </el-form-item>
-        <el-form-item label="活动详情" prop="details">
+        <el-form-item label="服务内容详情" prop="details">
           <!--<UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>-->
           <el-input
             type="textarea"
             :autosize="{ minRows: 2, maxRows: 8}"
-            placeholder="请输入活动详情"
+            placeholder="请输入服务内容详情"
             v-model.trim="form.details">
           </el-input>
         </el-form-item>
