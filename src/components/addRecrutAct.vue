@@ -230,10 +230,10 @@
                 res.data.restarttime,
                 res.data.reendtime];
               _self.form.actTime2 = [
-                res.data.acbegintime.split(' ')[0],
-                res.data.acendtime.split(' ')[0]];
-              _self.form.delHour1 = res.data.acbegintime.split(' ')[1];
-              _self.form.delHour2 = res.data.acendtime.split(' ')[1];
+                res.data.acbegintime,
+                res.data.acendtime];
+              _self.form.delHour1 = res.data.acbeginhourmin;
+              _self.form.delHour2 = res.data.acendhourmin;
               _self.form.details = res.data.details;
               /*_self.defaultMsg = res.data.details;*/
               _self.areamsg.address = res.data.address;
@@ -403,10 +403,10 @@
           state:state
         };
         if(this.form.delHour1){
-          params.acbegintime = params.acbegintime +' '+this.form.delHour1
+          params.acbeginhourmin = this.form.delHour1
         }
         if(this.form.delHour2){
-          params.acendtime = params.acendtime +' '+this.form.delHour2
+          params.acendhourmin = this.form.delHour2
         }
         if(_self.recId){
           params.uuid = _self.recId;
