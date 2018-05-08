@@ -17,6 +17,13 @@
         clearable>
       </el-input>
       <el-input
+        placeholder="活动名称"
+        class="actPersonName"
+        v-model="actname"
+        v-if="!recId"
+        clearable>
+      </el-input>
+      <el-input
         placeholder="证件号"
         class="actPersonCard"
         v-model="idcard"
@@ -151,9 +158,10 @@
       getVolList () {
         let _self=this;
         let params ={
-          status:1,
+          status:_self.recId?null:1,
           activityid: _self.recId,
           name: _self.name,
+          actname: _self.actname,
           idcard: _self.idcard,
           page:_self.pageIndex,
           limit:_self.pageSize,

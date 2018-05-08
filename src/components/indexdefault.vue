@@ -24,7 +24,7 @@
           <i class="chen-chenqizi st-blue"></i>
           <div class="index_cot">
             <div class="index_cot_1">{{count.actnum}}</div>
-            <div class="index_cot_2">招募活动</div>
+            <div class="index_cot_2">服务需求</div>
           </div>
         </div>
       </el-col>
@@ -44,7 +44,7 @@
         <ul class="task-list">
           <li>
             <el-badge :value="count.waitactsign" :max="99" class="item">
-              <span class="elSpan" @click="goRecCheck()">待审核招募活动人员</span>
+              <span class="elSpan" @click="goRecCheck()">待审核服务需求人员</span>
             </el-badge>
           </li>
           <li>

@@ -1,6 +1,6 @@
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">招募活动详情</div>
+    <div class="volTableTitleBox">服务需求详情</div>
     <el-form class="adminTable" label-width="100px">
       <el-form-item label="活动名称">
         <span>{{details.name}}</span>

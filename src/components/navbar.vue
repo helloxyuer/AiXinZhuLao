@@ -15,14 +15,14 @@
     <el-submenu index="2">
       <template slot="title">
         <i class="chen-chenqizi"></i>
-        <span>招募管理</span>
+        <span>服务管理</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="2-1" :route="{name:'recruitList'}">招募活动</el-menu-item>
+        <el-menu-item index="2-1" :route="{name:'recruitList'}">服务需求</el-menu-item>
       </el-menu-item-group>
-     <!-- <el-menu-item-group>
-        <el-menu-item index="2-2" :route="{name:'recruitListManage'}">报名人员列表</el-menu-item>
-      </el-menu-item-group>-->
+      <el-menu-item-group>
+        <el-menu-item index="2-2" :route="{name:'recruitListManage'}">报名审核</el-menu-item>
+      </el-menu-item-group>
     </el-submenu>
     <el-submenu index="3">
       <template slot="title">

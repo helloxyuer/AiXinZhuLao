@@ -4,7 +4,7 @@
 
 <template>
   <div class="mainBox">
-    <div class="volTableTitleBox">招募活动列表</div>
+    <div class="volTableTitleBox">服务需求列表</div>
     <div class="searchBar">
       <el-input
         placeholder="活动名称"
@@ -123,7 +123,7 @@
       title="删除提示"
       :visible.sync="dialogVisible"
       width="30%">
-      <span>确认要删除该招募活动？</span>
+      <span>确认要删除该服务需求？</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="success" @click="deleteRecruit()">确 定</el-button>

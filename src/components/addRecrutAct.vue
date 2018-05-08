@@ -1,7 +1,7 @@
 <template>
   <div class="mainBox">
     <div class="volTableTitleBox">
-      <span>{{recId?'修改招募活动':'新增招募活动'}}</span>
+      <span>{{recId?'修改服务需求':'新增服务需求'}}</span>
       <span class="backbtn" @click="backPage()">返回</span>
     </div>
     <div>
@@ -109,6 +109,7 @@
           <el-button type="success" @click="submitClick('addRecFormRef',1)">修改提交</el-button>
         </el-form-item>
       </el-form>
+      <p class="tipsP">*不知道怎么发?让客服帮助您。<i class="el-icon-phone"></i>4001151120</p>
     </div>
     <el-dialog title="地图选点" :visible.sync="mapdialogVisible">
       <gaomap :areamsg="areamsg" @pointPicked="getPoint"></gaomap>
@@ -465,6 +466,11 @@
     margin-top: 10px;
     margin-left: 20px;
     width:165px;
+  }
+  .tipsP{
+    text-align: left;
+    margin-left: 160px;
+    color: #f86464;
   }
 </style>
 
