@@ -14,13 +14,13 @@
     <a class="_draddrclearX" v-if="!!showText1" v-on:click="_clearx()"></a>
     <div class="_areaBox" v-if="showAreaBox">
       <ul class="_citypicker_ul">
-        <li v-for="x in proobj" v-on:click="choiceProvince(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
+        <li v-for="x in proobj" v-on:click="choiceProvince(x)" v-bind:class="{_checked:x.checked}">{{x.name}}</li>
       </ul>
       <ul class="_citypicker_ul">
-        <li v-for="x in choicedProvince.regionEntitys" v-on:click="choiceCity(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
+        <li v-for="x in choicedProvince.regionEntitys" v-on:click="choiceCity(x)" v-bind:class="{_checked:x.checked}">{{x.name}}</li>
       </ul>
       <ul class="_citypicker_ul" v-if="level=='county'">
-        <li v-for="x in choicedCity.regionEntitys" v-on:click="choiceArea(x)" v-bind:class="{'_checked':x.checked}">{{x.name}}</li>
+        <li v-for="x in choicedCity.regionEntitys" v-on:click="choiceArea(x)" v-bind:class="{_checked:x.checked}">{{x.name}}</li>
       </ul>
     </div>
   </div>
@@ -47,10 +47,10 @@
         showAreaBox:false,//是否展示城市选择框
         drplaceholder:'请选择地址',
         proobj:[],
-        choicedProvince:{},
+        choicedProvince:[],
         showText1: this.showText,
-        choicedCity:{},
-        choicedArea:{},
+        choicedCity:[],
+        choicedArea:[],
         bgStyle:{
           backgroundImage: 'url('+ select+ ')'
         }
@@ -125,9 +125,9 @@
         _self.choicedProvince.checked = false;
         _self.choicedCity.checked = false;
         _self.choicedArea.checked = false;
-        _self.choicedProvince = {};
-        _self.choicedCity = {};
-        _self.choicedArea = {};
+        _self.choicedProvince = [];
+        _self.choicedCity = [];
+        _self.choicedArea = [];
         _self.showText1 = '';
         _self.showAreaBox = false;
       }
