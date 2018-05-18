@@ -143,7 +143,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-dialog :title="'第'+(choicePointIndex+1)+'个签到点'" :visible.sync="mapdialogVisible">
+    <el-dialog :title="isSgin?('第'+(choicePointIndex+1)+'个签到点'):'详细地址'" :visible.sync="mapdialogVisible">
       <gaomap :areamsg="choicePointItem" :isSgin="isSgin" @pointPicked="getPoint"></gaomap>
     </el-dialog>
   </div>
