@@ -1,3 +1,6 @@
+*{
+  -webkit-tap-highlight-color : rgba(255, 255, 255,0);
+}
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
 	display: block;
 }
@@ -278,22 +281,22 @@ img {
 	font-size: 16px;
 }
 .form-group input::-webkit-input-placeholder {
- /* WebKit browsers */   
+ /* WebKit browsers */
 color: #999;
  font-size: 14px;
 }
 .form-group input:-moz-placeholder {
-/* Mozilla Firefox 4 to 18 */   
+/* Mozilla Firefox 4 to 18 */
 color: #999;
  font-size: 14px;
 }
 .form-group input::-moz-placeholder {
- /* Mozilla Firefox 19+ */   
+ /* Mozilla Firefox 19+ */
 color: #999;
  font-size: 14px;
 }
 .form-group input:-ms-input-placeholder {
- /* Internet Explorer 10+ */   
+ /* Internet Explorer 10+ */
 color: #999;
  font-size: 14px;
 }
@@ -359,6 +362,7 @@ color: #999;
 	overflow: hidden;
 	width: 100%!important;
 	height: 100%;
+	line-height: 100%;
 	margin: 0;
 	padding: 0 3px!important;
 	text-align: center;
@@ -437,3 +441,8 @@ color: #999;
 	align-items: center;
 	justify-content: center;
 }
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
