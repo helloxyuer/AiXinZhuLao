@@ -26,6 +26,7 @@
         <el-button class="loginBtn" type="success" @click="loginClick('loginformRef')">登录</el-button>
       </el-form>
     </div>
+    <div class="beian">浙ICP备14012758号-2</div>
   </div>
 </template>
 
@@ -151,5 +152,13 @@
     display: block;
     max-width: 100%;
     height: auto;
+  }
+  .beian{
+    position: absolute;
+    text-align: center;
+    color: #fff;
+    bottom: 0;
+    width: calc(100% - 40px);
+    line-height: 40px;
   }
 </style>
