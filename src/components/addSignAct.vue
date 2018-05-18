@@ -67,7 +67,7 @@
             :picker-options="{
               start: '00:00',
               step: '00:30',
-              end: '24:00'
+              end: '23:30'
             }"
             :clearable="false"
             placeholder="活动签到时间">
@@ -79,7 +79,7 @@
             :picker-options="{
               start: '00:00',
               step: '00:30',
-              end: '24:00'
+              end: '23:30'
             }"
             :clearable="false"
             placeholder="活动签退时间">
