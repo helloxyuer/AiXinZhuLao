@@ -14,20 +14,20 @@
     <div class="signBox" v-if="isSgin">
       <span>类型:</span>
       <el-select v-model="areamsg.type" placeholder="请选择签到类型">
-        <el-option label="只可签到" value="2"></el-option>
-        <el-option label="只可签退" value="3"></el-option>
-        <el-option label="可签到/可签退" value="1"></el-option>
+        <el-option label="只可签到" :value="2"></el-option>
+        <el-option label="只可签退" :value="3"></el-option>
+        <el-option label="可签到/可签退" :value="1"></el-option>
       </el-select>
     </div>
     <div class="signBox" v-if="isSgin">
       <span>范围:</span>
       <el-select v-model="areamsg.ranges" placeholder="请选择签到范围">
-        <el-option label="100M" value="100"></el-option>
-        <el-option label="300M" value="300"></el-option>
-        <el-option label="500M" value="500"></el-option>
-        <el-option label="1000M" value="1000"></el-option>
-        <el-option label="1500M" value="1500"></el-option>
-        <el-option label="3000M" value="3000"></el-option>
+        <el-option label="100M" :value="100"></el-option>
+        <el-option label="300M" :value="300"></el-option>
+        <el-option label="500M" :value="500"></el-option>
+        <el-option label="1000M" :value="1000"></el-option>
+        <el-option label="1500M" :value="1500"></el-option>
+        <el-option label="3000M" :value="3000"></el-option>
       </el-select>
     </div>
     <div id="gaomap"></div>

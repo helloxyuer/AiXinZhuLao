@@ -19,9 +19,9 @@
         </el-form-item>
         <el-form-item label="开放类型" prop="actopen">
           <el-select v-model="form.actopen" placeholder="请选择开放类型">
-            <el-option label="全体开放" value="1"></el-option>
-            <el-option label="组织开放" value="2"></el-option>
-            <el-option label="关联签到活动" value="3"></el-option>
+            <el-option label="全体开放" :value="1"></el-option>
+            <el-option label="组织开放" :value="2"></el-option>
+            <el-option label="关联签到活动" :value="3"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="关联活动" prop="relationid" v-if="form.actopen==3">
@@ -51,15 +51,7 @@
             end-placeholder="活动结束日期">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="活动签到/签退时间" prop="actTime2">
-          <el-date-picker
-            v-model="form.actTime2"
-            type="daterange"
-            value-format="yyyy-MM-dd"
-            range-separator="至"
-            start-placeholder="活动签到日期"
-            end-placeholder="活动签退日期">
-          </el-date-picker>
+        <el-form-item label="活动签到/签退时间" prop="delHour1">
           <el-time-select
             class="hourpicker1"
             v-model="form.delHour1"
@@ -94,17 +86,17 @@
                 v-model="item.address"
                 placeholder="请选择签到地址"></el-input>
               <el-select class="addressSelelct" v-model="item.type" placeholder="请选择签到类型">
-                <el-option label="只可签到" value="2"></el-option>
-                <el-option label="只可签退" value="3"></el-option>
-                <el-option label="可签到/可签退" value="1"></el-option>
+                <el-option label="只可签到" :value="2"></el-option>
+                <el-option label="只可签退" :value="3"></el-option>
+                <el-option label="可签到/可签退" :value="1"></el-option>
               </el-select>
               <el-select class="addressSelelct" v-model="item.ranges" placeholder="请选择签到范围">
-                <el-option label="100M" value="100"></el-option>
-                <el-option label="300M" value="300"></el-option>
-                <el-option label="500M" value="500"></el-option>
-                <el-option label="1000M" value="1000"></el-option>
-                <el-option label="1500M" value="1500"></el-option>
-                <el-option label="3000M" value="3000"></el-option>
+                <el-option label="100M" :value="100"></el-option>
+                <el-option label="300M" :value="300"></el-option>
+                <el-option label="500M" :value="500"></el-option>
+                <el-option label="1000M" :value="1000"></el-option>
+                <el-option label="1500M" :value="1500"></el-option>
+                <el-option label="3000M" :value="3000"></el-option>
               </el-select>
               <span class="pickaddrBtn" @click="setThePoint(item,index)">选点</span>
               <!--<div class="pointArr2">
@@ -201,7 +193,6 @@
           lng:'',
           lat:'',
           actTime1:'',
-          actTime2:'',
           relationid:'',
           delHour1:'',
           delHour2:'',
@@ -217,7 +208,7 @@
           actTime1: [
             { required: true, message: '请选择招募时间', trigger: 'change' }
           ],
-          actTime2: [
+          delHour1: [
             { required: true, message: '请选择进行时间', trigger: 'change' }
           ],
           actopen: [
@@ -265,12 +256,9 @@
               _self.form.actTime1 = [
                 res.data.begintime,
                 res.data.endtime];
-              _self.form.actTime2 = [
-                res.data.signbegintime.split(' ')[0],
-                res.data.signendtime.split(' ')[0]];
               _self.pointArr = res.data.range
-              _self.form.delHour1 = res.data.signbegintime.split(' ')[1];
-              _self.form.delHour2 = res.data.signendtime.split(' ')[1];
+              _self.form.delHour1 = res.data.signbegintime;
+              _self.form.delHour2 = res.data.signendtime;
               _self.form.details = res.data.details;
               // _self.defaultMsg = res.data.details;
             }
@@ -447,8 +435,8 @@
           areacode:this.form.areacode,
           begintime:this.form.actTime1[0],
           endtime:this.form.actTime1[1],
-          signbegintime:this.form.actTime2[0],
-          signendtime:this.form.actTime2[1],
+          signbegintime:this.form.delHour1,
+          signendtime:this.form.delHour2,
           details:this.form.details,
           num:this.form.actnum,
           lng:this.form.lng,
@@ -458,12 +446,6 @@
         };
         if(params.opentype==3){
           params.relationactivityid = this.form.relationid
-        }
-        if(this.form.delHour1){
-          params.signbegintime = params.signbegintime +' '+this.form.delHour1
-        }
-        if(this.form.delHour2){
-          params.signendtime = params.signendtime +' '+this.form.delHour2
         }
         if(_self.sginId){
           params.uuid = _self.sginId;
@@ -503,12 +485,10 @@
   }
   .hourpicker1{
     float: left;
-    margin-top: 10px;
     width:165px;
   }
   .hourpicker2{
     float: left;
-    margin-top: 10px;
     margin-left: 20px;
     width:165px;
   }
