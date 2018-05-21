@@ -94,5 +94,10 @@ var app = new Vue({
   created:function () {
     console.log('123')
     this.getDetails()
+  },
+  computed:{
+    needNum:function () {
+      return this.buyNum*this.goods.integralnum
+    }
   }
 })

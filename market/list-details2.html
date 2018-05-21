@@ -55,6 +55,11 @@
                     <input class="input-numbox" type="number" v-model="buyNum">
                     <button class="numbox-btn btn-numbox-plus" @click="addGoods()" type="button">+</button>
                 </div>
+                <span v-show="needNum!=0" class="needNumBox">
+                    <span>合计:</span>
+                    <span class="needNum">{{needNum}}</span>
+                    <span>分</span>
+                </span>
             </div>
             <div class="form-group">
                 <label>我的积分</label>
