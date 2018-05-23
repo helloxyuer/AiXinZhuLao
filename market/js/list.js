@@ -1,6 +1,4 @@
 var sessionData = new UrlSearch();
-sessionData.token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMmYwZDI4MDA2OWE0OTUxYjdkN2QzY2Q5ZTI3MjAwYiIsImNsaWVudFR5cGUiOiJJT1MiLCJyZXF1ZXN0VHlwZSI6IkIiLCJpYXQiOjE1MjY4NjcxMDQsImV4cCI6MTUyODE2MzEwNH0.lwquBfryRmRbLxWQI5r1oqQppFDcaUUHc4q_cqIWNXwkEWWdPD7JwuAbpvT_7vNJ5JBebg3xq0QML5sQyTSS4w'
-sessionData.code='330100'
 sessionStorage.setItem('token',sessionData.token);
 sessionStorage.setItem('code',sessionData.code);
 
