@@ -38,6 +38,7 @@
         <div class="box-container"> {{goods.content}}</div>
     </div>
     <div style="height:54px"></div>
+    <div v-if="isios" class="ios">*所有奖品和活动均与苹果公司无关</div>
     <div class="btn">
         <button type="button" @click="showPopup=!showPopup">兑换</button>
     </div>
@@ -83,7 +84,6 @@
             <botton type="botton" @click="submit()" class="popup-btn">确认兑换</botton>
         </form>
     </div>
-    <div v-if="isios" class="ios">*所有奖品和活动均与苹果公司无关</div>
     <div class="popup-mask"  @click="showPopup=false" v-if="showPopup"></div>
 </div>
 </body>
