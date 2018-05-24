@@ -17,7 +17,7 @@
     <div class="tab-container">
         <scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :is-end="end" class="rece-scorll">
             <div class="goodDiv" v-for="x in goodsList">
-                <a :href="'/market/list-details2.html?id='+x.uuid">
+                <a :href="'/market/list-details2.html?ver=1&id='+x.uuid">
                     <div class="pro-img"><img :src="x.pic"/></div>
                     <div class="pro-text">
                         <h1>{{x.title}}</h1>
