@@ -9,7 +9,8 @@ var app = new Vue({
     buyerName:'',
     buyerAddress:'',
     buyerRemarks:'',
-    showPopup:false
+    showPopup:false,
+    isios:false
   },
   methods:{
     addGoods:function () {
@@ -92,8 +93,10 @@ var app = new Vue({
     }
   },
   created:function () {
-    console.log('123')
     this.getDetails()
+    if(sessionStorage.getItem('isios')=='true'){
+      this.isios=true;
+    }
   },
   computed:{
     needNum:function () {
