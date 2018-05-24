@@ -94,7 +94,9 @@ var app = new Vue({
   },
   created:function () {
     this.getDetails()
-    if(sessionStorage.getItem('isios')=='true'){
+    var u = navigator.userAgent;
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isiOS){
       this.isios=true;
     }
   },

@@ -1,9 +1,6 @@
 var sessionData = new UrlSearch();
 sessionStorage.setItem('token',sessionData.token);
 sessionStorage.setItem('code',sessionData.code);
-var u = navigator.userAgent;
-var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-sessionStorage.setItem('isios',isiOS);
 
 
 Vue.component('scroll', {
@@ -206,6 +203,7 @@ var app = new Vue({
     this.params.page=1;
     this.end=false;
     this.getData()
-  }
+  },
+
 })
 
