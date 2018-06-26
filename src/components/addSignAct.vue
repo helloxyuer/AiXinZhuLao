@@ -30,9 +30,13 @@
           </el-select>
         </el-form-item>
         <el-form-item label="活动类型" prop="actType">
-          <el-select v-model="form.actType" placeholder="请选择活动类型">
-            <el-option v-for="x in actType" :key="x.id" :label="x.name" :value="x.name"></el-option>
-          </el-select>
+          <el-cascader
+            expand-trigger="hover"
+            :props="cascprops"
+            :options="actTypeArr"
+            v-model="form.actType"
+            @change="cascaderChange">
+          </el-cascader>
         </el-form-item>
         <el-form-item label="活动区域" prop="simpleaddress">
           <cityPicker :showText="form.simpleaddress" @citypicked="getcity"></cityPicker>
@@ -226,6 +230,12 @@
           details: [
             { required: true, message: '请选择活动内容', trigger: 'change' }
           ]
+        },
+        actTypeArr:[],
+        cascprops:{
+          value:'servicetypename',
+          label:'servicetypename',
+          children:'typeList'
         }
       }
     },
@@ -267,9 +277,9 @@
       },
       getOrgTypeList(){
         let _self=this;
-        untils.JsonAxios().post('sys/serviceTypelist',{}).then(function (res) {
+        untils.JsonAxios().post('sys/serviceTypeList',{}).then(function (res) {
           if(res.code==0){
-            _self.actType = res.data;
+            _self.actTypeArr = res.data;
           }
         })
       },
@@ -461,7 +471,10 @@
             }
           })
         }
-
+      },
+      cascaderChange (e) {
+        console.log(this.form.actType)
+        console.log(e)
       }
     },
     created () {

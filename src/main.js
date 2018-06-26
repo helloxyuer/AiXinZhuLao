@@ -28,6 +28,7 @@ import {
   CheckboxButton,
   CheckboxGroup,
   Select,
+  Cascader,
   Option,
   OptionGroup,
   Button,
@@ -76,6 +77,7 @@ Vue.use(Checkbox);
 Vue.use(CheckboxButton);
 Vue.use(CheckboxGroup);
 Vue.use(Select);
+Vue.use(Cascader);
 Vue.use(Option);
 Vue.use(OptionGroup);
 Vue.use(Button);

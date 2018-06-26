@@ -33,12 +33,16 @@
           <el-input v-model="form.actname"></el-input>
         </el-form-item>
         <el-form-item label="需求人数" prop="actnum">
-          <el-input v-model="form.actnum" type="number"></el-input>
+          <el-input v-model="form.actnum" min="1" type="number"></el-input>
         </el-form-item>
         <el-form-item label="服务类型" prop="actType">
-          <el-select v-model="form.actType" placeholder="请选择服务类型">
-            <el-option v-for="x in actType" :key="x.id" :label="x.name" :value="x.name"></el-option>
-          </el-select>
+          <el-cascader
+            expand-trigger="hover"
+            :props="cascprops"
+            :options="actTypeArr"
+            v-model="form.actType"
+            @change="cascaderChange">
+          </el-cascader>
         </el-form-item>
         <el-form-item label="服务区域" prop="simpleaddress">
           <cityPicker :showText="form.simpleaddress" @citypicked="getcity"></cityPicker>
@@ -138,7 +142,7 @@
     data () {
       return {
         recId:'',
-        actType:{},
+        actTypeArr:[],
         defaultMsg: '<p><span style="font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px;">招募要求：</span></p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">招募范围：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动内容：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动具体时间：</p><p><br/></p>',
         dialogImageUrl:'',
         dialogVisible:false,
@@ -199,6 +203,11 @@
           details: [
             { required: true, message: '请选择活动内容', trigger: 'change' }
           ]
+        },
+        cascprops:{
+          value:'servicetypename',
+          label:'servicetypename',
+          children:'typeList'
         }
       }
     },
@@ -246,9 +255,9 @@
       },
       getOrgTypeList(){
         let _self=this;
-        untils.JsonAxios().post('sys/serviceTypelist',{}).then(function (res) {
+        untils.JsonAxios().post('sys/serviceTypeList',{}).then(function (res) {
           if(res.code==0){
-            _self.actType = res.data;
+            _self.actTypeArr = res.data;
           }
         })
       },
@@ -428,7 +437,10 @@
             loading.close();
           })
         }
-
+      },
+      cascaderChange (e) {
+        console.log(this.form.actType)
+        console.log(e)
       }
     },
     created () {
