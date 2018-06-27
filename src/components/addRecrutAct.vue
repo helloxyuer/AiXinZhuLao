@@ -161,7 +161,8 @@
           picurl:'',
           actname:'',
           actnum:'',
-          actType:'',
+          actType:[],
+          childService:{},
           simpleaddress:'',
           address:'',
           actTime1:'',
@@ -227,7 +228,9 @@
               _self.form.picurl = res.data.picurl;
               _self.form.actname = res.data.name;
               _self.form.actnum = res.data.num;
-              _self.form.actType = res.data.servicetype;
+              _self.form.actType = [res.data.servicetype,(res.data.subServiceName||'')];
+              _self.form.childService.name = res.data.subServiceName;
+              _self.form.childService.id = res.data.servicePointId;
               _self.form.address = res.data.address;
               _self.form.simpleaddress = res.data.simpleaddress;
               _self.form.provincecode = res.data.provincecode;
@@ -347,6 +350,13 @@
             });
             return
           }
+          if(!this.form.actType[0]||!this.form.actType[1]){
+            this.$message({
+              message:'服务类型不正确',
+              type:'error'
+            });
+            return
+          }
           _self.$refs[formName].validate((valid) => {
             if (valid) {
               _self.addRecAct(state)
@@ -395,7 +405,9 @@
         let params = {
           name:this.form.actname,
           picurl:this.form.picurl,
-          servicetype:this.form.actType,
+          servicetype:this.form.actType[0],
+          subServiceName:this.form.childService.name,
+          servicePointId:this.form.childService.id,
           simpleaddress:this.form.simpleaddress,
           address:this.form.address,
           provincecode:this.form.provincecode,
@@ -438,9 +450,23 @@
           })
         }
       },
-      cascaderChange (e) {
-        console.log(this.form.actType)
-        console.log(e)
+      cascaderChange () {
+        for(let i=0,length = this.actTypeArr.length;i<length;i++){
+          if(this.form.actType[0]==this.actTypeArr[i].servicetypename){
+            let childArr = this.actTypeArr[i].typeList;
+            for(let j=0,childLen = childArr.length;j<childLen;j++){
+              if(this.form.actType[1]==childArr[j].servicetypename){
+                console.log(childArr[j]);
+                this.form.childService={
+                  name:childArr[j].servicetypename,
+                  id:childArr[j].servicetypeid,
+                }
+                break;
+              }
+            }
+            break;
+          }
+        }
       }
     },
     created () {

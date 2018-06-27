@@ -161,7 +161,7 @@
     data () {
       return {
         sginId:'',
-        actType:[],
+        actTypeArr:[],
         relationAct:[],
         defaultMsg: '<p><span style="font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px;">招募要求：</span></p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">招募范围：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动内容：</p><p style="word-wrap: break-word; font-family: &quot;sans serif&quot;, tahoma, verdana, helvetica; font-size: 12px; white-space: normal;">活动具体时间：</p><p><br/></p>',
         config: {
@@ -191,7 +191,8 @@
           actname:'',
           actnum:'',
           actopen:'',
-          actType:'',
+          actType:[],
+          childService:{},
           simpleaddress:'',
           address:'',
           lng:'',
@@ -231,7 +232,6 @@
             { required: true, message: '请选择活动内容', trigger: 'change' }
           ]
         },
-        actTypeArr:[],
         cascprops:{
           value:'servicetypename',
           label:'servicetypename',
@@ -256,7 +256,9 @@
               _self.form.actname = res.data.name;
               _self.form.actnum = res.data.num;
               _self.form.actopen = res.data.opentype;
-              _self.form.actType = res.data.servicetype;
+              _self.form.actType = [res.data.servicetype,(res.data.subServiceName||'')];
+              _self.form.childService.name = res.data.subServiceName;
+              _self.form.childService.id = res.data.servicePointId;
               _self.form.address = res.data.address;
               _self.form.provincecode = res.data.provincecode;
               _self.form.citycode = res.data.citycode;
@@ -408,6 +410,13 @@
       submitClick(formName,state) {
         let _self = this;
         //_self.form.details = _self.$refs.ue.getUEContent();
+        if(!this.form.actType[0]||!this.form.actType[1]){
+          this.$message({
+            message:'活动类型不正确',
+            type:'error'
+          });
+          return
+        }
         _self.$refs[formName].validate((valid) => {
           if (valid) {
             let rightPointArr = _self.checkPointArr();
@@ -436,7 +445,9 @@
         let params = {
           name:this.form.actname,
           num:this.form.actnum,
-          servicetype:this.form.actType,
+          servicetype:this.form.actType[0],
+          subServiceName:this.form.childService.name,
+          servicePointId:this.form.childService.id,
           opentype:this.form.actopen,
           simpleaddress:this.form.simpleaddress,
           address:this.form.address,
@@ -473,8 +484,22 @@
         }
       },
       cascaderChange (e) {
-        console.log(this.form.actType)
-        console.log(e)
+        for(let i=0,length = this.actTypeArr.length;i<length;i++){
+          if(this.form.actType[0]==this.actTypeArr[i].servicetypename){
+            let childArr = this.actTypeArr[i].typeList;
+            for(let j=0,childLen = childArr.length;j<childLen;j++){
+              if(this.form.actType[1]==childArr[j].servicetypename){
+                console.log(childArr[j]);
+                this.form.childService={
+                  name:childArr[j].servicetypename,
+                  id:childArr[j].servicetypeid,
+                }
+                break;
+              }
+            }
+            break;
+          }
+        }
       }
     },
     created () {
