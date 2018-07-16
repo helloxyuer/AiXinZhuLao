@@ -61,10 +61,14 @@
       font-size: 16px !important;
       word-wrap: break-word !important;
     }
+    [v-cloak] {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
+<div id="app" v-cloak>
   <div class="content-header">
     <h1 class="title_title" style="">关于注册或登录常见的问题</h1>
   </div>
@@ -75,7 +79,26 @@
     <p><strong>问：登录时提醒“账号密码错误或未注册”</strong></p>
     <p>答：原因一：代表您还不是绿康时间银行的会员，请按照注册要求填写您的身份证号注册；原因二：若您已经是绿康时间银行的会员，确认账号无误后建议您重置密码。</p>
   </div>
+</div>
 </body>
 <script src="js/unit.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+<script>
+  var params = new UrlSearch();
+  switch(params.questionid)
+  {
+    case '0':
+      document.title = '';
+      break;
+
+    default:
+      document.title = '';
+  }
+  var app = new Vue({
+    el: '#app',
+    data: {
+      barIndex:params.questionid,
+    },
+  })
+</script>
 </html>

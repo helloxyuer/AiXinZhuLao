@@ -4,27 +4,51 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>积分商城列表</title>
+  <title>帮助中心</title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+    .help li{
+      height: 30px;
+      line-height: 30px;
+      margin-left: 10px;
+    }
+  </style>
 </head>
 <body>
+<div id="app" v-cloak>
   <div class="tab-hearder">
     <ul>
-      <li class="active">全部</li>
-      <li>常见问题</li>
-      <li>注册问题</li>
-      <li>签到问题</li>
-      <li>活动问题</li>
+      <li @click="barIndex=0" v-bind:class="{ active: barIndex==0 }">常见问题</li>
+      <li @click="barIndex=1" v-bind:class="{ active: barIndex==1 }">注册问题</li>
+      <li @click="barIndex=2" v-bind:class="{ active: barIndex==2 }">签到问题</li>
+      <li @click="barIndex=3" v-bind:class="{ active: barIndex==3 }">活动问题</li>
+      <li @click="barIndex=4" v-bind:class="{ active: barIndex==4 }">兑福利问题</li>
+      <li @click="barIndex=5" v-bind:class="{ active: barIndex==5 }">其他</li>
     </ul>
   </div>
   <div class="tab-container">
     <ul class="help">
-      <li><a href="">注册或登录常见问题 </a></li>
-      <li><a href="">注册或登录常见问题 </a></li>
-      <li><a href="">注册或登录常见问题 </a></li>
+      <li v-if="barIndex==0||barIndex==1"><a href="/market/helpDetails.html?questionid=1">注册或登录常见问题 </a></li>
+      <li v-if="barIndex==0||barIndex==2"><a href="/market/helpDetails.html?questionid=2">签到常遇问题 </a></li>
+      <li v-if="barIndex==0||barIndex==3"><a href="/market/helpDetails.html?questionid=3">活动常遇问题 </a></li>
+      <li v-if="barIndex==0||barIndex==4"><a href="/market/helpDetails.html?questionid=4">兑福利常见问题 </a></li>
+      <li v-if="barIndex==0||barIndex==5"><a href="/market/helpDetails.html?questionid=5">"我的"常见问题 </a></li>
     </ul>
   </div>
+</div>
 </body>
 <script src="js/unit.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      barIndex:1,
+    },
+    methods: {}
+  })
+</script>
 </html>

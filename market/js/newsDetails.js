@@ -1,7 +1,7 @@
 var params = new UrlSearch();
 params.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMmYwZDI4MDA2OWE0OTUxYjdkN2QzY2Q5ZTI3MjAwYiIsImNsaWVudFR5cGUiOiJJT1MiLCJyZXF1ZXN0VHlwZSI6IkIiLCJpYXQiOjE1MzE3MDg5NzIsImV4cCI6MTUzMzAwNDk3Mn0.Bo_NorUkgiz9zWspMoHH85PKeQHtXLfipwUNObGgkyEBClvCG9WSV7vICr_lKgA4OqYv4a15OD0oVV-MPJrEAQ'
 sessionStorage.setItem('token',params.token);
-params.newsid = 'd5226e03f05e4204b24dc637cc8090ad'
+params.newsid = 'ac751d72473748bb8b11939310e1c0da'
 var app = new Vue({
   el: '#app',
   data: {
