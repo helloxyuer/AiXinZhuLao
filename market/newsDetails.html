@@ -102,33 +102,46 @@
       height: 28px;
       margin-top: 4px;
     }
+    [v-cloak] {
+      display: none;
+    }
+    .centerBox{
+      position: fixed;
+      z-index: 1000000;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 8px;
+      padding-right:20px;
+      min-height: 30px;
+      line-height: 30px;
+      border-radius: 5px;
+      background-color: #ffffff;
+      text-align: left;
+      box-shadow: #bdbdbd 0px 0px 10px;
+    }
   </style>
 </head>
 
-<body id="app" v-cloak>
-  <div class="content-header">
-    <h1 class="title_title" style="">心疼! 成都黑水河保护区遭受暴雨袭击 野生大熊猫幼体溺亡</h1>
-    <div class="author-info">
-      <p><a href=""><img alt="" src="img/share.png"/></a> <span class="black">by 作者的姓名</span> <span>2018-07-04 17：25</span> </p>
-    </div>
-  </div>
-  <div class="contentbox">
-    <p><span class="image-box"><img alt="" src="img/pic1.jpeg"/></span></p>
-    <p></p>
-    <p><span class="image-box"><img alt="" src="img/pic2.jpeg"/></span></p>
-    <p></p>
-    <p>针对网上流传成都某地野生大熊猫淹死一事，7月4日成都林业和园林局回应：属实。</p>
-    <p>成都林业和园林局介绍，成都连日来持续遭受今年入汛后强度最大、范围最广、持续时间最长的一次强降雨天气过程。四川黑水河自然保护区加强巡护，及时掌控保护区及野生动物安全情况。7月3日，保护区管护人员张学良沿大邑县西岭镇云华村小河子沟区域进行巡查观察。13点30分左右，巡查到云华村9社磨子坡处（地理坐标：海拔1170米，东经103.27681，北纬30.67786），在小河子沟的河中央河滩上，发现一只已经死亡的大熊猫幼体。张学良当即报告了黑水河自然保护区管理处。保护区管理处向上级主管部门报告，并将这只疑似遭暴雨后被洪水溺亡的大熊猫幼仔尸骸送到成都市野生动物救护中心（成都动物园）。成都市野生动物救护中心会同成都大熊猫繁育研究基地专家连夜检查处理。</p>
-    <p>据鉴定报告，死亡大熊猫情况如下：幼仔，半岁左右，雌性，体重14.25kg。头部有2处皮下出血，下颌出血，肺部有大量气泡，胃内有奶，肠道内有已消化的竹叶，脾脏有少量出血点，其他脏器无肉眼病理变化。诊断为溺水死亡。判断可能因2日的暴雨导致山洪暴发，该大熊猫幼仔不慎落水溺亡，后随洪水冲至河岸浅滩处被发现。</p>
-    <p>目前正是暴雨季节，成都市各级林业部门将切实加强汛期安全工作组织领导，加大安全监管监察力度，畅通信息预警预报渠道，及时排查治理隐患。提醒要求在山区作业的保护区工作人员在确保人身财产安全的同时，加强巡护监测，及时掌握保护区及其周边区域野生动物栖息状况变化，发现异常及时报告处置。</p>
-    <p>成都市林业和园林局供图</p>
-  </div>
-  <footer>
-    <botton type="botton" class=""><img alt=" " src="img/follow_l@2x.png"/><br/><span>关注</span></botton>
-    <botton type="botton" class=""><img alt=" " src="img/agreen_l@2x.png"/><br/><span>点赞</span></botton>
-  </footer>
+<body>
+ <div id="app" v-cloak>
+   <div class="content-header">
+     <h1 class="title_title">{{news.title}}</h1>
+     <div class="author-info">
+       <p><a href=""><img alt="" src="img/share.png"/></a> <span class="black" v-if="news.author">by {{news.author}}</span> <span>{{news.createtime}}</span> </p>
+     </div>
+   </div>
+   <div class="contentbox">
+     <p v-if="news.titleurl"><span class="image-box"><img alt="" :src="news.titleurl"/></span></p>
+     <div v-html="news.content"></div>
+   </div>
+   <footer>
+     <botton type="botton" class=""><img @click="guanzhu()" :src="isfollow==0?'img/follow_l@2x.png':'img/follow_h.png'"/><br/><span>关注</span></botton>
+     <botton type="botton" class=""><img @click="dianzan()" alt=" " :src="iszan==0?'img/agreen_l@2x.png':'img/agreen_h.png'"/><br/><span>点赞</span></botton>
+   </footer>
+ </div>
 </body>
-<script src="js/unit.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+<script src="js/unit.js"></script>
 <script src="js/newsDetails.js?ver=1.0.4"></script>
 </html>
