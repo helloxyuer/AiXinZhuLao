@@ -1,5 +1,4 @@
 var params = new UrlSearch();
-params.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMmYwZDI4MDA2OWE0OTUxYjdkN2QzY2Q5ZTI3MjAwYiIsImNsaWVudFR5cGUiOiJJT1MiLCJyZXF1ZXN0VHlwZSI6IkIiLCJpYXQiOjE1MzE3MDg5NzIsImV4cCI6MTUzMzAwNDk3Mn0.Bo_NorUkgiz9zWspMoHH85PKeQHtXLfipwUNObGgkyEBClvCG9WSV7vICr_lKgA4OqYv4a15OD0oVV-MPJrEAQ'
 sessionStorage.setItem('token',params.token);
 var app = new Vue({
   el: '#app',
