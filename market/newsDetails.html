@@ -136,8 +136,8 @@
      <div v-html="news.content"></div>
    </div>
    <footer>
-     <botton type="botton" class=""><img @click="guanzhu()" :src="isfollow==0?'img/follow_l@2x.png':'img/follow_h.png'"/><br/><span>关注</span></botton>
-     <botton type="botton" class=""><img @click="dianzan()" alt=" " :src="iszan==0?'img/agreen_l@2x.png':'img/agreen_h.png'"/><br/><span>点赞</span></botton>
+     <botton type="botton" class=""><img @click="guanzhu()" :src="!isfollow?'img/follow_l@2x.png':'img/follow_h.png'"/><br/><span>关注</span></botton>
+     <botton type="botton" class=""><img @click="dianzan()" alt=" " :src="!iszan?'img/agreen_l@2x.png':'img/agreen_h.png'"/><br/><span>点赞</span></botton>
    </footer>
  </div>
 </body>

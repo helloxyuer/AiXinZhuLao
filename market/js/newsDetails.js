@@ -4,8 +4,8 @@ var app = new Vue({
   el: '#app',
   data: {
     news:{},
-    iszan:0,
-    isfollow:0
+    iszan:false,
+    isfollow:false
   },
   methods:{
     getDetails:function(){
@@ -36,13 +36,13 @@ var app = new Vue({
         url:'app/vol/follow',
         data: {
           aboutid:self.news.uuid,
-          operationtype:self.isfollow==0?1:2,
+          operationtype:!self.isfollow?1:2,
           abouttype:6,
           type:2,
         },
         success: function (res) {
           if(res.code==0){
-            self.isfollow==0?self.isfollow=1:self.isfollow=0;
+            self.isfollow=!self.isfollow;
           }else{
             showTips(res.msg)
           }
@@ -57,13 +57,13 @@ var app = new Vue({
         url:'app/vol/follow',
         data: {
           aboutid:self.news.uuid,
-          operationtype:self.iszan==0?1:2,
+          operationtype:!self.iszan?1:2,
           abouttype:6,
           type:1,
         },
         success: function (res) {
           if(res.code==0){
-            self.iszan==0?self.iszan=1:self.iszan=0;
+            self.iszan=!self.iszan;
           }else{
             showTips(res.msg)
           }
