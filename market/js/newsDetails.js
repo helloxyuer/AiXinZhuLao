@@ -20,8 +20,8 @@ var app = new Vue({
         success: function (res) {
           if(res.code==0){
             self.news = res.data.news;
-            self.isfollow = res.data.isfollow;
-            self.iszan = res.data.iszan;
+            self.isfollow = !!res.data.isfollow;
+            self.iszan = !!res.data.iszan;
           }else{
             showTips(res.msg)
           }
