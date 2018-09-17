@@ -128,10 +128,15 @@ img {
 }
 .pro-text {
 	float: left;
+  width: calc(100% - 122px);
 }
 .pro-text h1 {
 	font-size: 16px;
 	font-weight: 500;
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .pay {
 	color: #06c1ad;
